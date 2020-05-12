@@ -2,4 +2,10 @@
 
 @tailwind components;
 
+.video-js {
+    margin: 0 auto;
+    width: 100% !important;
+    padding-top: 56.25% !important;
+}
+
 @tailwind utilities;
