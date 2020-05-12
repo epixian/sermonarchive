@@ -36,4 +36,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the sermons belonging to this user.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sermons()
+    {
+        return $this->hasMany(Sermon::class);
+    }
 }
