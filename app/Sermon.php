@@ -23,6 +23,19 @@ class Sermon extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the services this sermon belongs to.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
+
+    /**
+     * Get the public URL for the sermon.
+     * @return string
+     */
     public function path()
     {
         return '/sermons/' . $this->id;
