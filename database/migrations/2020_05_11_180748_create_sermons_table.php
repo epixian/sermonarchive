@@ -18,6 +18,7 @@ class CreateSermonsTable extends Migration
             $table->bigInteger('user_id')->unsigned()->index();
             $table->string('name');
             $table->date('publish_date');
+            $table->uuid('stream_key')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
