@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Sermons;
 
+use App\Sermon;
 use Livewire\Component;
 
 class Index extends Component
@@ -10,7 +11,10 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sermons = auth()->user()->sermons;
+        if (auth()->user())
+            $this->sermons = auth()->user()->sermons;
+        else
+            $this->sermons = Sermon::all();
     }
 
     public function render()
