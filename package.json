@@ -23,7 +23,6 @@
         "@tailwindcss/ui": "^0.3.0",
         "alpinejs": "^2.3.3",
         "tailwindcss": "^1.4.6",
-        "videojs": "^1.0.0",
         "videojs-hls-quality-selector": "^1.1.1"
     }
 }
