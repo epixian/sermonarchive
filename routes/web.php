@@ -1,5 +1,6 @@
 <?php
 
+use App\Sermon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/sermons');
 });
 
 Auth::routes();
+
+Route::get('/sermons', 'SermonsController@index');
+Route::get('/sermons/{sermon}', 'SermonsController@show');
 
 Route::middleware('auth')->prefix('/admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');
