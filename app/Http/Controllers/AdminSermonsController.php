@@ -21,7 +21,7 @@ class AdminSermonsController extends Controller
         $sermons = $user->sermons;
 
         // return view
-        return view('admin.sermons.index', compact('sermons'));
+        return view('sermons.index', compact('sermons'));
     }
 
     /**
@@ -55,7 +55,7 @@ class AdminSermonsController extends Controller
         $sermon = $user->sermons()->create($validated);
 
         // return view
-        return view('admin.sermons.show', compact('sermon'));
+        return view('sermons.show', compact('sermon'));
     }
 
     /**
@@ -66,7 +66,7 @@ class AdminSermonsController extends Controller
      */
     public function show(Sermon $sermon)
     {
-        return view('admin.sermons.show', compact('sermon'));
+        return view('sermons.show', compact('sermon'));
     }
 
     /**
