@@ -15,7 +15,7 @@ class SermonsController extends Controller
     public function index()
     {
         $sermons = Sermon::all();
-        return view('sermons.show', compact('sermons'));
+        return view('sermons.index', compact('sermons'));
     }
 
     /**
