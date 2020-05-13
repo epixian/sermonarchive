@@ -19,39 +19,16 @@ Route::get('/', function () {
     return redirect('/sermons');
 });
 
-Route::get('/test', function() {
-    $breeze = new Breeze(env('BREEZE_API_KEY'));
-
-    // get person by email
-    // $email = 'oelschlegel@gmail.com';
-    // $people = json_decode($breeze->url('https://newlifeglenside.breezechms.com/api/people?details=1&filter_json={"1786141247":"' . $email . '"}'));
-    // foreach ($response as $person) {
-    //     if ($person->details->details->email_primary === $email) {
-    //         dump($person);
-    //     }
-    // }
-
-    // profile fields
-    // $profileFields = json_decode($breeze->url('https://newlifeglenside.breezechms.com/api/profile'));
-    // dump($profileFields);
-
-    // get person details by id
-    $id = '19739224';
-    $person = json_decode($breeze->url('https://newlifeglenside.breezechms.com/api/people/' . $id . '?details=1'));
-    foreach ($person->family as $member) {
-        dump($member->details);
-    }
-});
-
 Auth::routes(['verify' => true]);
 
-Route::get('/sermons', 'SermonsController@index');
-Route::get('/sermons/{sermon}', 'SermonsController@show');
+Route::resource('/sermons', 'SermonsController')->only(['index','show']);
 
 Route::middleware('auth')->prefix('/admin')->group(function () {
-    Route::get('/', 'AdminController@index')->name('admin');
+    Route::get('/', 'AdminController@index')->middleware('permission:edit_sermons')->name('admin');
 
-    Route::resource('/sermons', 'AdminSermonsController');
+    Route::resource('sermons', 'AdminSermonsController')->middleware('permission:edit_sermons');
 
-    Route::resource('/services', 'AdminServicesController');
+    Route::resource('services', 'AdminServicesController')->middleware('permission:edit_services');
+
+    Route::resource('services.sermons', 'AdminServiceSermonsController')->only(['create','store'])->middleware('permission:edit_sermons|edit_services');
 });

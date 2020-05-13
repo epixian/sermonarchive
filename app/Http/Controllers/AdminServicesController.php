@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Sermon;
+use App\Service;
 use Illuminate\Http\Request;
 
-class AdminSermonsController extends Controller
+class AdminServicesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class AdminSermonsController extends Controller
      */
     public function index()
     {
-        $sermons = Sermon::all();
-        return view('sermons.index', compact('sermons'));
+        $services = Service::latest()->take(10)->get();
+        return view('services.index', compact('services'));
     }
 
     /**
@@ -25,7 +25,8 @@ class AdminSermonsController extends Controller
      */
     public function create()
     {
-
+        $action = "Add";
+        return view('services.edit', compact('action'));
     }
 
     /**
@@ -36,58 +37,61 @@ class AdminSermonsController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required',
+            'description' => 'sometimes',
+            'service_date' => 'required',
+        ]);
+        // do breeze insert here but for right now
+        $validated['breeze_id'] = '';
 
+        $service = Service::create($validated);
+
+        return redirect($service->path());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Sermon  $sermon
+     * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function show(Sermon $sermon)
+    public function show(Service $service)
     {
-        return view('sermons.show', compact('sermon'));
+        return view('services.show', compact('service'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Sermon  $sermon
+     * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sermon $sermon)
+    public function edit(Service $service)
     {
         $action = "Edit";
-        return view('sermons.edit', compact('action'));
+        return view('services.edit', compact('action'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Sermon  $sermon
+     * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sermon $sermon)
+    public function update(Request $request, Service $service)
     {
-        $validated = $request->validate([
-            'name' => 'required',
-            'publish_date' => 'required',
-        ]);
-
-        $sermon->update($validated);
-
-        return redirect($sermon->path());
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Sermon  $sermon
+     * @param  \App\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sermon $sermon)
+    public function destroy(Service $service)
     {
         //
     }
