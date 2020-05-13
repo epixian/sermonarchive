@@ -18,14 +18,16 @@
                         <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Other
                         </th>
+                        @can('edit_sermon')
                         <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody class="bg-white">
                     @foreach ($sermons as $sermon)
                     <tr>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                            {{ $sermon->name }}
+                            <a href="{{ $sermon->path() }}" class="text-indigo-600 hover:text-indigo-900">{{ $sermon->name }}</a>
                         </td>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                             {{ $sermon->publish_date }}
@@ -33,13 +35,11 @@
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                             asdf
                         </td>
+                        @can('edit_sermon')
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                            @auth
                             <a href="/admin/sermons/{{ $sermon->id }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                            @else
-                            <a href="/sermons/{{ $sermon->id }}" class="text-indigo-600 hover:text-indigo-900">Listen</a>
-                            @endauth
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
                 </tbody>
