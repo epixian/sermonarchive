@@ -14,13 +14,7 @@ class AdminSermonsController extends Controller
      */
     public function index()
     {
-        // authorize user?
-        $user = auth()->user();
-
-        // fetch data
-        $sermons = $user->sermons;
-
-        // return view
+        $sermons = Sermon::all();
         return view('sermons.index', compact('sermons'));
     }
 
@@ -42,17 +36,16 @@ class AdminSermonsController extends Controller
      */
     public function store(Request $request)
     {
-        // authorize user?
-        $user = auth()->user();
-
         // validate request
         $validated = $request->validate([
             'name' => 'required',
+            'service_id' => 'required',
             'publish_date' => 'required',
+            'stream_key' => 'sometimes',
         ]);
 
         // persist data
-        $sermon = $user->sermons()->create($validated);
+        $sermon = Sermon::create($validated);
 
         // return view
         return view('sermons.show', compact('sermon'));
