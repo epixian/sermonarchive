@@ -5,7 +5,7 @@
                 <div class="flex-shrink-0 flex items-center">
                     <!-- <img class="block lg:hidden h-8 w-auto" src="/img/logos/workflow-mark-on-white.svg" alt="Workflow logo" /> -->
                     <!-- <img class="hidden lg:block h-8 w-auto" src="/img/logos/workflow-logo-on-white.svg" alt="Workflow logo" /> -->
-                    <span class="text-3xl font-bold leading-tight text-gray-900">Live</span>
+                    <span class="text-3xl font-bold leading-tight text-gray-900">{{ config('app.name', 'Live@New Life') }}</span>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex space-x-8">
                     <a href="/admin" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out {{ Request::is('admin') ? 'text-gray-900 border-indigo-500 focus:outline-none focus:border-indigo-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300' }}">
