@@ -1,5 +1,6 @@
 <?php
 
+use App\Breeze;
 use App\Sermon;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,7 @@ Route::get('/', function () {
     return redirect('/sermons');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/sermons', 'SermonsController@index');
 Route::get('/sermons/{sermon}', 'SermonsController@show');
@@ -26,7 +27,7 @@ Route::get('/sermons/{sermon}', 'SermonsController@show');
 Route::middleware('auth')->prefix('/admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin');
 
-    Route::get('/sermons', 'AdminSermonsController@index');
-    Route::post('/sermons', 'AdminSermonsController@store');
-    Route::get('/sermons/{sermon}', 'AdminSermonsController@show');
+    Route::resource('/sermons', 'AdminSermonsController');
+
+    Route::resource('/services', 'AdminServicesController');
 });
