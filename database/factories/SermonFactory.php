@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Sermon;
+use App\Service;
 use Carbon\Carbon;
 use Faker\Generator as Faker;
 
