@@ -15,16 +15,7 @@ class Sermon extends Model
     protected $guarded = [];
 
     /**
-     * Get the user this sermon belongs to.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get the services this sermon belongs to.
+     * Get the service this sermon belongs to.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function service()
