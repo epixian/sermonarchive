@@ -11,6 +11,13 @@
                     <a href="/" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out {{ Request::is('') ? 'text-gray-900 border-indigo-500 focus:outline-none focus:border-indigo-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300' }}">
                         Dashboard
                     </a>
+
+                    @can('edit_services')
+                    <a href="/services" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out {{ Request::is('services') ? 'text-gray-900 border-indigo-500 focus:outline-none focus:border-indigo-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300' }}">
+                        Services
+                    </a>
+                    @endcan
+
                     <a href="/sermons" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out {{ Request::is('sermons') ? 'text-gray-900 border-indigo-500 focus:outline-none focus:border-indigo-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300' }}">
                         Sermons
                     </a>
@@ -33,7 +40,7 @@
                         </button>
                     </div>
 
-                    <div x-show="open"
+                    <div x-cloak x-show="open"
                         x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="transform opacity-0 scale-95"
                         x-transition:enter-end="transform opacity-100 scale-100"
