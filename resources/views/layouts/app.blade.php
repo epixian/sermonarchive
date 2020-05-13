@@ -23,16 +23,17 @@
 </head>
 <body>
     <div id="app" class="min-h-screen bg-gray-100">
-    @if (Request::is('login'))
-        @yield('content')
-    @else
-        @auth
-            @include ('partials.nav-admin')
-        @else
-            @include ('partials.nav')
-        @endauth
 
+    @include('partials.nav')
+
+    @if(Request::is('login') || (Request::is('register')))
+        @yield('content')
+
+    @else
         <div class="py-10">
+            @if(session('message'))
+                @include('partials.message')
+            @endif
             <header>
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h1 class="text-3xl font-bold leading-tight text-gray-900">
