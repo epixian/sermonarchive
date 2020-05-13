@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Sermon;
+use App\Service;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -13,27 +14,36 @@ class SermonsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_user_can_list_sermons()
+    public function a_guest_can_list_sermons()
     {
-        $user = factory(User::class)->create();
-        $sermon = $user->sermons()->create(factory(Sermon::class)->raw());
+        $service = factory(Service::class)->create();
 
-        $this->actingAs($user)
-            ->get('/admin/sermons')
+        $sermon = factory(Sermon::class)->create(['service_id' => $service->id]);
+
+        $this->get('/sermons')
             ->assertSee($sermon->name);
     }
 
     /** @test */
-    public function a_user_can_show_a_sermon()
+    public function a_guest_can_show_a_sermon()
     {
-        $this->withoutExceptionHandling();
+        $service = factory(Service::class)->create();
 
-        $user = factory(User::class)->create();
-        $sermon = $user->sermons()->create(factory(Sermon::class)->raw());
+        $sermon = factory(Sermon::class)->create(['service_id' => $service->id]);
 
-        $this->actingAs($user)
-            ->get('/admin' . $sermon->path())
+        $this->get($sermon->path())
             ->assertSee($sermon->name);
+    }
+
+    /** @test */
+    public function a_guest_cannot_create_update_or_delete_a_sermon()
+    {
+        $service = factory(Service::class)->create();
+
+        $sermon = factory(Sermon::class)->raw(['service_id' => $service->id]);
+
+
+
     }
 
     /** @test */
@@ -42,8 +52,8 @@ class SermonsTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
-
-        $sermon = factory(Sermon::class)->raw();
+        $service = factory(Service::class)->create();
+        $sermon = factory(Sermon::class)->raw(['service_id' => $service->id]);
 
         $this->actingAs($user)
             ->post('/admin/sermons', $sermon);
