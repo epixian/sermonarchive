@@ -21,4 +21,13 @@ class Service extends Model
     {
         return $this->hasMany(Sermon::class);
     }
+
+    /**
+     * Get the public URL for the service.
+     * @return string
+     */
+    public function path()
+    {
+        return '/admin/services/' . $this->id;
+    }
 }
