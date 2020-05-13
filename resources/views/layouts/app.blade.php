@@ -35,10 +35,12 @@
                 @include('partials.message')
             @endif
             <header>
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h1 class="text-3xl font-bold leading-tight text-gray-900">
                         @yield('title')
                     </h1>
+
+                    @yield('actions')
                 </div>
             </header>
             <main>
