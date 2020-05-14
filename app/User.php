@@ -63,4 +63,13 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return $url;
     }
+
+    /**
+     * Get the public URL for the service.
+     * @return string
+     */
+    public function path()
+    {
+        return '/admin/users/' . $this->id;
+    }
 }
