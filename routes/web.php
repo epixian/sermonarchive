@@ -2,6 +2,8 @@
 
 use App\Breeze;
 use App\Sermon;
+use App\Service;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('/sermons');
+    $service = Service::where('service_date', '<=', Carbon::now()->addDay())->latest()->first();
+    return view('services.current', compact('service'));
 });
 
 Auth::routes(['verify' => true]);
@@ -31,4 +34,6 @@ Route::middleware('auth')->prefix('/admin')->group(function () {
     Route::resource('services', 'AdminServicesController')->middleware('permission:edit_services');
 
     Route::resource('services.sermons', 'AdminServiceSermonsController')->only(['create','store'])->middleware('permission:edit_sermons|edit_services');
+
+    Route::resource('users', 'AdminUsersController')->only(['index'])->middleware('permission:edit_users');
 });
