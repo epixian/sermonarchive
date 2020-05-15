@@ -1,4 +1,4 @@
-<div x-data="{ show: true }" class="flex items-start justify-center px-4 py-6 w-full bg-white shadow-lg rounded-lg sm:p-6">
+<div x-data="{ show: true }" class="mx-4 mt-6 mb-2 bg-white shadow-lg rounded-lg sm:mx-6 lg:mx-8">
     <div class="rounded-lg shadow-xs overflow-hidden" :class="{ 'hidden': !show }">
         <div class="p-4">
             <div class="flex items-start">
