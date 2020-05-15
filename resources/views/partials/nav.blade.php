@@ -9,7 +9,7 @@
                 </div>
                 <div class="hidden sm:ml-8 sm:flex space-x-8">
                     <a href="/" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out {{ Request::is('/') ? 'text-gray-900 border-indigo-500 focus:outline-none focus:border-indigo-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300' }}">
-                        Home
+                        Live
                     </a>
 
                     <a href="/sermons" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out {{ Request::is('sermons') ? 'text-gray-900 border-indigo-500 focus:outline-none focus:border-indigo-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300' }}">
@@ -32,8 +32,9 @@
 
             <div class="flex">
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                     <span class="inline-flex rounded-md shadow-sm">
-                        <a href="https://www.eservicepayments.com/cgi-bin/Vanco_ver3.vps?appver3=Dc8dzPGn4-LCajFevTkh9IrAPiKyxuq1wz14eIF-xa7wDLnFUBRZuK9-TeNGQgRt3ZjrEf-JY61LsyvVDvllero7zqy-JU_UuLu19bUbJx16ST79ddXa13WVGWu3v78lk0PpduXvnt8gXUeZjQYbn8YMd3VAg-5ef_sTFvOQq-g=&ver=3" target="_blank" class="block items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                     <span class="rounded-md shadow-sm">
+                        <a href="https://www.eservicepayments.com/cgi-bin/Vanco_ver3.vps?appver3=Dc8dzPGn4-LCajFevTkh9IrAPiKyxuq1wz14eIF-xa7wDLnFUBRZuK9-TeNGQgRt3ZjrEf-JY61LsyvVDvllero7zqy-JU_UuLu19bUbJx16ST79ddXa13WVGWu3v78lk0PpduXvnt8gXUeZjQYbn8YMd3VAg-5ef_sTFvOQq-g=&ver=3" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                            <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                             Give
                         </a>
                     </span>
@@ -50,7 +51,7 @@
      -->
 
                     <!-- Profile dropdown -->
-                    <div x-data="{ open: false }" class="ml-3 relative">
+                    <div x-data="{ open: false }" class="relative">
                         <div>
                             <button @click="open = !open" class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out" id="user-menu" aria-label="User menu" aria-haspopup="true">
                                 <img class="h-10 w-10 rounded-full" src="{{ auth()->user()->gravatar_url() }}" alt="" />
@@ -115,8 +116,18 @@
     <!-- Mobile menu -->
     <div x-show="menuOpen" @click.away="menuOpen = false" class="hidden sm:hidden" :class="{ 'block': menuOpen, 'hidden': !menuOpen }">
         <div class="pt-2 pb-3 space-y-1">
-            <a href="/" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out {{ Request::is('') ? 'border-indigo-500 text-indigo-700 bg-indigo-50 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300' }}">Dashboard</a>
+            <a href="/" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out {{ Request::is('') ? 'border-indigo-500 text-indigo-700 bg-indigo-50 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300' }}">Live</a>
+
             <a href="/sermons" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out {{ Request::is('sermons') ? 'border-indigo-500 text-indigo-700 bg-indigo-50 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300' }}">Sermons</a>
+
+            @can('edit_services')
+            <a href="/admin/services" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out {{ Request::is('sermons') ? 'border-indigo-500 text-indigo-700 bg-indigo-50 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300' }}">Services</a>
+            @endcan
+
+            @can('edit_users')
+            <a href="/admin/users" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out {{ Request::is('sermons') ? 'border-indigo-500 text-indigo-700 bg-indigo-50 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300' }}">Users</a>
+            @endcan
+
         </div>
         <div class="pt-4 pb-3 border-t border-gray-200">
             @auth
