@@ -70,7 +70,7 @@ class AdminServicesController extends Controller
     public function edit(Service $service)
     {
         $action = "Edit";
-        return view('services.edit', compact('action'));
+        return view('services.edit', compact('action', 'service'));
     }
 
     /**
@@ -82,7 +82,17 @@ class AdminServicesController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'description' => 'sometimes',
+            'service_date' => 'required',
+        ]);
+        // do breeze insert here but for right now
+        // $validated['breeze_id'] = '';
+
+        $service->update($validated);
+
+        return redirect($service->path());
     }
 
     /**
