@@ -1,13 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen flex flex-col items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-xl mt-10 w-full flex flex-col">
+        <p class="font-serif text-left text-6xl text-gray-200">&#8220;</p>
+        <p class="-mt-12 text-center text-gray-700 text-2xl leading-7">Fill out the black pad as it comes down your row.</p>
+        <p class="-mt-6 font-serif text-right text-6xl text-gray-200">&#8221;</p>
+        <p class="-mt-12 text-right text-sm leading-5">-someone at New Life, probably</p>
+
+    </div>
     <div class="max-w-md w-full">
         <div>
             <!-- <img class="mx-auto h-12 w-auto" src="/img/logos/workflow-mark-on-white.svg" alt="Workflow" /> -->
-            <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
+            <h2 class="mt-10 text-center text-3xl leading-9 font-extrabold text-gray-900">
                 {{ __('Register') }}
             </h2>
+            <p class="mt-6 text-gray-700">Sign up for an account and let us know you're here!</p>
+            <p class="text-gray-700">Registration enables the following activities:</p>
+            <ul class="p-2 text-gray-700 text-sm leading-5 list-inside list-disc">
+                <li>Chat with other members</li>
+                <li>Submit prayer requests</li>
+                <li>Record attendance for you and your family</li>
+            </ul>
         </div>
         <form class="mt-8" action="{{ route('register') }}" method="POST">
             @csrf
