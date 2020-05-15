@@ -16,7 +16,7 @@
           </label>
           <div class="mt-1 sm:mt-0 sm:col-span-2">
             <div class="max-w-lg flex rounded-md shadow-sm">
-              <input id="name" name="name" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+              <input name="name" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('name', $sermon->name) }}"/>
             </div>
           </div>
         </div>
@@ -27,7 +27,7 @@
           </label>
           <div class="mt-1 sm:mt-0 sm:col-span-2">
             <div class="max-w-lg flex rounded-md shadow-sm">
-              <textarea id="about" rows="3" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"></textarea>
+              <textarea name="description" rows="3" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ old('description', $sermon->description) }}</textarea>
             </div>
             <p class="mt-2 text-sm text-gray-500">(Optional) Write a few sentences on what the sermon is about.</p>
           </div>
