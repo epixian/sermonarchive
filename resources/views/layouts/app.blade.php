@@ -24,18 +24,19 @@
 <body>
     <div id="app" class="min-h-screen bg-gray-100">
 
-    @include('partials.nav')
-
     @if(Request::is('login') || (Request::is('register')))
         @yield('content')
 
     @else
-        <div class="py-10">
-            @if(session('message'))
-                @include('partials.message')
-            @endif
+        @include('partials.nav')
+
+        @if(session('message'))
+            @include('partials.message')
+        @endif
+
+        <div class="pt-6 pb-10">
             <header>
-                <div class="flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-start justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div>
                         <h1 class="text-3xl font-bold leading-tight text-gray-900">
                             @yield('title')
