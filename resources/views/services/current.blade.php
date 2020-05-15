@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', $service->name)
+@section('title', Carbon\Carbon::parse($service->service_date)->toFormattedDateString())
 
-@section('subtitle', Carbon\Carbon::parse($service->service_date)->toFormattedDateString())
+@section('subtitle', $service->name)
 
 @section('actions')
 @endsection
