@@ -16,6 +16,7 @@ class Sermon extends Model
 
     /**
      * Get the service this sermon belongs to.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function service()
@@ -24,7 +25,18 @@ class Sermon extends Model
     }
 
     /**
+     * Get the speaker who gave this sermon.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function speaker()
+    {
+        return $this->belongsTo(Speaker::class);
+    }
+
+    /**
      * Get the public URL for the sermon.
+     *
      * @return string
      */
     public function path()
