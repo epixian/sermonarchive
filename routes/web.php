@@ -17,10 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $service = Service::where('service_date', '<=', Carbon::now()->addDay())->latest()->first();
-    return view('services.current', compact('service'));
-});
+Route::get('/', 'LiveServiceController@index');
+// Route::get('/messages', 'LiveServiceController@fetchMessages');
+// Route::post('/messages', 'LiveServiceController@sendMessage')->middleware('permission:participate');
 
 Auth::routes(['verify' => true]);
 
