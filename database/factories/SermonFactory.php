@@ -11,6 +11,5 @@ $factory->define(Sermon::class, function (Faker $faker) {
     return [
         'name' => $faker->sentence,
         'publish_date' => Carbon::now(),
-        'stream_key' => $faker->uuid
     ];
 });
