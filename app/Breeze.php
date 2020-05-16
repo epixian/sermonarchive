@@ -2,13 +2,19 @@
 
 namespace App;
 
+use Illuminate\Support\Carbon;
+
 class Breeze
 {
     protected $apiKey;
+    protected $baseUrl;
+    protected $emailProfileField;
 
     public function __construct()
      {
         $this->apiKey = env('BREEZE_API_KEY');
+        $this->baseUrl = 'https://' . env('BREEZE_SUBDOMAIN') . '.breezechms.com/api';
+        $this->emailProfileField = env('BREEZE_EMAIL_PROFILE_FIELD');
     }
 
     // fetch request
@@ -65,15 +71,14 @@ class Breeze
 
     /**
      * Look up a person using their email address
-     *
+     * @link   https://app.breezechms.com/api#list_people
      * @param  string $email
      * @return object|null
      */
     public function getPersonByEmail($email)
     {
-        $url = 'https://' . env('BREEZE_SUBDOMAIN') .
-            '.breezechms.com/api/people?details=1&filter_json={"' .
-            env('BREEZE_EMAIL_PROFILE_FIELD') . '":"' . $email . '"}';
+        $url = $this->baseUrl . '/people?details=1&filter_json={"' .
+            $this->emailProfileField . '":"' . $email . '"}';
 
         $matches = json_decode($this->url($url));
 
@@ -88,14 +93,13 @@ class Breeze
 
     /**
      * Get family members' first names and IDs
-     *
+     * @link   https://app.breezechms.com/api#show_person
      * @param  string $id
      * @return \Illuminate\Support\Collection
      */
     public function getFamilyMembers($id)
     {
-        $url = 'https://' . env('BREEZE_SUBDOMAIN') . '.breezechms.com/api/people/' .
-            $id . '?details=1';
+        $url = $this->baseUrl . '/people/' .  $id . '?details=1';
 
         $person = json_decode($this->url($url));
 
@@ -109,6 +113,7 @@ class Breeze
 
     /**
      * Record attendance for an event
+     * @link   https://app.breezechms.com/api#add_attendance_record
      * @param  string $event_id
      * @param  array  $people
      * @return [type]         [description]
@@ -117,4 +122,25 @@ class Breeze
     {
 
     }
+
+    /**
+     * Add an event
+     * @link   https://app.breezechms.com/api#add_event
+     * @param  string $event_id
+     * @param  array  $people
+     * @return string
+     */
+    public function createServiceEvent($name, $date)
+    {
+        $start = Carbon::parse($date, 'America/New_York')->timestamp;
+        $end = Carbon::parse($date, 'America/New_York')->setTime(23, 59, 59)->timestamp;
+
+        $url = $this->baseUrl . '/events/add?name=' .  $name .
+            '&starts_on=' . $start . '&ends_on=' . $end;
+
+        $event = json_decode($this->url($url));
+
+        return $event;
+    }
+
 }

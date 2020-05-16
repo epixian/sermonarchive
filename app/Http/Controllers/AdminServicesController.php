@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Breeze;
 use App\Service;
 use Illuminate\Http\Request;
 
@@ -42,8 +43,10 @@ class AdminServicesController extends Controller
             'description' => 'sometimes',
             'service_date' => 'required',
         ]);
-        // do breeze insert here but for right now
-        $validated['breeze_id'] = '';
+
+        $breeze = new Breeze();
+        $event = $breeze->createServiceEvent($validated['name'], $validated['service_date']);
+        $validated['breeze_id'] = $event->id;
 
         $service = Service::create($validated);
 
