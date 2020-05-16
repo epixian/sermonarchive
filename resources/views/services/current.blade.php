@@ -16,11 +16,6 @@
 @section('content')
 <div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 lg:flex lg:items-start">
     <div class="lg:flex-1">
-        @if ($service->sermons->count === 0)
-        <div>
-            The stream hasn't started yet.  Please check back later!
-        </div>
-        @endif
         @foreach ($service->sermons as $sermon)
             @if (Carbon\Carbon::now('America/New_York') < Carbon\Carbon::parse($service->service_date, 'America/New_York')->setTimeFromTimeString($sermon->scheduled_time))
             <div>
