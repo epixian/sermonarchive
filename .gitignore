@@ -23,3 +23,5 @@ Homestead.json
 .phpunit.result.cache
 .env.test
 laravel-echo-server.lock
+dump.rdb
+laravel-echo-server.json
