@@ -13,6 +13,13 @@
     @method('POST')
   @endif
   <div>
+    @isset($service)
+      @if ($service->breeze_id !== '')
+      <div class="text-center text-red-600 mt-6 sm:mt-5">
+        Changes here will not update in Breeze.
+      </div>
+      @endif
+    @endisset
     <div>
       <div class="mt-6 sm:mt-5">
         <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
@@ -48,6 +55,20 @@
               <input name="service_date" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('service_date', isset($service) ? $service->service_date : '') }}" />
             </div>
             <p class="mt-2 text-sm text-gray-500">The date of the service in <em>YYYY-MM-DD</em>.</p>
+          </div>
+        </div>
+
+        <div class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <label for="breeze_id" class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
+            Breeze ID
+          </label>
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <div class="max-w-lg flex rounded-md shadow-sm">
+              <input name="breeze_id" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 @isset($service) bg-gray-200 @endisset" value="{{ old('breeze_id', isset($service) ? $service->breeze_id : '') }}" @isset($service) disabled @endisset />
+            </div>
+            @if (!isset($service))
+            <p class="mt-2 text-sm text-gray-500">(Optional) Leave blank to create a new event in Breeze.  Edits to this field will not update Breeze.</p>
+            @endif
           </div>
         </div>
       </div>
