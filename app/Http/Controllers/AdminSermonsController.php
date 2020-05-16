@@ -59,7 +59,8 @@ class AdminSermonsController extends Controller
     public function edit(Sermon $sermon)
     {
         $action = "Edit";
-        return view('sermons.edit', compact('action'));
+        $speakers = Speaker::all();
+        return view('sermons.edit', compact(['action', 'speakers']));
     }
 
     /**
