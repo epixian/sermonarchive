@@ -11,7 +11,7 @@ class Speaker extends Model
      *
      * @var array
      */
-    protected $appends = ['name'];
+    protected $appends = ['full_name'];
 
     /**
      * Attributes to guard against mass assignment.
