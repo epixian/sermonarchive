@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+@section('notification')
+    @can('record-attendance')
+    <record-attendance id="attendance"></record-attendance>
+    @endcan
+@endsection
+
 @section('title', Carbon\Carbon::parse($service->service_date)->toFormattedDateString())
 
 @section('subtitle', $service->name)
@@ -30,13 +36,12 @@
     </div>
 
     @can('participate')
+<!--
     <div id="chat" class="flex flex-col h-64 w-full lg:w-1/3 lg:ml-4">
         <chat-messages class="flex-1" :messages="messages" class="w-full h-64"></chat-messages>
         <chat-input v-on:message-sent="addMessage" :service="{{ $service->id }}" :user="{{ auth()->user() }}"></chat-input>
     </div>
+-->
     @endcan
 </div>
-
-<link href="https://vjs.zencdn.net/7.7.6/video-js.min.css" rel="stylesheet" />
-<script src="https://vjs.zencdn.net/7.7.6/video.min.js"></script>
 @endsection
