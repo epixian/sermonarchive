@@ -18,8 +18,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    <livewire:styles>
 </head>
 <body>
     <div id="app" class="min-h-screen bg-gray-100">
@@ -29,6 +27,8 @@
 
     @else
         @include('partials.nav')
+
+        @yield('notification')
 
         @if(session('message'))
             @include('partials.message')
@@ -59,6 +59,7 @@
     @endif
     </div>
 
-    <livewire:scripts>
+    <link href="https://vjs.zencdn.net/7.7.6/video-js.min.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/7.7.6/video.min.js"></script>
 </body>
 </html>
