@@ -53,26 +53,6 @@ class VerificationController extends Controller
     {
         auth()->user()->assignRole('regular_user');
 
-        // link to breeze
-        $breeze = new Breeze(env('BREEZE_API_KEY'));
-        $email = auth()->user()->email;
-        $people = json_decode($breeze->url('https://newlifeglenside.breezechms.com/api/people?details=1&filter_json={"1786141247":"' . $email . '"}'));
-        $found = false;
-        foreach ($people as $person) {
-            if ($person->details->details->email_primary === $email) {
-                $found = true;
-                auth()->user()->update(['breeze_id' => $person->id]);
-                auth()->user()->fresh();
-                break;
-            }
-        }
-
-        if ($found) {
-            Session::flash('message', 'Success! Your account has been verified and linked in our system.');
-        }
-        else {
-            Session::flash('message', 'Success! Your account has been verified.');
-            // email Jan
-        }
+        redirect('/user/link');
     }
 }
