@@ -22,5 +22,6 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 .env.test
-laravel-echo-server.json
+laravel-echo-server.lock
 dump.rdb
+laravel-echo-server.json

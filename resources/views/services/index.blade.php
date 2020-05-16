@@ -31,7 +31,7 @@
                             Service Date
                         </th>
                         <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Other
+                            Breeze ID
                         </th>
                         @can('edit_services')
                         <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
@@ -48,7 +48,7 @@
                             {{ $service->service_date }}
                         </td>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                            asdf
+                            {{ $service->breeze_id }}
                         </td>
                         @can('edit_services')
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">

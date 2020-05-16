@@ -15,16 +15,29 @@ class LiveServiceController extends Controller
     {
         $this->service = Service::where('service_date', '<=', Carbon::now()->addDay())->latest()->first();
     }
+
     /**
-     * Display a listing of the resource.
+     * Display the live service
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
         if($service = $this->service) {
             return view('services.current', compact('service'));
         }
+    }
+
+    /**
+     * Process a check-in request for attendance.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkIn(Request $request)
+    {
+        return $request;
+
+        return ['status' => 'Checked In!'];
     }
 
     /**

@@ -2,20 +2,26 @@
 
 namespace App;
 
+use Illuminate\Support\Carbon;
+
 class Breeze
 {
     protected $apiKey;
+    protected $baseUrl;
+    protected $emailProfileField;
 
-    public function __construct($apiKey)
+    public function __construct()
      {
-        $this->apiKey = $apiKey;
+        $this->apiKey = env('BREEZE_API_KEY');
+        $this->baseUrl = 'https://' . env('BREEZE_SUBDOMAIN') . '.breezechms.com/api';
+        $this->emailProfileField = env('BREEZE_EMAIL_PROFILE_FIELD');
     }
 
     // fetch request
     public function url($url) {
 
         // url encode all variables if variables found
-        if (strpos($url,'?') !== false) {
+        if (strpos($url,'?')) {
             $base_url = substr( $url, 0, strpos( $url, '?' ) + 1 );
             $parts = parse_url($url);
             parse_str($parts['query'], $parameters);
@@ -61,5 +67,80 @@ class Breeze
 
         // return content
         return $header['content'];
-     }
+    }
+
+    /**
+     * Look up a person using their email address
+     * @link   https://app.breezechms.com/api#list_people
+     * @param  string $email
+     * @return object|null
+     */
+    public function getPersonByEmail($email)
+    {
+        $url = $this->baseUrl . '/people?details=1&filter_json={"' .
+            $this->emailProfileField . '":"' . $email . '"}';
+
+        $matches = json_decode($this->url($url));
+
+        foreach ($matches as $person) {
+            if ($person->details->details->email_primary === $email) {
+                return $person;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get family members' first names and IDs
+     * @link   https://app.breezechms.com/api#show_person
+     * @param  string $id
+     * @return \Illuminate\Support\Collection
+     */
+    public function getFamilyMembers($id)
+    {
+        $url = $this->baseUrl . '/people/' .  $id . '?details=1';
+
+        $person = json_decode($this->url($url));
+
+        return collect($person->family)->map(function($member) {
+            return [
+                'id' => $member->id,
+                'name' => $member->details->first_name,
+            ];
+        });
+    }
+
+    /**
+     * Record attendance for an event
+     * @link   https://app.breezechms.com/api#add_attendance_record
+     * @param  string $event_id
+     * @param  array  $people
+     * @return [type]         [description]
+     */
+    public function recordAttendance($people = [])
+    {
+
+    }
+
+    /**
+     * Add an event
+     * @link   https://app.breezechms.com/api#add_event
+     * @param  string $event_id
+     * @param  array  $people
+     * @return string
+     */
+    public function createServiceEvent($name, $date)
+    {
+        $start = Carbon::parse($date, 'America/New_York')->timestamp;
+        $end = Carbon::parse($date, 'America/New_York')->setTime(23, 59, 59)->timestamp;
+
+        $url = $this->baseUrl . '/events/add?name=' .  $name .
+            '&starts_on=' . $start . '&ends_on=' . $end;
+
+        $event = json_decode($this->url($url));
+
+        return $event;
+    }
+
 }

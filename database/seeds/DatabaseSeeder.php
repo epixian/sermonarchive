@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         Permission::create(['name' => 'edit_services']);
         Permission::create(['name' => 'edit_sermons']);
         Permission::create(['name' => 'participate']);
+        Permission::create(['name' => 'record-attendance']);
 
         $role = Role::create(['name' => 'regular_user'])
             ->givePermissionTo(['participate']);

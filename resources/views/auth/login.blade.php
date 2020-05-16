@@ -1,14 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full">
-        <div>
-            <!-- <img class="mx-auto h-12 w-auto" src="/img/logos/workflow-mark-on-white.svg" alt="Workflow" /> -->
-            <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-                {{ __('Login') }}
-            </h2>
+<div class="min-h-screen flex flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div>
+        <!-- <img class="mx-auto h-12 w-auto" src="/img/logos/workflow-mark-on-white.svg" alt="Workflow" /> -->
+        <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
+            {{ __('Login') }}
+        </h2>
+        <div class="flex flex-col max-w-md md:max-w-2xl w-full">
+            <p class="font-serif md:-ml-10 text-6xl text-gray-200 text-left">&#8220;</p>
+            <p class="-mt-12 text-center text-gray-700 text-2xl leading-7">Fill out the black pad as it comes down your row.</p>
+            <p class="-mt-6 md:-mr-10 font-serif text-right text-6xl text-gray-200">&#8221;</p>
+            <p class="-mt-12 text-right text-sm leading-5">-someone at New Life, probably</p>
         </div>
+    </div>
+
+    <div class="max-w-md w-full">
         <form class="mt-8" action="{{ route('login') }}" method="POST">
             @csrf
             <input type="hidden" name="remember" value="true" />
@@ -40,11 +47,13 @@
                 </div>
 
                 @if (Route::has('password.request'))
+<!--
                 <div class="text-sm leading-5">
                     <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
                         {{ __('Forgot Your Password?') }}
                     </a>
                 </div>
+ -->
                 @endif
             </div>
 
@@ -59,6 +68,13 @@
                 </button>
             </div>
         </form>
+        <div class="mt-4 text-sm leading-5">
+            Don't have an account?
+            <a href="/register" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                {{ __('Register') }}
+            </a>
+            for one!
+        </div>
     </div>
 </div>
 @endsection

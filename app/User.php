@@ -13,6 +13,16 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'custom' => 'array',
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -26,18 +36,19 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
+    protected $visible = [
+        'id', 'name',
     ];
 
     /**
-     * The attributes that should be cast to native types.
+     * Get messages belonging to the user.
      *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 
     /**
      * Get either a Gravatar URL or complete image tag for a specified email address.

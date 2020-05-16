@@ -5,9 +5,9 @@
 @endsection
 
 @section('content')
-<form method="POST" action="{{ $service ? $service->path() : '/admin/services' }}">
+<form method="POST" action="{{ isset($service) ? $service->path() : '/admin/services' }}">
   @csrf
-  @if ($service)
+  @if (isset($service))
     @method('PUT')
   @else
     @method('POST')
@@ -21,7 +21,7 @@
           </label>
           <div class="mt-1 sm:mt-0 sm:col-span-2">
             <div class="max-w-lg flex rounded-md shadow-sm">
-              <input name="name" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('name', $service->name) }}" />
+              <input name="name" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('name', isset($service) ? $service->name : '') }}" />
             </div>
             <p class="mt-2 text-sm text-gray-500">Change as needed.  Default: "Morning Worship Services"</p>
           </div>
@@ -33,7 +33,7 @@
           </label>
           <div class="mt-1 sm:mt-0 sm:col-span-2">
             <div class="max-w-lg flex rounded-md shadow-sm">
-              <textarea name="description" rows="3" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ old('description', $service->description) }}</textarea>
+              <textarea name="description" rows="3" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ old('description', isset($service) ? $service->description : '') }}</textarea>
             </div>
             <p class="mt-2 text-sm text-gray-500">(Optional) Write any additional information useful to site visitors.</p>
           </div>
@@ -45,7 +45,7 @@
           </label>
           <div class="mt-1 sm:mt-0 sm:col-span-2">
             <div class="max-w-lg flex rounded-md shadow-sm">
-              <input name="service_date" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('service_date', $service->service_date) }}" />
+              <input name="service_date" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('service_date', isset($service) ? $service->service_date : '') }}" />
             </div>
             <p class="mt-2 text-sm text-gray-500">The date of the service in <em>YYYY-MM-DD</em>.</p>
           </div>
@@ -56,7 +56,7 @@
   <div class="mt-8 border-t border-gray-200 pt-5">
     <div class="flex justify-end">
       <span class="inline-flex rounded-md shadow-sm">
-        <a href="{{ $service->path() }}" class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+        <a href="{{ isset($service) ? $service->path() : '/admin/services' }}" class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
           Cancel
         </a>
       </span>

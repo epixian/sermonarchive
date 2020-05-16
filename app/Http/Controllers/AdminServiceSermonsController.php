@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sermon;
 use App\Service;
+use App\Speaker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -29,7 +30,8 @@ class AdminServiceSermonsController extends Controller
     public function create(Service $service)
     {
         $action = "Add";
-        return view('sermons.edit', compact(['service', 'action']));
+        $speakers = Speaker::all();
+        return view('sermons.edit', compact(['action', 'service', 'speakers']));
     }
 
     /**
