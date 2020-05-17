@@ -6,8 +6,8 @@
                     <!-- <img class="block lg:hidden h-8 w-auto" src="/img/logos/workflow-mark-on-white.svg" alt="Workflow logo" /> -->
                     <!-- <img class="hidden lg:block h-8 w-auto" src="/img/logos/workflow-logo-on-white.svg" alt="Workflow logo" /> -->
                     <a href="/">
-                        <img class="hidden sm:block lg:hidden h-12 w-auto" src="/leaf.png" alt="New Life logo" />
-                        <img class="block sm:hidden lg:block h-12 w-auto" src="/nlg-logo.png" alt="New Life logo" />
+                        <img class="hidden sm:block lg:hidden h-12 w-auto" src="https://cdn.newlifeglenside.com/leaf.png" alt="New Life logo" />
+                        <img class="block sm:hidden lg:block h-12 w-auto" src="https://cdn.newlifeglenside.com/nlg-logo.png" alt="New Life logo" />
                         <!-- <span class="text-3xl font-bold leading-tight text-gray-900">{{ config('app.name', 'Live @ New Life') }}</span> -->
                     </a>
                 </div>
