@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Breeze;
 use App\Events\LiveServiceMessageSent;
 use App\Service;
 use Illuminate\Http\Request;
@@ -35,9 +36,13 @@ class LiveServiceController extends Controller
      */
     public function checkIn(Request $request)
     {
-        return $request;
+        $person = $request->validate([
+            'id' => 'required'
+        ]);
 
-        return ['status' => 'Checked In!'];
+        $breeze = new Breeze();
+
+        return $breeze->recordAttendance($person['id'], $this->service->breeze_id);
     }
 
     /**
