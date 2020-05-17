@@ -27,7 +27,7 @@
                     @foreach ($sermons as $sermon)
                     <tr>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                            <a href="{{ $sermon->path() }}" class="text-indigo-600 hover:text-indigo-900">{{ $sermon->name }}</a>
+                            <a href="{{ $sermon->path() }}" class="text-nl-blue-500 hover:text-nl-blue-800">{{ $sermon->name }}</a>
                         </td>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                             {{ $sermon->publish_date }}
@@ -37,7 +37,7 @@
                         </td>
                         @can('edit_sermon')
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                            <a href="/admin/sermons/{{ $sermon->id }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                            <a href="/admin/sermons/{{ $sermon->id }}" class="text-nl-blue-500 hover:text-nl-blue-800">Edit</a>
                         </td>
                         @endcan
                     </tr>

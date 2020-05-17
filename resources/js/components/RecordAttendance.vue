@@ -14,7 +14,7 @@
       </div>
       <div class="flex flex-wrap items-center justify-center mx-4 sm:mx-6 space-x-2">
         <span v-for="person in available" :key="person.id" class="inline-flex rounded-md shadow-sm">
-          <button @click="select(person)" type="button" class="mt-2 inline-flex items-center px-4 py-2 border text-sm leading-5 font-medium rounded-md transition ease-in-out duration-150" :class="!selected.includes(person) ? 'border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50' : 'border-indigo-300 text-indigo-700 bg-indigo-100 hover:bg-indigo-50 focus:outline-none focus:border-indigo-300 focus:shadow-outline-indigo active:bg-indigo-200'">
+          <button @click="select(person)" type="button" class="mt-2 inline-flex items-center px-4 py-2 border text-sm leading-5 font-medium rounded-md transition ease-in-out duration-150" :class="!selected.includes(person) ? 'border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50' : 'border-nl-green-300 text-nl-green-700 bg-nl-green-100 hover:bg-nl-green-50 focus:outline-none focus:border-nl-green-300 focus:shadow-outline-nl-green active:bg-nl-green-200'">
             {{ person.name }}
           </button>
         </span>

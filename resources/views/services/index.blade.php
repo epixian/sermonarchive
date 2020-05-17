@@ -7,7 +7,7 @@
 
     @can('edit_services')
     <span class="inline-flex rounded-md shadow-sm">
-      <a href="/admin/services/create" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+      <a href="/admin/services/create" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-nl-blue-500 hover:bg-nl-blue-400 focus:outline-none focus:border-nl-blue-600 focus:shadow-outline-nl-blue active:bg-nl-blue-600 transition ease-in-out duration-150">
         <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         Add service
       </a>
@@ -42,7 +42,7 @@
                     @foreach ($services as $service)
                     <tr>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                            <a href="{{ $service->path() }}" class="text-indigo-600 hover:text-indigo-900">{{ $service->name }}</a>
+                            <a href="{{ $service->path() }}" class="text-nl-blue-500 hover:text-nl-blue-800">{{ $service->name }}</a>
                         </td>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                             {{ $service->service_date }}
@@ -52,7 +52,7 @@
                         </td>
                         @can('edit_services')
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                            <a href="{{ $service->path() }}/edit" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                            <a href="{{ $service->path() }}/edit" class="text-nl-blue-500 hover:text-nl-blue-800">Edit</a>
                         </td>
                         @endcan
                     </tr>
