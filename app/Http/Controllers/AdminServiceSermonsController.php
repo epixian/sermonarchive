@@ -11,17 +11,6 @@ use Illuminate\Support\Str;
 class AdminServiceSermonsController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param  \App\Service  $service
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Service $service)
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @param  \App\Service  $service
@@ -55,43 +44,6 @@ class AdminServiceSermonsController extends Controller
         $sermon = $service->sermons()->create($validated);
 
         return redirect($service->path());
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Service  $service
-     * @param  \App\Sermon  $sermon
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Service $service, Sermon $sermon)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Service  $service
-     * @param  \App\Sermon  $sermon
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Service $service, Sermon $sermon)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Service  $service
-     * @param  \App\Sermon  $sermon
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Service $service, Sermon $sermon)
-    {
-        //
     }
 
     /**
