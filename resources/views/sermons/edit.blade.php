@@ -5,8 +5,13 @@
 @endsection
 
 @section('content')
-<form method="POST" action="{{ $service->path() }}/sermons">
+<form method="POST" action="{{ isset($sermon) ? '/admin' . $sermon->path() : $service->path() . '/sermons' }}">
   @csrf
+  @if (isset($sermon))
+    @method('PUT')
+  @else
+    @method('POST')
+  @endif
   <div>
     <div>
       <div class="mt-6 sm:mt-5">
