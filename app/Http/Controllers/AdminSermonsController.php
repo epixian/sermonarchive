@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sermon;
+use App\Speaker;
 use Illuminate\Http\Request;
 
 class AdminSermonsController extends Controller
@@ -16,27 +17,6 @@ class AdminSermonsController extends Controller
     {
         $sermons = Sermon::all();
         return view('sermons.index', compact('sermons'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
     }
 
     /**
@@ -60,7 +40,8 @@ class AdminSermonsController extends Controller
     {
         $action = "Edit";
         $speakers = Speaker::all();
-        return view('sermons.edit', compact(['action', 'speakers']));
+        $service = $sermon->service;
+        return view('sermons.edit', compact(['sermon', 'action', 'speakers', 'service']));
     }
 
     /**
@@ -74,7 +55,9 @@ class AdminSermonsController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'publish_date' => 'required',
+            'description' => 'sometimes',
+            'speaker_id' => 'required',
+            'scheduled_time' => 'sometimes',
         ]);
 
         $sermon->update($validated);
