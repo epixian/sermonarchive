@@ -45,7 +45,7 @@ class AdminServicesController extends Controller
             'breeze_id' => 'sometimes',
         ]);
 
-        if ($validated['breeze_id'] !== '') {
+        if (! $validated['breeze_id']) {
             $breeze = new Breeze();
             $event = $breeze->createServiceEvent($validated['name'], $validated['service_date']);
             $validated['breeze_id'] = $event->id;
