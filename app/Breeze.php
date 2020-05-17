@@ -105,7 +105,7 @@ class Breeze
 
         return collect($person->family)->map(function($member) {
             return [
-                'id' => $member->id,
+                'id' => $member->details->id,
                 'name' => $member->details->first_name,
             ];
         });
@@ -114,13 +114,16 @@ class Breeze
     /**
      * Record attendance for an event
      * @link   https://app.breezechms.com/api#add_attendance_record
+     * @param  string $personId
      * @param  string $event_id
-     * @param  array  $people
      * @return [type]         [description]
      */
-    public function recordAttendance($people = [])
+    public function recordAttendance($personId, $eventId)
     {
+        $url = $this->baseUrl . '/events/attendance/add?person_id=' .
+            $personId . '&instance_id=' . $eventId;
 
+        return json_decode($this->url($url));
     }
 
     /**
