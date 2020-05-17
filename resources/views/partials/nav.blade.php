@@ -17,7 +17,7 @@
                     </a>
 
                     @can('edit_services')
-                    <a href="/admin/services" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out {{ Request::is('services') ? 'text-gray-900 border-nl-blue-500 focus:outline-none focus:border-nl-blue-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300' }}">
+                    <a href="/admin/services" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out {{ Request::is('admin/services') ? 'text-gray-900 border-nl-blue-500 focus:outline-none focus:border-nl-blue-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300' }}">
                         Services
                     </a>
                     @endcan
@@ -29,7 +29,7 @@
                     @endcan
 
                     @can('edit_users')
-                    <a href="/admin/users" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out {{ Request::is('services') ? 'text-gray-900 border-nl-blue-500 focus:outline-none focus:border-nl-blue-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300' }}">
+                    <a href="/admin/users" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out {{ Request::is('admin/users') ? 'text-gray-900 border-nl-blue-500 focus:outline-none focus:border-nl-blue-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300' }}">
                         Users
                     </a>
                     @endcan
