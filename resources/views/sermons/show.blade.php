@@ -3,17 +3,15 @@
 @section('title', $sermon->name)
 
 @section('actions')
-<div class="flex items-center space-x-2">
 
     @can('edit_sermons')
     <span class="inline-flex rounded-md shadow-sm">
-      <a href="{{ $sermon->path() }}/edit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-nl-blue-600 hover:bg-nl-blue-500 focus:outline-none focus:border-nl-blue-700 focus:shadow-outline-nl-blue active:bg-nl-blue-700 transition ease-in-out duration-150">
+      <a href="/admin{{ $sermon->path() }}/edit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-nl-blue-600 hover:bg-nl-blue-500 focus:outline-none focus:border-nl-blue-700 focus:shadow-outline-nl-blue active:bg-nl-blue-700 transition ease-in-out duration-150">
         Edit Sermon
       </a>
     </span>
     @endcan
 
-</div>
 @endsection
 
 @section('content')
