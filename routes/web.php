@@ -30,13 +30,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('/admin')->group(function () {
-        Route::get('/', 'AdminController@index')->middleware('permission:edit_sermons')->name('admin');
-
-        Route::resource('sermons', 'AdminSermonsController')->middleware('permission:edit_sermons');
 
         Route::resource('services', 'AdminServicesController')->middleware('permission:edit_services');
+        Route::get('/', 'AdminController@index')->middleware('permission:edit_sermons')->name('admin');
 
-        // Route::resource('services.sermons', 'AdminServiceSermonsController')->only(['create','store'])->middleware('permission:edit_sermons|edit_services');
+        Route::resource('sermons', 'AdminSermonsController')->middleware('permission:edit_sermons')->except(['create','store']);
 
         Route::get('/services/{service}/sermons/create', 'AdminServiceSermonsController@create')->middleware('permission:edit_sermons');
         Route::post('/services/{service}/sermons', 'AdminServiceSermonsController@store')->middleware('permission:edit_sermons');
