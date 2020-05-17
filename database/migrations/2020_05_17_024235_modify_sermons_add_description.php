@@ -14,7 +14,7 @@ class ModifySermonsAddDescription extends Migration
     public function up()
     {
         Schema::table('sermons', function (Blueprint $table) {
-            $table->text('description')->before('publish_date');
+            $table->text('description')->before('publish_date')->nullable();
         });
     }
 

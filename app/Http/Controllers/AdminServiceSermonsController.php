@@ -34,7 +34,7 @@ class AdminServiceSermonsController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'description' => 'sometimes|required',
+            'description' => 'sometimes',
             'speaker_id' => 'required',
             'scheduled_time' => 'sometimes',
         ]);
