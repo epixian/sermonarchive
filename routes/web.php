@@ -36,7 +36,10 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('services', 'AdminServicesController')->middleware('permission:edit_services');
 
-        Route::resource('services.sermons', 'AdminServiceSermonsController')->only(['create','store'])->middleware('permission:edit_sermons|edit_services');
+        // Route::resource('services.sermons', 'AdminServiceSermonsController')->only(['create','store'])->middleware('permission:edit_sermons|edit_services');
+
+        Route::get('/services/{service}/sermons/create', 'AdminServiceSermonsController@create')->middleware('permission:edit_sermons');
+        Route::post('/services/{service}/sermons', 'AdminServiceSermonsController@store')->middleware('permission:edit_sermons');
 
         Route::resource('users', 'AdminUsersController')->only(['index'])->middleware('permission:edit_users');
     });
