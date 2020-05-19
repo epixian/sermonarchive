@@ -3,9 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Sermon extends Model
 {
+    /**
+     * Append these additional attributes to the model.
+     *
+     * @var array
+     */
+    protected $appends = ['scheduled_for'];
 
     /**
      * Attributes to guard against mass assignment.
@@ -42,5 +49,15 @@ class Sermon extends Model
     public function path()
     {
         return '/sermons/' . $this->id;
+    }
+
+    /**
+     * Returns a combined datetime attribute in Carbon format.
+     *
+     * @return string
+     */
+    public function getScheduledForAttribute()
+    {
+        return Carbon::parse($this->publish_date, env('TIMEZONE', 'America/New_York'))->setTimeFromTimeString($this->scheduled_time);
     }
 }

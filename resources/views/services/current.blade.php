@@ -16,12 +16,17 @@
 @section('content')
 <div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 lg:flex lg:items-start">
     <div class="lg:flex-1">
+        <div>{{ $checkedIn }}</div>
         @foreach ($service->sermons as $sermon)
-            @if (Carbon\Carbon::now('America/New_York') < Carbon\Carbon::parse($service->service_date, 'America/New_York')->setTimeFromTimeString($sermon->scheduled_time)->subMinutes(5))
+
+            @if (Carbon\Carbon::now('America/New_York') < $sermon->scheduled_for->subMinutes(5))
+
             <div>
-                The stream hasn't started yet.  Please check back later!
+                The service is scheduled to begin {{ $sermon->scheduled_for->diffForHumans() }}.  Please check back later!
             </div>
+
             @else
+
             <div>
                 <video-js id="my-video" class="video-js vjs-big-play-centered h-full" controls autoplay preload="none" data-setup='{ "liveui": true }'>
                     <source src="https://stream.newlifeglenside.com/hls/{{ $sermon->stream_key }}.m3u8" type="application/vnd.apple.mpegurl">
@@ -35,8 +40,11 @@
                     </div>
                 </div>
             </div>
+
             @endif
+
         @endforeach
+
     </div>
 
     @can('participate')
