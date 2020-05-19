@@ -39,12 +39,15 @@ class AdminServicesController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
+            'name' => 'sometimes',
             'description' => 'sometimes',
             'service_date' => 'required',
             'breeze_id' => 'sometimes',
         ]);
 
+        if (! $validated['name']) {
+            $validated['name'] = 'Morning Worship Services';
+        }
         if (! $validated['breeze_id']) {
             $breeze = new Breeze();
             $event = $breeze->createServiceEvent($validated['name'], $validated['service_date']);
