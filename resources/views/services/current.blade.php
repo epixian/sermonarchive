@@ -16,7 +16,6 @@
 @section('content')
 <div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 lg:flex lg:items-start">
     <div class="lg:flex-1">
-        <div>{{ $checkedIn }}</div>
         @foreach ($service->sermons as $sermon)
 
             @if (Carbon\Carbon::now('America/New_York') < $sermon->scheduled_for->subMinutes(5))
