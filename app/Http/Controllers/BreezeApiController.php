@@ -24,7 +24,7 @@ class BreezeApiController extends Controller
         if ($person = $this->breeze->getPersonByEmail(auth()->user()->email)) {
             auth()->user()->update(['breeze_id' => $person->id]);
 
-            auth()->user()->givePermissionTo('record-attendance');
+            auth()->user()->givePermissionTo('record_attendance');
 
             return redirect('/')
                 ->with('status', 200)
@@ -33,7 +33,7 @@ class BreezeApiController extends Controller
 
         return redirect('/')
             ->with('status', 404)
-            ->with('message', 'We did not find your email address in our system.  Please contact church staff at receptionist@newlifeglenside.com.');
+            ->with('message', 'We did not find your email address in our system.  Please contact church staff at receptionist@newlifeglenside.com to be added.');
     }
 
     /**
@@ -43,6 +43,9 @@ class BreezeApiController extends Controller
      */
     public function getFamily()
     {
+        if (! auth()->check() || ! auth()->user()->breeze_id)
+            return null;
+
         return $this->breeze
             ->getFamilyMembers(auth()->user()->breeze_id)
             ->toJson();
