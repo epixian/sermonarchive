@@ -20,7 +20,8 @@
             @csrf
             <input type="hidden" name="remember" value="true" />
             <div class="rounded-md shadow-sm">
-                <div>
+                <p class="text-gray-700 text-sm">Tip: use an email address we already know!</p>
+                <div class="mt-1">
                     <input id="name" aria-label="{{ __('Name') }}" name="name" type="name" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="{{ __('Name') }}" />
                 </div>
                 <div class="-mt-px">
