@@ -3,12 +3,9 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="flex-shrink-0 flex items-center">
-                    <!-- <img class="block lg:hidden h-8 w-auto" src="/img/logos/workflow-mark-on-white.svg" alt="Workflow logo" /> -->
-                    <!-- <img class="hidden lg:block h-8 w-auto" src="/img/logos/workflow-logo-on-white.svg" alt="Workflow logo" /> -->
                     <a href="/">
                         <img class="hidden sm:block lg:hidden h-12 w-auto" src="https://cdn.newlifeglenside.com/leaf.png" alt="New Life logo" />
                         <img class="block sm:hidden lg:block h-12 w-auto" src="https://cdn.newlifeglenside.com/nlg-logo.png" alt="New Life logo" />
-                        <!-- <span class="text-3xl font-bold leading-tight text-gray-900">{{ config('app.name', 'Live @ New Life') }}</span> -->
                     </a>
                 </div>
                 <div class="hidden sm:ml-8 sm:flex space-x-8">
@@ -48,13 +45,6 @@
 
                 @auth
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
-    <!--
-                    <button class="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition duration-150 ease-in-out" aria-label="Notifications">
-                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                        </svg>
-                    </button>
-     -->
 
                     <!-- Profile dropdown -->
                     <div x-data="{ open: false }" class="relative">
@@ -90,7 +80,7 @@
                     </div>
                 </div>
                 @else
-<!--                     @if (Route::has('login'))
+                    @if (Route::has('login'))
                     <div class="hidden sm:ml-6 sm:flex space-x-8">
                         <a href="{{ route('login') }}" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out {{ Request::is('login') ? 'text-gray-900 border-nl-blue-500 focus:outline-none focus:border-nl-blue-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300' }}">
                             {{ __('Login') }}
@@ -101,7 +91,7 @@
                         </a>
                         @endif
                     </div>
-                    @endif -->
+                    @endif
                 @endauth
             </div>
 
@@ -164,10 +154,10 @@
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">{{ __('Logout') }}</a>
             </div>
             @else
-<!--             <div class="mt-3 space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+            <div class="mt-3 space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                 <a href="{{ route('login') }}" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">{{ __('Login') }}</a>
                 <a href="{{ route('register') }}" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">{{ __('Register') }}</a>
-            </div> -->
+            </div>
             @endauth
         </div>
     </div>
