@@ -52,6 +52,20 @@ class Sermon extends Model
     }
 
     /**
+     * Returns the stream status.
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return [
+            'stream_started' => $this->stream_started,
+            'stream_ended' => $this->stream_ended,
+            'recording_done' => $this->recording_done
+        ];
+    }
+
+    /**
      * Returns a combined datetime attribute in Carbon format.
      *
      * @return string

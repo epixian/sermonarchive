@@ -19,27 +19,6 @@ class SermonsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Sermon  $sermon
@@ -51,36 +30,14 @@ class SermonsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Get the stream's status
      *
-     * @param  \App\Sermon  $sermon
-     * @return \Illuminate\Http\Response
+     * @param  Illuminate\Http\Request $request
+     * @param  App\Sermon $sermon
+     * @return void
      */
-    public function edit(Sermon $sermon)
+    public function status(Request $request, Sermon $sermon)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Sermon  $sermon
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Sermon $sermon)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Sermon  $sermon
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Sermon $sermon)
-    {
-        //
+        return $sermon->getStatus();
     }
 }
