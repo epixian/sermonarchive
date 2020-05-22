@@ -61,7 +61,7 @@ class Sermon extends Model
         return [
             'stream_started' => $this->stream_started,
             'stream_ended' => $this->stream_ended,
-            'recording_done' => $this->recording_done
+            'recording_done' => $this->recording_done,
         ];
     }
 

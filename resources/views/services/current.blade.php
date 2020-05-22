@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @section('notification')
-    @can('record-attendance')
+    @can('record_attendance')
+    @if(! request()->hasCookie('nlg-live-attendance-recorded'))
     <record-attendance id="attendance"></record-attendance>
+    @endif
     @endcan
 @endsection
 
@@ -15,33 +17,9 @@
 
 @section('content')
 <div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 lg:flex lg:items-start">
-    <div class="lg:flex-1">
+    <div id="videoplayer" class="lg:flex-1">
         @foreach ($service->sermons as $sermon)
-
-            @if (Carbon\Carbon::now('America/New_York') < $sermon->scheduled_for->subMinutes(5))
-
-            <div>
-                The service is scheduled to begin {{ $sermon->scheduled_for->diffForHumans() }}.  Please check back later!
-            </div>
-
-            @else
-
-            <div>
-                <video-js id="my-video" class="video-js vjs-big-play-centered h-full" controls autoplay preload="none" data-setup='{ "liveui": true }'>
-                    <source src="https://stream.newlifeglenside.com/hls/{{ $sermon->stream_key }}.m3u8" type="application/vnd.apple.mpegurl">
-                    <p class="vjs-no-js">To watch this video, please enable Javascript or use a browser that supports HTML5 video.</p>
-                </video-js>
-
-                <div class="mt-2 mx-4 sm:mx-0">
-                    <h2 class="text-lg font-bold leading-tight text-gray-900">{{ $sermon->name }}</h2>
-                    <div class="text-base text-gray-900">
-                        {{ $sermon->description }}
-                    </div>
-                </div>
-            </div>
-
-            @endif
-
+        <video-player :sermon='{!! $sermon->toJson() !!}' />
         @endforeach
 
     </div>

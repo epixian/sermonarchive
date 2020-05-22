@@ -75,4 +75,23 @@ class AdminSermonsController extends Controller
     {
         //
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Sermon  $sermon
+     * @return \Illuminate\Http\Response
+     */
+    public function updateStatus(Request $request, Sermon $sermon)
+    {
+        $validated = $request->validate([
+            'stream_started' => 'sometimes',
+            'stream_ended' => 'sometimes',
+        ]);
+
+        $sermon->update($validated);
+
+        return $sermon->getStatus();
+    }
 }

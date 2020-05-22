@@ -42,7 +42,7 @@ class LiveServiceController extends Controller
 
         $breeze = new Breeze();
 
-        return $breeze->recordAttendance($person['id'], $this->service->breeze_id);
+        return response($breeze->recordAttendance($person['id'], $this->service->breeze_id))->cookie('nlg-live-attendance-recorded', 1440);
     }
 
     /**
