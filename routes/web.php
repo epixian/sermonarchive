@@ -21,6 +21,7 @@ Route::post('/check-in', 'LiveServiceController@checkIn');
 Auth::routes(['verify' => true]);
 
 Route::resource('/sermons', 'SermonsController')->only(['index','show']);
+Route::get('/sermons/{sermon}/status', 'SermonsController@status');
 
 Route::middleware('auth')->group(function () {
 
