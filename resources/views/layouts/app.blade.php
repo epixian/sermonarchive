@@ -30,9 +30,6 @@
 
     <title>{{ config('app.name', 'Live@New Life') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet">
@@ -84,5 +81,8 @@
 
     <link href="https://vjs.zencdn.net/7.7.6/video-js.min.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/7.7.6/video.min.js"></script>
+    <script src="{{ asset('js/manifest.js') }}"></script>
+    <script src="{{ asset('js/vendor.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
