@@ -19,9 +19,12 @@
 <div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 lg:flex lg:items-start">
     <div id="videoplayer" class="lg:flex-1">
         @foreach ($service->sermons as $sermon)
-        <video-player :sermon='{!! $sermon->toJson() !!}'></video-player>
+        <video-player :sermon='{!! $sermon->toJson() !!}' description="false"></video-player>
         @endforeach
 
+        <div class="mt-4 text-sm px-4 sm:px-0">
+            {!! str_replace("\n", '<br />', $service->description) !!}
+        </div>
     </div>
 
     @can('participate')
