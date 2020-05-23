@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Sermon;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -30,9 +32,14 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        Route::bind('stream', function ($value) {
+            return Sermon::where(['stream_key' => $value])->first();
+        });
+        Route::model('stream', Sermon::class, function () {
+            throw new NotFoundHttpException();
+        });
     }
 
     /**
