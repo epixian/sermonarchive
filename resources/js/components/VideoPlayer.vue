@@ -2,7 +2,7 @@
   <div>
     <div v-if="statusText === 'waiting' && mode === 'live'" :class="{ 'flex flex-col-reverse': control }">
       <p class="px-4 sm:px-0" :class="{ 'mt-4': control }">
-        The stream will begin in about {{ fromNow }}.  Please prepare your hearts for worship.
+        The stream will begin about {{ fromNow }}.  Please prepare your hearts for worship.
       </p>
       <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="w-full shadow-md max-w-3xl" :class="{ 'mt-4': !control }" alt="New Life logo">
     </div>
@@ -22,7 +22,7 @@
 
     <div v-if="!control" class="mt-4 mx-4 sm:mx-0">
       <h2 class="text-lg font-bold leading-tight text-gray-900">{{ sermon.name }}</h2>
-      <div class="text-base text-gray-900">
+      <div v-if="description" class="text-base text-gray-900">
         {{ sermon.description }}
       </div>
     </div>
@@ -58,7 +58,7 @@
     },
     computed: {
       fromNow() {
-        return moment(this.sermon.scheduled_for).fromNow(true);
+        return moment(this.sermon.scheduled_for).fromNow();
       },
       statusText() {
         if (this.recording_done !== 0)
@@ -73,7 +73,6 @@
     },
     methods: {
       getStatus() {
-        console.log('checking status')
         fetch('/sermons/' + this.sermon.id + '/status')
           .then(response => response.json())
           .then(data => {
