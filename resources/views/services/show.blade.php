@@ -25,40 +25,44 @@
 @endsection
 
 @section('content')
-<div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 sm:grid grid-cols-2 gap-4">
-    @foreach ($service->sermons as $sermon)
-    <video-js id="my-video" class="video-js vjs-big-play-centered h-full" controls preload="none" data-setup='{ "liveui": true }'>
-        <source src="https://stream.newlifeglenside.com/recordings/{{ $sermon->stream_key }}.mp4" type="video/flv">
-        <!-- <source src="https://stream.newlifeglenside.com/hls/{{ $sermon->stream_key }}.m3u8" type="application/vnd.apple.mpegurl"> -->
-        <p class="vjs-no-js">To watch this video, please enable Javascript or use a browser that supports HTML5 video.</p>
-    </video-js>
+<div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <div id="videoplayer">
 
-    <div class="m-4 sm:m-0">
-        <div class="flex items-start sm:items-center justify-between">
-            <h2 class="text-xl font-bold leading-tight text-gray-900">{{ $sermon->name }}</h2>
-            <span class="flex rounded-md shadow-sm">
-              <a href="/admin{{ $sermon->path() }}/edit" class="inline-flex items-center px-4 py-2 border text-sm leading-5 font-medium rounded-md transition ease-in-out duration-150 border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50">
-                <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                Edit
-              </a>
-            </span>
+        @foreach ($service->sermons as $sermon)
+        <div class="sm:grid grid-cols-2 gap-4">
+            <div>
+                <h3 class="font-medium text-xl text-center">Preview</h3>
+                <video-player class="mt-2" :sermon='{!! $sermon->toJson() !!}' mode="preview" control description="false"></video-player>
+            </div>
+            <div>
+                <h3 class="font-medium text-xl text-center">Live</h3>
+                <video-player class="mt-2" :sermon='{!! $sermon->toJson() !!}' mode="live" control description="false"></video-player>
+            </div>
         </div>
-        <div class="text-base text-gray-900">
-            {{ $sermon->speaker->full_name }}
+
+        <div class="sm:mx-0 sm:grid grid-cols-2 gap-4 border-t border-gray-300 mt-4">
+            <div class="mt-4 space-y-2">
+                <div class="flex items-start sm:items-center justify-between">
+                    <h2 class="text-xl font-bold leading-tight text-gray-900">{{ $sermon->name }}</h2>
+                    <span class="flex rounded-md shadow-sm">
+                      <a href="/admin{{ $sermon->path() }}/edit" class="inline-flex items-center px-4 py-2 border text-sm leading-5 font-medium rounded-md transition ease-in-out duration-150 border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50">
+                        <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                        Edit
+                      </a>
+                    </span>
+                </div>
+                <div class="text-base text-gray-900 space-y-1">
+                    <p>{{ $sermon->speaker->full_name }}</p>
+                    <p>{{ $sermon->description }}</p>
+                    <p>Scheduled at: {{ $sermon->scheduled_time }}</p>
+                </div>
+            </div>
+            <div class="mt-4 text-base text-gray-900 space-y-1">
+                <p class="text-right">Stream key: {{ $sermon->stream_key }}</p>
+                <stream-controller :sermon='{!! $sermon->toJson() !!}'></stream-controller>
+            </div>
         </div>
-        <div class="text-base text-gray-900">
-            Stream key: {{ $sermon->stream_key }}
-        </div>
-        <div class="text-base text-gray-900">
-            Scheduled at: {{ $sermon->scheduled_time }}
-        </div>
-        <div class="text-base text-gray-900">
-            {{ $sermon->description }}
-        </div>
+        @endforeach
     </div>
-    @endforeach
 </div>
-
-<link href="https://vjs.zencdn.net/7.7.6/video-js.min.css" rel="stylesheet" />
-<script src="https://vjs.zencdn.net/7.7.6/video.min.js"></script>
 @endsection
