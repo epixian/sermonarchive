@@ -46,11 +46,11 @@
     @else
         @include('partials.nav')
 
-        @yield('notification')
-
         @if(session('message'))
             @include('partials.message')
         @endif
+
+        @yield('notification')
 
         <div class="pt-6 pb-10">
             <header>
