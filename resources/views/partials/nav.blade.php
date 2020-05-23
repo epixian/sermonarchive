@@ -1,4 +1,4 @@
-<nav x-cloak x-data="{ menuOpen: false }" class="bg-white shadow-sm">
+<nav x-cloak x-data="{ menuOpen: false }" id="nav" class="bg-white shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
@@ -34,6 +34,7 @@
             </div>
 
             <div class="flex">
+
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
                      <span class="rounded-md shadow-sm">
                         <a href="https://www.eservicepayments.com/cgi-bin/Vanco_ver3.vps?appver3=Dc8dzPGn4-LCajFevTkh9IrAPiKyxuq1wz14eIF-xa7wDLnFUBRZuK9-TeNGQgRt3ZjrEf-JY61LsyvVDvllero7zqy-JU_UuLu19bUbJx16ST79ddXa13WVGWu3v78lk0PpduXvnt8gXUeZjQYbn8YMd3VAg-5ef_sTFvOQq-g=&ver=3" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-nl-green-500 hover:bg-nl-green-400 focus:outline-none focus:border-nl-green-500 focus:shadow-outline-nl-green active:bg-nl-green-600 transition ease-in-out duration-150">
@@ -44,6 +45,11 @@
                 </div>
 
                 @auth
+<!--
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <prayer-request></prayer-request>
+                </div>
+ -->
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
 
                     <!-- Profile dropdown -->

@@ -23,6 +23,7 @@ window.Vue = require('vue');
 Vue.component('record-attendance', require('./components/RecordAttendance.vue').default);
 Vue.component('video-player', require('./components/VideoPlayer.vue').default);
 Vue.component('stream-controller', require('./components/StreamController.vue').default);
+Vue.component('prayer-request', require('./components/PrayerRequest.vue').default);
 // Vue.component('chat-messages', require('./components/ChatMessages.vue').default);
 // Vue.component('chat-input', require('./components/ChatInput.vue').default);
 
@@ -32,6 +33,10 @@ const video = new Vue({
 
 const attendance = new Vue({
   el: '#attendance',
+});
+
+const nav = new Vue({
+  el: '#nav',
 });
 
 // const app = new Vue({

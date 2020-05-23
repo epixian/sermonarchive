@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/link', 'BreezeApiController@attemptLink');
     });
 
+    Route::post('/prayer', 'PrayerRequestController@submit');
+
     Route::prefix('/admin')->group(function () {
 
         Route::resource('services', 'AdminServicesController')->middleware('permission:edit_services');
