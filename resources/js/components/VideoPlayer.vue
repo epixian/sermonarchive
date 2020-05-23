@@ -1,31 +1,29 @@
 <template>
   <div>
-    <div>
-        <div v-if="statusText === 'waiting'" class="">
-          <p class="px-4 sm:px-0">
-            The stream will begin in approximately {{ fromNow }}.  Please prepare your hearts for worship.
-          </p>
-          <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="mt-4 w-full shadow-md max-w-3xl" alt="New Life logo">
-        </div>
+    <div v-if="statusText === 'waiting'" class="">
+      <p class="px-4 sm:px-0">
+        The stream will begin about {{ fromNow }}.  Please prepare your hearts for worship.
+      </p>
+      <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="mt-4 w-full shadow-md max-w-3xl" alt="New Life logo">
+    </div>
 
-        <video-js v-if="statusText === 'streaming' || statusText === 'recorded'" id="my-video" class="video-js vjs-big-play-centered h-full shadow-md" controls autoplay preload="none" data-setup='{ "liveui": true }'>
-          <source v-if="statusText === 'streaming' :src="'https://stream.newlifeglenside.com/hls/' + sermon.stream_key + '.m3u8'" type="application/vnd.apple.mpegurl">
-          <source v-else :src="'https://stream.newlifeglenside.com/recordings/' + sermon.stream_key + '.mp4'" type="video/mp4"
-          <p class="vjs-no-js">To watch this video, please enable Javascript or use a browser that supports HTML5 video.</p>
-        </video-js>
+    <video-js v-if="statusText === 'streaming' || statusText === 'recorded'" id="my-video" class="video-js vjs-big-play-centered h-full shadow-md" controls autoplay preload="none" data-setup='{ "liveui": true }'>
+      <source v-if="statusText === 'streaming'" :src="'https://stream.newlifeglenside.com/hls/' + sermon.stream_key + '.m3u8'" type="application/vnd.apple.mpegurl">
+      <source v-else :src="'https://stream.newlifeglenside.com/recordings/' + sermon.stream_key + '.mp4'" type="video/mp4">
+      <p class="vjs-no-js">To watch this video, please enable Javascript or use a browser that supports HTML5 video.</p>
+    </video-js>
 
-        <div v-if="statusText === 'processing'" class="">
-          <p class="px-4 sm:px-0">
-            The stream has ended.  Please check back later when the video is done processing.
-          </p>
-          <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="mt-4 w-full shadow-md max-w-3xl" alt="New Life logo">
-        </div>
+    <div v-if="statusText === 'processing'" class="">
+      <p class="px-4 sm:px-0">
+        The stream has ended.  Please check back later when the video is done processing.
+      </p>
+      <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="mt-4 w-full shadow-md max-w-3xl" alt="New Life logo">
+    </div>
 
-      <div class="mt-4 mx-4 sm:mx-0">
-        <h2 class="text-lg font-bold leading-tight text-gray-900">{{ sermon.name }}</h2>
-        <div class="text-base text-gray-900">
-          {{ sermon.description }}
-        </div>
+    <div v-if="!control" class="mt-4 mx-4 sm:mx-0">
+      <h2 class="text-lg font-bold leading-tight text-gray-900">{{ sermon.name }}</h2>
+      <div class="text-base text-gray-900">
+        {{ sermon.description }}
       </div>
     </div>
   </div>
@@ -39,6 +37,11 @@
       sermon: {
         type: Object,
         required: true,
+      },
+      control: {
+        type: Boolean,
+        required: false,
+        default: false,
       }
     },
     data() {
