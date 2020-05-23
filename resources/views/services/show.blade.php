@@ -58,8 +58,8 @@
                 </div>
             </div>
             <div class="mt-4 text-base text-gray-900 space-y-1">
-                <p class="text-right">Stream key: {{ $sermon->stream_key }}</p>
                 <stream-controller :sermon='{!! $sermon->toJson() !!}'></stream-controller>
+                <p class="text-right">Stream key: {{ $sermon->stream_key }}</p>
             </div>
         </div>
         @endforeach
