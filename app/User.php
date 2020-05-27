@@ -13,6 +13,16 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
 
     /**
+     * The attributes that should be appended to JSON results.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'gravatar',
+        'can',
+    ];
+
+    /**
      * The attributes that should be cast.
      *
      * @var array
@@ -28,16 +38,23 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'breeze_id',
+        'name',
+        'email',
+        'password',
+        'breeze_id',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be visible for arrays.
      *
      * @var array
      */
     protected $visible = [
-        'id', 'name',
+        'id',
+        'name',
+        'breeze_id',
+        'gravatar',
+        'can',
     ];
 
     /**
@@ -48,6 +65,26 @@ class User extends Authenticatable implements MustVerifyEmail
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    /**
+     * Returns the gravatar URL.
+     *
+     * @return string
+     */
+    public function getGravatarAttribute()
+    {
+        return $this->gravatar_url();
+    }
+
+    /**
+     * Returns all permissions (direct and indirect) granted to the user.
+     *
+     * @return array
+     */
+    public function getCanAttribute()
+    {
+        return $this->getAllPermissions()->pluck('name');
     }
 
     /**

@@ -44,7 +44,11 @@
         @yield('content')
 
     @else
-        @include('partials.nav')
+        <navigation-menu
+            @auth
+            :user='{{ auth()->user() }}'
+            @endauth
+            route="{{ Request::path() }}"></navigation-menu>
 
         @if(session('message'))
             @include('partials.message')

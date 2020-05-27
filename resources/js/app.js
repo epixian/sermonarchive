@@ -23,15 +23,12 @@ window.Vue = require('vue');
 Vue.component('record-attendance', require('./components/RecordAttendance.vue').default);
 Vue.component('video-player', require('./components/VideoPlayer.vue').default);
 Vue.component('stream-controller', require('./components/StreamController.vue').default);
+Vue.component('navigation-menu', require('./components/NavigationMenu.vue').default);
 // Vue.component('chat-messages', require('./components/ChatMessages.vue').default);
 // Vue.component('chat-input', require('./components/ChatInput.vue').default);
 
-const video = new Vue({
-  el: '#videoplayer',
-});
-
-const attendance = new Vue({
-  el: '#attendance',
+const app = new Vue({
+  el: '#app',
 });
 
 // const app = new Vue({
