@@ -13,16 +13,16 @@
       <p class="vjs-no-js">To watch this video, please enable Javascript or use a browser that supports HTML5 video.</p>
     </video-js>
 
-    <div v-if="statusText === 'processing'" class="">
-      <p class="px-4 sm:px-0">
-        The stream has ended.  Please check back later when the video is done processing.
+    <div v-if="statusText === 'processing' && mode !== 'preview'"" class="" :class="{ 'flex flex-col-reverse': control }">
+      <p class="px-4 sm:px-0" :class="{ 'mt-4': control }">
+        The stream has ended and is currently processing.  Please check back in a little bit.
       </p>
-      <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="mt-4 w-full shadow-md max-w-3xl" alt="New Life logo">
+      <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="w-full shadow-md max-w-3xl" :class="{ 'mt-4': !control }" alt="New Life logo">
     </div>
 
     <div v-if="!control" class="mt-4 mx-4 sm:mx-0">
       <h2 class="text-lg font-bold leading-tight text-gray-900">{{ sermon.name }}</h2>
-      <div v-if="description" class="text-base text-gray-900">
+      <div v-if="control" class="text-base text-gray-900">
         {{ sermon.description }}
       </div>
     </div>
