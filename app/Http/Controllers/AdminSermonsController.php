@@ -88,6 +88,7 @@ class AdminSermonsController extends Controller
         $validated = $request->validate([
             'stream_started' => 'sometimes',
             'stream_ended' => 'sometimes',
+            'recording_done' => 'sometimes',
         ]);
 
         $sermon->update($validated);
