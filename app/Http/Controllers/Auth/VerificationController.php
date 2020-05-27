@@ -53,6 +53,6 @@ class VerificationController extends Controller
     {
         auth()->user()->assignRole('regular_user');
 
-        redirect('/user/link');
+        return redirect('/user/link');
     }
 }
