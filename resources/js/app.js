@@ -27,16 +27,8 @@ Vue.component('prayer-request', require('./components/PrayerRequest.vue').defaul
 // Vue.component('chat-messages', require('./components/ChatMessages.vue').default);
 // Vue.component('chat-input', require('./components/ChatInput.vue').default);
 
-const video = new Vue({
-  el: '#videoplayer',
-});
-
-const attendance = new Vue({
-  el: '#attendance',
-});
-
-const nav = new Vue({
-  el: '#nav',
+const app = new Vue({
+  el: '#app',
 });
 
 // const app = new Vue({
