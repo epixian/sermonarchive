@@ -43,7 +43,7 @@
 
 					<ProfileDropdown v-if="user" :user="user" class="hidden md:block"></ProfileDropdown>
 
-					<div v-else class="hidden sm:ml-6 sm:flex space-x-8">
+					<div v-else class="hidden md:ml-6 md:flex space-x-8">
 						<a href="/login" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
 							Sign In
 						</a>
@@ -69,8 +69,8 @@
 
 		<!-- Mobile menu -->
 	  <div v-show="mobileNavOpen" class="block md:hidden">
-	    <div class="pt-2 pb-3 space-y-1">
-        <div class="flex items-center w-full space-x-4 px-4 py-1">
+	    <div class="pb-3 space-y-1">
+        <div class="flex items-center w-full space-x-4 px-4 sm:px-6 py-3">
           <div class="rounded-md shadow-sm">
             <a href="https://www.eservicepayments.com/cgi-bin/Vanco_ver3.vps?appver3=Dc8dzPGn4-LCajFevTkh9IrAPiKyxuq1wz14eIF-xa7wDLnFUBRZuK9-TeNGQgRt3ZjrEf-JY61LsyvVDvllero7zqy-JU_UuLu19bUbJx16ST79ddXa13WVGWu3v78lk0PpduXvnt8gXUeZjQYbn8YMd3VAg-5ef_sTFvOQq-g=&ver=3" target="_blank" class="flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-nl-green-500 hover:bg-nl-green-400 focus:outline-none focus:border-nl-green-500 focus:shadow-outline-nl-green active:bg-nl-green-600 transition ease-in-out duration-150">
               <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
@@ -82,18 +82,18 @@
 
         </div>
 
-	      <a href="/" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out" :class="isRoute('/') ? 'border-nl-blue-500 text-nl-blue-700 bg-nl-blue-50 focus:outline-none focus:text-nl-blue-800 focus:bg-nl-blue-100 focus:border-nl-blue-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300'">Live</a>
+	      <a href="/" class="block pl-3 sm:pl-5 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out" :class="isRoute('/') ? 'border-nl-blue-500 text-nl-blue-700 bg-nl-blue-50 focus:outline-none focus:text-nl-blue-800 focus:bg-nl-blue-100 focus:border-nl-blue-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300'">Live</a>
 
-	      <a v-if="canEditServices" href="/admin/services" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out" :class="isRoute('admin/services') ? 'border-nl-blue-500 text-nl-blue-700 bg-nl-blue-50 focus:outline-none focus:text-nl-blue-800 focus:bg-nl-blue-100 focus:border-nl-blue-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300'">Services</a>
+	      <a v-if="canEditServices" href="/admin/services" class="block pl-3 sm:pl-5 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out" :class="isRoute('admin/services') ? 'border-nl-blue-500 text-nl-blue-700 bg-nl-blue-50 focus:outline-none focus:text-nl-blue-800 focus:bg-nl-blue-100 focus:border-nl-blue-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300'">Services</a>
 
-	      <a v-if="canEditSermons" href="/sermons" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out" :class="isRoute('sermons') ? 'border-nl-blue-500 text-nl-blue-700 bg-nl-blue-50 focus:outline-none focus:text-nl-blue-800 focus:bg-nl-blue-100 focus:border-nl-blue-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300'">Sermons</a>
+	      <a v-if="canEditSermons" href="/sermons" class="block pl-3 sm:pl-5 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out" :class="isRoute('sermons') ? 'border-nl-blue-500 text-nl-blue-700 bg-nl-blue-50 focus:outline-none focus:text-nl-blue-800 focus:bg-nl-blue-100 focus:border-nl-blue-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300'">Sermons</a>
 
-	      <a v-if="canEditServices" href="/admin/users" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out" :class="isRoute('admin/users') ? 'border-nl-blue-500 text-nl-blue-700 bg-nl-blue-50 focus:outline-none focus:text-nl-blue-800 focus:bg-nl-blue-100 focus:border-nl-blue-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300'">Users</a>
+	      <a v-if="canEditServices" href="/admin/users" class="block pl-3 sm:pl-5 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out" :class="isRoute('admin/users') ? 'border-nl-blue-500 text-nl-blue-700 bg-nl-blue-50 focus:outline-none focus:text-nl-blue-800 focus:bg-nl-blue-100 focus:border-nl-blue-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300'">Users</a>
 
 	    </div>
 	    <div class="border-t border-gray-200">
 	      <div v-if="user" class="divide-gray-200 divide-y">
-	        <div class="flex items-center px-4 py-3">
+	        <div class="flex items-center px-4 sm:px-6 py-3">
 	          <div class="flex-shrink-0">
 	            <img class="h-10 w-10 rounded-full" :src="user.gravatar" alt="" />
 	          </div>
@@ -113,13 +113,13 @@
 	        <div class="py-3 space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
 	          <!-- <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Your Profile</a> -->
 	          <!-- <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Settings</a> -->
-	          <a href="/logout" @click="logout" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Sign Out</a>
+	          <a href="#" @click="logout" class="block px-4 sm:px-6 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Sign Out</a>
 	        </div>
 	      </div>
 
-        <div v-else class="mt-3 space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-          <a href="/login" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Sign In</a>
-          <a href="/register" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Register</a>
+        <div v-else class="py-3 space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+          <a href="/login" class="block px-4 sm:px-6 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Sign In</a>
+          <a href="/register" class="block px-4 sm:px-6 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Register</a>
         </div>
 	    </div>
 	  </div>
