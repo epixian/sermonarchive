@@ -33,20 +33,18 @@
       >
         <div v-if="show" class="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full sm:p-6">
           <div>
-            <div class="mt-3 text-center sm:mt-5">
-              <h3 class="text-lg leading-6 font-medium text-gray-900">
-                Request Prayer
-              </h3>
-              <div class="mt-2">
-                <div class="">
-                  <label for="body" class="block text-sm font-medium leading-5 text-gray-700">
-                    How can we pray for you?
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <textarea v-model="body" id="body" rows="3" ref="body" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"></textarea>
-                  </div>
-                  <p class="mt-2 text-sm text-gray-500">This will be sent to the pastor.</p>
+            <h3 class="mt-2 sm:my-5 text-xl text-center leading-6 font-medium text-gray-900">
+              Request Prayer
+            </h3>
+            <div class="mt-3">
+              <div class="">
+                <label for="body" class="block text-sm font-medium leading-5 text-gray-700">
+                  How can we pray for you?
+                </label>
+                <div class="mt-2 rounded-md shadow-sm">
+                  <textarea v-model="body" id="body" rows="3" ref="body" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"></textarea>
                 </div>
+                <p class="mt-2 text-sm text-gray-500">This will be sent to the pastor.</p>
               </div>
             </div>
           </div>
