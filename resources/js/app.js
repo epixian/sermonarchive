@@ -24,6 +24,7 @@ Vue.component('record-attendance', require('./components/RecordAttendance.vue').
 Vue.component('video-player', require('./components/VideoPlayer.vue').default);
 Vue.component('stream-controller', require('./components/StreamController.vue').default);
 Vue.component('navigation-menu', require('./components/NavigationMenu.vue').default);
+Vue.component('prayer-request', require('./components/PrayerRequest.vue').default);
 // Vue.component('chat-messages', require('./components/ChatMessages.vue').default);
 // Vue.component('chat-input', require('./components/ChatInput.vue').default);
 
