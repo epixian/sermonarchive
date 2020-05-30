@@ -1,7 +1,7 @@
 <template>
   <div>
     <span class="rounded-md shadow-sm">
-      <button @click="show = true" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-nl-blue-500 hover:bg-nl-blue-400 focus:outline-none focus:border-nl-blue-500 focus:shadow-outline-nl-blue active:bg-nl-blue-600 transition ease-in-out duration-150">
+      <button @click="showPrayerRequestModal" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-nl-blue-500 hover:bg-nl-blue-400 focus:outline-none focus:border-nl-blue-500 focus:shadow-outline-nl-blue active:bg-nl-blue-600 transition ease-in-out duration-150">
         <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
         Request Prayer
       </button>
@@ -43,7 +43,7 @@
                     How can we pray for you?
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
-                    <textarea v-model="body" id="body" rows="3" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"></textarea>
+                    <textarea v-model="body" id="body" rows="3" ref="body" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"></textarea>
                   </div>
                   <p class="mt-2 text-sm text-gray-500">This will be sent to the pastor.</p>
                 </div>
@@ -52,7 +52,7 @@
           </div>
           <div class="mt-5 sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
             <span class="flex w-full rounded-md shadow-sm sm:col-start-2">
-              <button type="button" @click="sendPrayerRequest" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-nl-green-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-nl-green-500 focus:outline-none focus:border-nl-green-700 focus:shadow-outline-nl-green transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+              <button type="button" @click="sendPrayerRequest" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-nl-green-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-nl-green-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                 Send
               </button>
             </span>
@@ -86,7 +86,16 @@
               this.body = '';
             });
         }
-      }
-    }
+      },
+      showPrayerRequestModal() {
+        this.show = true;
+        Vue.nextTick(() => {
+          this.focusInput();
+        });
+      },
+      focusInput() {
+        this.$refs.body.focus();
+      },
+    },
   }
 </script>
