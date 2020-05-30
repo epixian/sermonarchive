@@ -7,7 +7,7 @@
       <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="w-full shadow-md max-w-3xl" :class="{ 'mt-4': !control }" alt="New Life logo">
     </div>
 
-    <video-js v-pre v-if="statusText === 'streaming' || mode === 'preview' || statusText === 'recorded'" class="video-js vjs-big-play-centered h-full shadow-md" controls autoplay preload="none" data-setup='{ "liveui": true }'>
+    <video-js v-if="statusText === 'streaming' || mode === 'preview' || statusText === 'recorded'" class="video-js vjs-big-play-centered h-full shadow-md" controls autoplay preload="none" data-setup='{ "liveui": true }'>
       <source v-if="statusText === 'streaming' || mode === 'preview'" :src="'https://stream.newlifeglenside.com/hls/' + sermon.stream_key + '.m3u8'" type="application/vnd.apple.mpegurl">
       <source v-else :src="'https://stream.newlifeglenside.com/recordings/' + sermon.stream_key + '.mp4'" type="video/mp4">
       <p class="vjs-no-js">To watch this video, please enable Javascript or use a browser that supports HTML5 video.</p>
