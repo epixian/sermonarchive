@@ -16,11 +16,11 @@ class PrayerRequestController extends Controller
      */
     public function submit(Request $request)
     {
-        $prayer = $request->validate([
+        $message = $request->validate([
             'body' => 'required',
         ]);
 
-        $from = [
+        $message['from'] = [
             'name' => auth()->user()->name,
             'email' => auth()->user()->email,
         ];
@@ -30,6 +30,6 @@ class PrayerRequestController extends Controller
                 'name' => env('PRAYER_REQUEST_NAME', 'Prayer Request Recipient'),
                 'email' => env('PRAYER_REQUEST_EMAIL', 'mail@example.com'),
             ]
-        ])->send(new PrayerRequested($prayer, $from));
+        ])->send(new PrayerRequested($message));
     }
 }
