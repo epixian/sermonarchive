@@ -81,8 +81,10 @@
         this.body = this.body.trim();
         if (this.body !== '') {
           axios.post('/prayer', { 'body': this.body })
-            .then(response => response.data)
-            .then(data => console.log(data));
+            .then(() => {
+              this.show = false;
+              this.body = '';
+            });
         }
       }
     }
