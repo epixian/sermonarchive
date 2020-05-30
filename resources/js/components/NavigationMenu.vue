@@ -5,11 +5,11 @@
 				<div class="flex">
 					<div class="flex-shrink-0 flex items-center">
 						<a href="/">
-							<img class="hidden sm:block lg:hidden h-12 w-auto" src="https://cdn.newlifeglenside.com/leaf.png" alt="New Life logo" />
-							<img class="block sm:hidden lg:block h-12 w-auto" src="https://cdn.newlifeglenside.com/nlg-logo.png" alt="New Life logo" />
+							<img class="hidden md:block lg:hidden h-12 w-auto" src="https://cdn.newlifeglenside.com/leaf.png" alt="New Life logo" />
+							<img class="block md:hidden lg:block h-12 w-auto" src="https://cdn.newlifeglenside.com/nlg-logo.png" alt="New Life logo" />
 						</a>
 					</div>
-					<div class="hidden sm:ml-8 sm:flex space-x-8">
+					<div class="hidden md:ml-8 md:flex md:space-x-8">
 						<a href="/" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out" :class="isRoute('/') ? 'text-gray-900 border-nl-blue-500 focus:outline-none focus:border-nl-blue-700' : 'text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300'">
 							Live
 						</a>
@@ -29,8 +29,8 @@
 					</div>
 				</div>
 
-				<div class="flex">
-					<div class="hidden sm:ml-6 sm:flex sm:items-center">
+				<div class="flex items-center space-x-4">
+					<div class="hidden md:ml-6 md:block">
 					  <span class="rounded-md shadow-sm">
 							<a href="https://www.eservicepayments.com/cgi-bin/Vanco_ver3.vps?appver3=Dc8dzPGn4-LCajFevTkh9IrAPiKyxuq1wz14eIF-xa7wDLnFUBRZuK9-TeNGQgRt3ZjrEf-JY61LsyvVDvllero7zqy-JU_UuLu19bUbJx16ST79ddXa13WVGWu3v78lk0PpduXvnt8gXUeZjQYbn8YMd3VAg-5ef_sTFvOQq-g=&ver=3" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-nl-green-500 hover:bg-nl-green-400 focus:outline-none focus:border-nl-green-500 focus:shadow-outline-nl-green active:bg-nl-green-600 transition ease-in-out duration-150">
 								<svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
@@ -39,7 +39,9 @@
 						</span>
 					</div>
 
-					<ProfileDropdown v-if="user" :user="user"></ProfileDropdown>
+          <PrayerRequest v-if="user" class="hidden md:block"></PrayerRequest>
+
+					<ProfileDropdown v-if="user" :user="user" class="hidden md:block"></ProfileDropdown>
 
 					<div v-else class="hidden sm:ml-6 sm:flex space-x-8">
 						<a href="/login" class="inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium leading-5 transition duration-150 ease-in-out text-gray-500 border-transparent hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
@@ -51,13 +53,13 @@
 					</div>
 				</div>
 
-				<div class="-mr-2 flex items-center sm:hidden">
+				<div class="-mr-2 flex items-center md:hidden">
 					<!-- Mobile menu button -->
 					<button @click="mobileNavOpen = !mobileNavOpen" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
 						<svg class="h-6 w-6" :class="mobileNavOpen ? 'hidden' : 'block'" stroke="currentColor" fill="none" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
 						</svg>
-						<svg class="h-6 w-6" :class="mobileNavOpen ? 'hidden' : 'block'" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+						<svg class="h-6 w-6" :class="mobileNavOpen ? 'block' : 'hidden'" stroke="currentColor" fill="none" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
 						</svg>
 					</button>
@@ -66,8 +68,20 @@
 		</div>
 
 		<!-- Mobile menu -->
-	  <div v-show="mobileNavOpen" class="block sm:hidden">
+	  <div v-show="mobileNavOpen" class="block md:hidden">
 	    <div class="pt-2 pb-3 space-y-1">
+        <div class="flex items-center w-full space-x-4 px-4 py-1">
+          <div class="rounded-md shadow-sm">
+            <a href="https://www.eservicepayments.com/cgi-bin/Vanco_ver3.vps?appver3=Dc8dzPGn4-LCajFevTkh9IrAPiKyxuq1wz14eIF-xa7wDLnFUBRZuK9-TeNGQgRt3ZjrEf-JY61LsyvVDvllero7zqy-JU_UuLu19bUbJx16ST79ddXa13WVGWu3v78lk0PpduXvnt8gXUeZjQYbn8YMd3VAg-5ef_sTFvOQq-g=&ver=3" target="_blank" class="flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-nl-green-500 hover:bg-nl-green-400 focus:outline-none focus:border-nl-green-500 focus:shadow-outline-nl-green active:bg-nl-green-600 transition ease-in-out duration-150">
+              <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+              Give
+            </a>
+          </div>
+
+          <PrayerRequest v-if="user"></PrayerRequest>
+
+        </div>
+
 	      <a href="/" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out" :class="isRoute('/') ? 'border-nl-blue-500 text-nl-blue-700 bg-nl-blue-50 focus:outline-none focus:text-nl-blue-800 focus:bg-nl-blue-100 focus:border-nl-blue-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300'">Live</a>
 
 	      <a v-if="canEditServices" href="/admin/services" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out" :class="isRoute('admin/services') ? 'border-nl-blue-500 text-nl-blue-700 bg-nl-blue-50 focus:outline-none focus:text-nl-blue-800 focus:bg-nl-blue-100 focus:border-nl-blue-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300'">Services</a>
@@ -77,9 +91,9 @@
 	      <a v-if="canEditServices" href="/admin/users" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium transition duration-150 ease-in-out" :class="isRoute('admin/users') ? 'border-nl-blue-500 text-nl-blue-700 bg-nl-blue-50 focus:outline-none focus:text-nl-blue-800 focus:bg-nl-blue-100 focus:border-nl-blue-700' : 'border-transparent text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300'">Users</a>
 
 	    </div>
-	    <div class="pt-4 pb-3 border-t border-gray-200">
-	      <div v-if="user">
-	        <div class="flex items-center px-4">
+	    <div class="border-t border-gray-200">
+	      <div v-if="user" class="divide-gray-200 divide-y">
+	        <div class="flex items-center px-4 py-3">
 	          <div class="flex-shrink-0">
 	            <img class="h-10 w-10 rounded-full" :src="user.gravatar" alt="" />
 	          </div>
@@ -89,14 +103,14 @@
 	            </div>
 	            <div class="inline-flex text-sm font-medium leading-5 text-gray-500">
 	              {{ user.email }}
-	              <span v-if="user.breeze_id" class="inline-flex items-center text-nl-blue-500 ml-2">
+	              <span v-if="user.breeze_id" class="inline-flex items-center text-nl-blue-500">
 	                <svg class="h-6 w-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
 	                Verified
 	              </span>
 	            </div>
 	          </div>
 	        </div>
-	        <div class="mt-3 space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+	        <div class="py-3 space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
 	          <!-- <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Your Profile</a> -->
 	          <!-- <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Settings</a> -->
 	          <a href="/logout" @click="logout" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Sign Out</a>
@@ -117,11 +131,13 @@
 </template>
 
 <script>
-import ProfileDropdown from './ProfileDropdown.vue';
+import ProfileDropdown from './ProfileDropdown';
+import PrayerRequest from './PrayerRequest';
 
 export default {
   components: {
   	ProfileDropdown,
+    PrayerRequest,
   },
   props: {
   	user: {
