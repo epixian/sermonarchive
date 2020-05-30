@@ -5,7 +5,7 @@
     <div>
         <!-- <img class="mx-auto h-12 w-auto" src="/img/logos/workflow-mark-on-white.svg" alt="Workflow" /> -->
         <h2 class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-            {{ __('Login') }}
+            Sign In
         </h2>
         <div class="flex flex-col max-w-md md:max-w-2xl w-full">
             <p class="font-serif md:-ml-10 text-6xl text-gray-200 text-left">&#8220;</p>
