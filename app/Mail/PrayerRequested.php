@@ -33,6 +33,7 @@ class PrayerRequested extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->from($this->sender['email'], $this->sender['name'])
+            ->subject('Prayer request from ' . $this->sender['name'])
             ->view('emails.prayer_requested')
             ->text('emails.prayer_requested_plain');
 ;
