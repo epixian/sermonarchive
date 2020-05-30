@@ -13,7 +13,7 @@
             <ul class="p-2 text-gray-700 text-sm leading-5 list-inside list-disc">
                 <li>Record attendance for you and your family</li>
                 <!-- <li>Chat with other members</li> -->
-                <li>Submit prayer requests (coming soon!)</li>
+                <li>Submit prayer requests</li>
             </ul>
         </div>
         <form class="mt-8" action="{{ route('register') }}" method="POST">
