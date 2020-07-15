@@ -103,13 +103,25 @@
 	            </div>
 	            <div class="inline-flex text-sm font-medium leading-5 text-gray-500">
 	              {{ user.email }}
-	              <span v-if="user.breeze_id" class="inline-flex items-center text-nl-blue-500">
+	              <span v-if="user.breeze_id" class="ml-2 inline-flex items-center text-nl-blue-500">
 	                <svg class="h-6 w-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-	                Verified
+	                Linked
 	              </span>
+                <span v-else-if="!user.email_verified_at" class="ml-2 inline-flex items-center text-red-600">
+                  Unverified
+                </span>
+                <span v-else-if="!user.breeze_id " class="ml-2 inline-flex items-center text-red-600">
+                  Not linked
+                </span>
 	            </div>
 	          </div>
 	        </div>
+          <div v-if="!user.email_verified_at" class="text-base font-medium leading-6 text-gray-800">
+            <a href="/email/resend" @click.prevent="resend" class="block px-4 sm:px-6 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out">Resend verification email</a>
+          </div>
+          <div v-else-if="!user.breeze_id" class="text-base font-medium leading-6 text-gray-800">
+            <a href="/user/link" class="block px-4 sm:px-6 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out">Reattempt link</a>
+          </div>
 	        <div class="py-3 space-y-1" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
 	          <!-- <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Your Profile</a> -->
 	          <!-- <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Settings</a> -->
@@ -123,9 +135,12 @@
         </div>
 	    </div>
 	  </div>
-		<form id="logout-form" action="/logout" method="POST" class="hidden">
-			<input type="hidden" name="_token" :value="csrf">
-		</form>
+    <form id="logout-form" action="/logout" method="POST" class="hidden">
+      <input type="hidden" name="_token" :value="csrf">
+    </form>
+    <form id="resend-verification-email-form" action="/email/resend" method="POST" class="hidden">
+      <input type="hidden" name="_token" :value="csrf">
+    </form>
 	</nav>
 
 </template>
@@ -173,6 +188,9 @@ export default {
   	logout() {
 			document.getElementById('logout-form').submit();
   	},
+    resend() {
+      document.getElementById('resend-verification-email-form').submit();
+    }
   }
 }
 </script>

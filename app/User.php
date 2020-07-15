@@ -52,6 +52,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $visible = [
         'id',
         'name',
+        'email',
+        'email_verified_at',
         'breeze_id',
         'gravatar',
         'can',
