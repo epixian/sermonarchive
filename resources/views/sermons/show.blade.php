@@ -25,7 +25,4 @@
         {{ $sermon->description }}
     </div>
 </div>
-
-<link href="https://vjs.zencdn.net/7.7.6/video-js.min.css" rel="stylesheet" />
-<script src="https://vjs.zencdn.net/7.7.6/video.min.js"></script>
 @endsection
