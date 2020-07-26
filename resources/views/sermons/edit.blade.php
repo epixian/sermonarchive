@@ -46,7 +46,11 @@
             <div class="max-w-xs rounded-md shadow-sm">
               <select aria-label="Speaker" id="speaker" name="speaker_id" class="block form-select w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                 @foreach($speakers as $speaker)
+                @if(isset($sermon) && $sermon->speaker_id === $speaker->id)
+                <option value="{{ $speaker->id }}" selected>{{ $speaker->full_name }}</option>
+                @else
                 <option value="{{ $speaker->id }}">{{ $speaker->full_name }}</option>
+                @endif
                 @endforeach
               </select>
             </div>
