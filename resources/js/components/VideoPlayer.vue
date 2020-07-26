@@ -9,11 +9,11 @@
 
     <video-js v-if="statusText === 'streaming' || mode === 'preview' || statusText === 'recorded'" class="video-js vjs-big-play-centered h-full shadow-md" controls autoplay preload="none" data-setup='{ "liveui": true }'>
       <source v-if="statusText === 'streaming' || mode === 'preview'" :src="'https://stream.newlifeglenside.com/hls/' + sermon.stream_key + '.m3u8'" type="application/vnd.apple.mpegurl">
-      <source v-else :src="'https://stream.newlifeglenside.com/recordings/' + sermon.stream_key + '.mp4'" type="video/mp4">
+      <source v-else :src="recordingPath" type="video/mp4">
       <p class="vjs-no-js">To watch this video, please enable Javascript or use a browser that supports HTML5 video.</p>
     </video-js>
 
-    <div v-if="statusText === 'processing' && mode !== 'preview'"" class="" :class="{ 'flex flex-col-reverse': control }">
+    <div v-if="statusText === 'processing' && mode !== 'preview'"" :class="{ 'flex flex-col-reverse': control }">
       <p class="px-4 sm:px-0" :class="{ 'mt-4': control }">
         The stream has ended and is currently processing.  Please check back in a little bit.
       </p>
@@ -59,6 +59,9 @@
     computed: {
       fromNow() {
         return moment(this.sermon.scheduled_for).fromNow();
+      },
+      recordingPath() {
+        return this.sermon.recording_url || 'https://stream.newlifeglenside.com/recordings/' + this.sermon.stream_key + '.mp4'
       },
       statusText() {
         if (this.recording_done !== 0)
