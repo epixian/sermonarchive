@@ -58,7 +58,7 @@ class AdminSermonsController extends Controller
             'description' => 'sometimes',
             'speaker_id' => 'required',
             'scheduled_time' => 'sometimes',
-            'recording_url' => 'sometimes|url',
+            'recording_url' => 'sometimes',
         ]);
 
         $sermon->update($validated);
