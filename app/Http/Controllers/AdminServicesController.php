@@ -46,7 +46,7 @@ class AdminServicesController extends Controller
         ]);
 
         if (! $validated['name']) {
-            $validated['name'] = 'Morning Worship Services';
+            $validated['name'] = 'Morning Worship Services (Online)';
         }
         if (! $validated['breeze_id']) {
             $breeze = new Breeze();

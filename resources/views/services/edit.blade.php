@@ -30,7 +30,7 @@
             <div class="max-w-lg flex rounded-md shadow-sm">
               <input name="name" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('name', isset($service) ? $service->name : '') }}" />
             </div>
-            <p class="mt-2 text-sm text-gray-500">If left blank, defaults to "Morning Worship Services".</p>
+            <p class="mt-2 text-sm text-gray-500">If left blank, defaults to "Morning Worship Services (Online)".</p>
           </div>
         </div>
 
