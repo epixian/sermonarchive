@@ -1,15 +1,30 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Sermon;
-use App\Service;
 use Carbon\Carbon;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Sermon::class, function (Faker $faker) {
-    return [
-        'name' => $faker->sentence,
-        'publish_date' => Carbon::now(),
-    ];
-});
+class SermonFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Sermon::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->sentence,
+            'publish_date' => Carbon::now(),
+        ];
+    }
+}

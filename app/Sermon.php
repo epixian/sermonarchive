@@ -2,11 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
 class Sermon extends Model
 {
+    use HasFactory;
+    
     /**
      * Append these additional attributes to the model.
      *

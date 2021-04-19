@@ -7,7 +7,6 @@ use App\Service;
 use App\Speaker;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class SermonsTest extends TestCase
@@ -24,9 +23,10 @@ class SermonsTest extends TestCase
     /** @test */
     public function a_guest_can_list_sermons()
     {
-        $service = factory(Service::class)->create();
-        $speaker = factory(Speaker::class)->create();
-        $sermon = factory(Sermon::class)->create(['service_id' => $service->id, 'speaker_id' => $speaker->id]);
+        $sermon = Sermon::factory()
+            ->for(Service::factory()->create())
+            ->for(Speaker::factory()->create())
+            ->create();
 
         $this->get('/sermons')
             ->assertSee($sermon->name);
@@ -35,9 +35,10 @@ class SermonsTest extends TestCase
     /** @test */
     public function a_guest_can_show_a_sermon()
     {
-        $service = factory(Service::class)->create();
-        $speaker = factory(Speaker::class)->create();
-        $sermon = factory(Sermon::class)->create(['service_id' => $service->id, 'speaker_id' => $speaker->id]);
+        $sermon = Sermon::factory()
+            ->for(Service::factory()->create())
+            ->for(Speaker::factory()->create())
+            ->create();
 
         $this->get($sermon->path())
             ->assertSee($sermon->name);
@@ -46,9 +47,10 @@ class SermonsTest extends TestCase
     /** @test */
     public function a_guest_cannot_create_update_or_delete_a_sermon()
     {
-        $service = factory(Service::class)->create();
-        $speaker = factory(Speaker::class)->create();
-        $sermon = factory(Sermon::class)->raw(['service_id' => $service->id, 'speaker_id' => $speaker->id]);
+        $sermon = Sermon::factory()
+            ->for($service = Service::factory()->create())
+            ->for(Speaker::factory()->create())
+            ->raw();
 
         $this->post($service->path() . '/sermons', $sermon)
             ->assertRedirect('/login');
@@ -59,13 +61,15 @@ class SermonsTest extends TestCase
     /** @test */
     public function a_user_can_create_a_sermon()
     {
-        $user = factory(User::class)->create()->givePermissionTo('edit_services');
-        $service = factory(Service::class)->create();
-        $speaker = factory(Speaker::class)->create();
-        $sermon = factory(Sermon::class)->raw(['service_id' => $service->id, 'speaker_id' => $speaker->id]);
+        $user = User::factory()->create()->givePermissionTo('edit_sermons');
+        $sermon = Sermon::factory()
+            ->for($service = Service::factory()->create())
+            ->for(Speaker::factory()->create())
+            ->raw();
 
         $this->actingAs($user)
-            ->post($service->path() . '/sermons', $sermon);
+            ->post($service->path() . '/sermons', $sermon)
+            ->assertRedirect();
 
         $this->assertDatabaseHas('sermons', ['name' => $sermon['name']]);
     }
