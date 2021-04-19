@@ -1,14 +1,30 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Speaker;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Speaker::class, function (Faker $faker) {
-    return [
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-        'description' => $faker->text,
-    ];
-});
+class SpeakerFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Speaker::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'description' => $this->faker->text,
+        ];
+    }
+}
