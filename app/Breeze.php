@@ -12,9 +12,9 @@ class Breeze
 
     public function __construct()
      {
-        $this->apiKey = env('BREEZE_API_KEY');
-        $this->baseUrl = 'https://' . env('BREEZE_SUBDOMAIN') . '.breezechms.com/api';
-        $this->emailProfileField = env('BREEZE_EMAIL_PROFILE_FIELD');
+        $this->apiKey = config('sermonarchive.breeze_api_key');
+        $this->baseUrl = config('sermonarchive.breeze_api_url');
+        $this->emailProfileField = config('sermonarchive.breeze_email_profile_field');
     }
 
     // fetch request
@@ -131,7 +131,7 @@ class Breeze
      * @link   https://app.breezechms.com/api#add_event
      * @param  string $event_id
      * @param  array  $people
-     * @return string
+     * @return mixed
      */
     public function createServiceEvent($name, $date)
     {

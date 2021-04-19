@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 class Sermon extends Model
 {
     use HasFactory;
-    
+
     /**
      * Append these additional attributes to the model.
      *
@@ -75,6 +75,7 @@ class Sermon extends Model
      */
     public function getScheduledForAttribute()
     {
-        return Carbon::parse($this->publish_date, env('TIMEZONE', 'America/New_York'))->setTimeFromTimeString($this->scheduled_time);
+        return Carbon::parse($this->publish_date, config('sermonarchive.event_timezone'))
+            ->setTimeFromTimeString($this->scheduled_time);
     }
 }
