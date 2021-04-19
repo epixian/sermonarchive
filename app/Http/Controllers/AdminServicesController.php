@@ -41,7 +41,7 @@ class AdminServicesController extends Controller
         $validated = $request->validate([
             'name' => 'sometimes',
             'description' => 'sometimes',
-            'service_date' => 'required',
+            'service_date' => 'required|date',
             'breeze_id' => 'sometimes',
         ]);
 

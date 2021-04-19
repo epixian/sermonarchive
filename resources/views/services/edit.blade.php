@@ -52,9 +52,9 @@
           </label>
           <div class="mt-1 sm:mt-0 sm:col-span-2">
             <div class="max-w-lg flex rounded-md shadow-sm">
-              <input name="service_date" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('service_date', isset($service) ? $service->service_date : '') }}" />
+              <input type="date" name="service_date" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('service_date', isset($service) ? $service->service_date : '') }}" />
             </div>
-            <p class="mt-2 text-sm text-gray-500">The date of the service in <em>YYYY-MM-DD</em>.</p>
+            <p class="mt-2 text-sm text-gray-500">The date of the service.</p>
           </div>
         </div>
 
