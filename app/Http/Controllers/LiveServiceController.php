@@ -33,6 +33,8 @@ class LiveServiceController extends Controller
         if($service = $this->service) {
             return view('services.current', compact('service'));
         }
+
+        return view('layouts.app');
     }
 
     /**
