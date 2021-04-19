@@ -14,7 +14,13 @@ class LiveServiceController extends Controller
 
     public function __construct()
     {
-        $this->service = Service::where('service_date', '<=', Carbon::now(env('TIMEZONE', 'America/New_York'))->addHours(6))->latest()->first();
+        $this->service = Service::where(
+                'service_date',
+                '<=',
+                Carbon::now(config('sermonarchive.event_timezone'))->addHours(6)
+            )
+            ->latest('service_date')
+            ->first();
     }
 
     /**
@@ -27,6 +33,8 @@ class LiveServiceController extends Controller
         if($service = $this->service) {
             return view('services.current', compact('service'));
         }
+
+        return view('layouts.app');
     }
 
     /**

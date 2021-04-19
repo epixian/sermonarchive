@@ -26,10 +26,11 @@ class PrayerRequestController extends Controller
         ];
 
         Mail::to([
-            [
-                'name' => env('PRAYER_REQUEST_NAME', 'Prayer Request Recipient'),
-                'email' => env('PRAYER_REQUEST_EMAIL', 'mail@example.com'),
-            ]
-        ])->send(new PrayerRequested($message));
+                [
+                    'name' => config('sermonarchive.prayer_request_name'),
+                    'email' => config('sermonarchive.prayer_request_email'),
+                ]
+            ])
+            ->send(new PrayerRequested($message));
     }
 }
