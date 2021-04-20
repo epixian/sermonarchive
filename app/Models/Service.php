@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -41,6 +41,5 @@ class Service extends Model
      */
     public function path()
     {
-        return '/admin/services/' . $this->id;
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Sermon;
-use App\Service;
-use App\Speaker;
-use App\User;
+use App\Models\Sermon;
+use App\Models\Service;
+use App\Models\Speaker;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

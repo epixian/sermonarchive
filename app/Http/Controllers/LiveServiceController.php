@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Breeze;
+use App\Models\Breeze;
 use App\Events\LiveServiceMessageSent;
-use App\Service;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
