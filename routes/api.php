@@ -17,3 +17,23 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('/sermons')->group(function () {
+    Route::get('/', 'SermonsApiController@index')->name('api.sermons.index');
+    Route::get('/{sermon}', 'SermonsApiController@show')->name('api.sermons.show');
+});
+
+Route::prefix('/services')->group(function () {
+
+    Route::get('/live', 'LiveServiceApiController@index');
+
+    
+});
+
+Route::middleware('auth:sanctum')->prefix('/services')->group(function () {
+    Route::get('/', 'ServicesApiController@index')->name('api.services.index');
+
+    Route::post('/{service}/sermons', 'ServiceSermonsApiController@store')
+        ->middleware('permission:edit_sermons')
+        ->name('api.service.sermons.store');
+});
