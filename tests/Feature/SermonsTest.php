@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Models\Speaker;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class SermonsTest extends TestCase
@@ -61,9 +62,12 @@ class SermonsTest extends TestCase
     /** @test */
     public function a_user_can_create_a_sermon()
     {
-        $user = User::factory()->create()->givePermissionTo('edit_sermons');
+        $user = User::factory()
+            ->hasAttached(Role::firstWhere(['name' => 'stream_technician']))
+            ->create();
+
+        $service = Service::factory()->create();
         $sermon = Sermon::factory()
-            ->for($service = Service::factory()->create())
             ->for(Speaker::factory()->create())
             ->raw();
 
