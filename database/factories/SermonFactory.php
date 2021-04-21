@@ -25,6 +25,11 @@ class SermonFactory extends Factory
         return [
             'name' => $this->faker->sentence,
             'publish_date' => Carbon::now(),
+            'scheduled_time' => $this->faker->time('H:i'),
+            'stream_key' => $this->faker->uuid,
+            'stream_started' => false,
+            'stream_ended' => false,
+            'recording_done' => false,
         ];
     }
 }
