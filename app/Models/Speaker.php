@@ -41,4 +41,14 @@ class Speaker extends Model
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    /**
+     * Get the public URL for the sermon.
+     *
+     * @return string
+     */
+    public function path()
+    {
+        return '/speakers/' . $this->id;
+    }
 }

@@ -41,5 +41,6 @@ class Service extends Model
      */
     public function path()
     {
+        return '/services/' . $this->id;
     }
 }

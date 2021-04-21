@@ -52,7 +52,7 @@ class SermonsTest extends TestCase
             ->for(Speaker::factory()->create())
             ->raw();
 
-        $this->post($service->path() . '/sermons', $sermon)
+        $this->post('/admin' . $service->path() . '/sermons', $sermon)
             ->assertRedirect('/login');
 
         $this->assertDatabaseMissing('sermons', $sermon);
@@ -68,7 +68,7 @@ class SermonsTest extends TestCase
             ->raw();
 
         $this->actingAs($user)
-            ->post($service->path() . '/sermons', $sermon)
+            ->post('/admin' . $service->path() . '/sermons', $sermon)
             ->assertRedirect();
 
         $this->assertDatabaseHas('sermons', ['name' => $sermon['name']]);
