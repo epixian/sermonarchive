@@ -8,7 +8,7 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class ServiceSermonsApiController extends Controller
+class ServiceSermonApiController extends Controller
 {
     /**
      * Display a listing of the resource.

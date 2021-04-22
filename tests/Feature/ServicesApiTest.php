@@ -31,12 +31,12 @@ class ServicesApiTest extends TestCase
         $service1 = Service::factory([
                 'service_date' => $now,
             ])
-            ->has(Sermon::factory()->for(Speaker::factory()))
+            ->has(Sermon::factory()->inProgress()->for(Speaker::factory()))
             ->create();
 
-        // create a service for 8 hours in the future
+        // create a service for 7 hours in the future
         $service2 = Service::factory([
-                'service_date' => $now->setTimezone(config('sermonarchive.event_timezone'))->addHours(8),
+                'service_date' => $now->setTimezone(config('sermonarchive.event_timezone'))->addHours(7),
             ])
             ->has(Sermon::factory()->for(Speaker::factory()))
             ->create();
@@ -46,9 +46,18 @@ class ServicesApiTest extends TestCase
             ->assertOk()
             ->assertJsonPath('data.service_id', $service1->getKey());
 
-        // jumping 3 hours into the future, request should return service 2 (within 6 hours of start)
-        Carbon::setTestNow($now->addhours(3));
+        // shift forward two hours to put us within the window of the later service
+        Carbon::setTestNow($now->addHours(2));
 
+        // even though we're within the window for the later service (6h), we shouldn't interrupt the earlier service
+        $this->getJson('/api/services/live')
+            ->assertOk()
+            ->assertJsonPath('data.service_id', $service1->getKey());
+
+        // end the earlier service
+        $service1->sermon()->update(['stream_ended' => true]);
+
+        // the earlier stream has ended
         $this->getJson('/api/services/live')
             ->assertOk()
             ->assertJsonPath('data.service_id', $service2->getKey());

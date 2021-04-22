@@ -32,4 +32,19 @@ class SermonFactory extends Factory
             'recording_done' => false,
         ];
     }
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function inProgress()
+    {
+        return $this->state(function () {
+            return [
+                'stream_started' => true,
+                'stream_ended' => false,
+            ];
+        });
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ServiceResource;
 use App\Models\Service;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -16,15 +17,28 @@ class LiveServiceApiController extends Controller
      */
     public function index()
     {
-        $service = Service::where(
+        /** @var Collection|Service[] $services */
+        $services = Service::where(
                 'service_date',
                 '<=',
                 Carbon::now()->addHours(6)->setTimezone(config('sermonarchive.event_timezone'))
             )
+            ->where(
+                'service_date',
+                '>=',
+                Carbon::now()->subHours(6)->setTimezone(config('sermonarchive.event_timezone'))
+            )
+            ->with('sermon')
             ->latest('service_date')
-            ->first();
+            ->get();
 
-        return new ServiceResource($service);
+        // if one of the services is live then return that one
+        if ($service = $services->filter(fn (Service $service) => $service->sermon->is_live)->first()) {
+            return new ServiceResource($service);
+        }
+
+        // otherwise return the first
+        return new ServiceResource($services->first());
     }
 
     /**
