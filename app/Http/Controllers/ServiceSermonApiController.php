@@ -40,7 +40,7 @@ class ServiceSermonsApiController extends Controller
         $validated['publish_date'] = $service->service_date;
         $validated['stream_key'] = (string) Str::uuid();
 
-        $sermon = $service->sermons()->create($validated);
+        $sermon = $service->sermon()->create($validated);
 
         return new SermonResource($sermon);
     }

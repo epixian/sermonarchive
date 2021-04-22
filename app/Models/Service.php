@@ -5,6 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Service
+ * @package App\Models
+ * 
+ * @property Sermon $sermon
+ * @property Collection|Message[] $message
+ */
 class Service extends Model
 {
     use HasFactory;
@@ -27,12 +34,12 @@ class Service extends Model
     }
 
     /**
-     * Get the items associated with this service.
+     * Get the sermon associated with this service.
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function sermons()
+    public function sermon()
     {
-        return $this->hasMany(Sermon::class);
+        return $this->hasOne(Sermon::class);
     }
 
     /**

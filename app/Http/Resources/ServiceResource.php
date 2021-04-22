@@ -18,7 +18,7 @@ class ServiceResource extends JsonResource
             'service_id' => $this->id,
             'name' => $this->name,
             'service_date' => $this->service_date,
-            'sermon' => new SermonResource($this->sermons()->first()),
+            'sermon' => new SermonResource($this->sermon),
         ];
     }
 }

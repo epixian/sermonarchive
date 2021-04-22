@@ -33,7 +33,7 @@ Route::prefix('/services')->group(function () {
 Route::middleware('auth:sanctum')->prefix('/services')->group(function () {
     Route::get('/', 'ServicesApiController@index')->name('api.services.index');
 
-    Route::post('/{service}/sermons', 'ServiceSermonsApiController@store')
+    Route::post('/{service}/sermon', 'ServiceSermonApiController@store')
         ->middleware('permission:edit_sermons')
-        ->name('api.service.sermons.store');
+        ->name('api.service.sermon.store');
 });

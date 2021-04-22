@@ -55,7 +55,7 @@ class SermonsApiTest extends TestCase
             ->for(Speaker::factory()->create())
             ->raw();
 
-        $this->postJson('/api' . $service->path() . '/sermons', $sermon)
+        $this->postJson('/api' . $service->path() . '/sermon', $sermon)
             ->assertUnauthorized();
 
         $this->assertDatabaseMissing('sermons', $sermon);
@@ -74,7 +74,7 @@ class SermonsApiTest extends TestCase
             ->raw();
 
         $this->actingAs($user)
-            ->postJson('/api' . $service->path() . '/sermons', $sermon)
+            ->postJson('/api' . $service->path() . '/sermon', $sermon)
             ->assertCreated();
 
         $this->assertDatabaseHas('sermons', ['name' => $sermon['name']]);
