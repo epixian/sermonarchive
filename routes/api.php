@@ -27,7 +27,10 @@ Route::prefix('/services')->group(function () {
 
     Route::get('/live', 'LiveServiceApiController@index');
 
-    
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::patch('/live', 'LiveServiceApiController@update')
+            ->middleware('permission:edit_sermons');
+    });
 });
 
 Route::middleware('auth:sanctum')->prefix('/services')->group(function () {

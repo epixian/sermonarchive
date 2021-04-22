@@ -64,7 +64,7 @@ class ServicesApiTest extends TestCase
     }
 
     /** @test */
-    public function a_stream_technician_can_control_the_current_service_api()
+    public function a_stream_technician_can_view_the_current_service_api()
     {
         $serviceDate = Carbon::now()->subMinutes(5);
 
@@ -72,7 +72,7 @@ class ServicesApiTest extends TestCase
             ->hasAttached(Role::firstWhere('name', 'stream_technician'))
             ->create();
 
-        $sermon = Sermon::factory([
+        Sermon::factory([
                 'stream_started' => true,
             ])
             ->for(Service::factory(['service_date' => $serviceDate]))
@@ -83,8 +83,69 @@ class ServicesApiTest extends TestCase
         $this->actingAs($user)
             ->getJson('/api/services/live')
             ->assertOk()
-            ->assertJsonPath('data.sermon.stream_started', true)
-            ->dump()
-            ;
+            ->assertJsonPath('data.sermon.stream_started', true);
+    }
+
+    /** @test */
+    public function a_guest_cannot_update_the_current_service_api()
+    {
+        $now = Carbon::now();
+
+        Service::factory([
+                'service_date' => $now,
+            ])
+            ->has(Sermon::factory()->inProgress()->for(Speaker::factory()))
+            ->create();
+
+        // Should not be able to update
+        $this->patchJson('/api/services/live')
+            ->assertUnauthorized();
+    }
+
+    /** @test */
+    public function a_regular_user_cannot_update_the_current_service_api()
+    {
+        $now = Carbon::now();
+
+        $user = User::factory()
+            ->hasAttached(Role::firstWhere('name', 'regular_user'))
+            ->create();
+
+        Service::factory([
+                'service_date' => $now,
+            ])
+            ->has(Sermon::factory()->inProgress()->for(Speaker::factory()))
+            ->create();
+
+        // Should not be able to update
+        $this->actingAs($user)
+            ->patchJson('/api/services/live')
+            ->assertForbidden();
+    }
+
+    /** @test */
+    public function a_stream_technician_can_update_the_current_service_api()
+    {
+        $this->withoutExceptionHandling();
+        $now = Carbon::now();
+
+        $user = User::factory()
+            ->hasAttached(Role::firstWhere('name', 'stream_technician'))
+            ->create();
+
+        $service = Service::factory([
+                'service_date' => $now,
+            ])
+            ->has(Sermon::factory()->inProgress()->for(Speaker::factory()))
+            ->create();
+
+        // Should be able to update
+        $this->actingAs($user)
+            ->patchJson('/api/services/live', [
+                'stream_ended' => true,
+            ])
+            ->assertOk();
+
+        $this->assertEquals(false, $service->sermon->is_live);
     }
 }
