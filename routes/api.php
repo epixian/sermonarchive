@@ -19,24 +19,41 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('/sermons')->group(function () {
-    Route::get('/', 'SermonsApiController@index')->name('api.sermons.index');
-    Route::get('/{sermon}', 'SermonsApiController@show')->name('api.sermons.show');
+
+    // view sermons
+    Route::get('/', 'SermonsApiController@index')->name('api.sermon.index');
+    Route::get('/{sermon}', 'SermonsApiController@show')->name('api.sermon.show');
+
 });
+
 
 Route::prefix('/services')->group(function () {
 
-    Route::get('/live', 'LiveServiceApiController@index');
+    // view livestream
+    Route::get('/live', 'LiveServiceApiController@index')->name('api.live.index');
 
+    // must be logged in
     Route::middleware('auth:sanctum')->group(function () {
-        Route::patch('/live', 'LiveServiceApiController@update')
-            ->middleware('permission:edit_sermons');
+
+        // list services
+        Route::get('/', 'ServicesApiController@index')->name('api.service.index');
+        Route::get('/{service}', 'ServicesApiController@show')->name('api.service.show');
+
+        // must have elevated permissions
+        Route::middleware('permission:edit_sermons')->group(function () {
+
+            // manage livestream
+            Route::patch('/live', 'LiveServiceApiController@update')->name('api.live.update');
+
+            // manage services
+            Route::post('/', 'ServicesApiController@store')->name('api.service.store');
+            Route::patch('/{service}', 'ServicesApiController@update')->name('api.service.update');
+
+            // manage sermons
+            Route::post('/{service}/sermon', 'ServiceSermonApiController@store')->name('api.service.sermon.store');
+
+        });
+
     });
-});
 
-Route::middleware('auth:sanctum')->prefix('/services')->group(function () {
-    Route::get('/', 'ServicesApiController@index')->name('api.services.index');
-
-    Route::post('/{service}/sermon', 'ServiceSermonApiController@store')
-        ->middleware('permission:edit_sermons')
-        ->name('api.service.sermon.store');
 });

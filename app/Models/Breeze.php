@@ -6,6 +6,8 @@ use Illuminate\Support\Carbon;
 
 class Breeze
 {
+    const TEST_SERVICE_ID = 0;
+    
     protected $apiKey;
     protected $baseUrl;
     protected $emailProfileField;
