@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Breeze;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class VerificationController extends Controller
 {
@@ -38,7 +36,7 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:sanctum');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
@@ -46,10 +44,9 @@ class VerificationController extends Controller
     /**
      * The user has been verified.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
-    protected function verified(Request $request)
+    protected function verified()
     {
         auth()->user()->assignRole('regular_user');
 

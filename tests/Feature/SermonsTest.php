@@ -2,11 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Sermon;
-use App\Service;
-use App\Speaker;
-use App\User;
+use App\Models\Sermon;
+use App\Models\Service;
+use App\Models\Speaker;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class SermonsTest extends TestCase
@@ -52,7 +53,7 @@ class SermonsTest extends TestCase
             ->for(Speaker::factory()->create())
             ->raw();
 
-        $this->post($service->path() . '/sermons', $sermon)
+        $this->post('/admin' . $service->path() . '/sermons', $sermon)
             ->assertRedirect('/login');
 
         $this->assertDatabaseMissing('sermons', $sermon);
@@ -61,14 +62,17 @@ class SermonsTest extends TestCase
     /** @test */
     public function a_user_can_create_a_sermon()
     {
-        $user = User::factory()->create()->givePermissionTo('edit_sermons');
+        $user = User::factory()
+            ->hasAttached(Role::firstWhere(['name' => 'stream_technician']))
+            ->create();
+
+        $service = Service::factory()->create();
         $sermon = Sermon::factory()
-            ->for($service = Service::factory()->create())
             ->for(Speaker::factory()->create())
             ->raw();
 
         $this->actingAs($user)
-            ->post($service->path() . '/sermons', $sermon)
+            ->post('/admin' . $service->path() . '/sermons', $sermon)
             ->assertRedirect();
 
         $this->assertDatabaseHas('sermons', ['name' => $sermon['name']]);

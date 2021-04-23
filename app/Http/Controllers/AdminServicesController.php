@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Breeze;
-use App\Service;
+use App\Models\Breeze;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class AdminServicesController extends Controller
@@ -62,7 +62,7 @@ class AdminServicesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Service  $service
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
     public function show(Service $service)
@@ -73,7 +73,7 @@ class AdminServicesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Service  $service
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
     public function edit(Service $service)
@@ -86,7 +86,7 @@ class AdminServicesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Service  $service
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Service $service)
@@ -107,7 +107,7 @@ class AdminServicesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Service  $service
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
     public function destroy(Service $service)
