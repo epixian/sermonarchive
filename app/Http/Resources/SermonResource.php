@@ -26,11 +26,7 @@ class SermonResource extends JsonResource
             'name' => $this->name,
             'scheduled_for' => $this->scheduled_for,
             'stream_key' => $this->stream_key,
-            $this->mergeWhen($streamTechnician, [
-                'stream_started' => (bool) $this->stream_started,
-                'stream_ended' => (bool) $this->stream_ended,
-                'recording_done' => (bool) $this->recording_done,
-            ]),
+            'status' => $this->when($streamTechnician, $this->getStatus()),
         ];
     }
 }

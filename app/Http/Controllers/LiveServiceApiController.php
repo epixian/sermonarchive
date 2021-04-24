@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ServiceResource;
 use App\Models\Service;
+use App\Validators\SermonStatusValidator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 
 class LiveServiceApiController extends Controller
@@ -54,11 +54,7 @@ class LiveServiceApiController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        $validated = $request->validate([
-            'stream_started' => 'sometimes|boolean',
-            'stream_ended' => 'sometimes|boolean',
-            'recording_done' => 'sometimes|boolean',
-        ]);
+        $validated = app(SermonStatusValidator::class)->validate();
 
         $service = $this->getLiveService();
         $service->sermon()->update($validated);

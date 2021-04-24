@@ -87,9 +87,8 @@ class LiveServiceApiTest extends ApiTestCase
             ->hasAttached(Role::firstWhere('name', 'stream_technician'))
             ->create();
 
-        Sermon::factory([
-                'stream_started' => true,
-            ])
+        Sermon::factory()
+            ->inProgress()
             ->for(Service::factory(['service_date' => $serviceDate]))
             ->for(Speaker::factory())
             ->create();
@@ -98,7 +97,7 @@ class LiveServiceApiTest extends ApiTestCase
         $this->actingAs($user)
             ->getJson('/api/services/live')
             ->assertOk()
-            ->assertJsonPath('data.sermon.stream_started', true);
+            ->assertJsonPath('data.sermon.status', 'streaming');
     }
 
     /** @test */

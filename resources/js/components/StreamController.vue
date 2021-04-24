@@ -24,51 +24,41 @@
       sermon: {
         type: Object,
         required: true,
-      }
+      },
     },
+
     data() {
       return {
-        stream_started: false,
-        stream_ended: false,
+        status: null,
       }
     },
+
+    beforeMount() {
+      axios.get('/api/sermons/' + this.sermon.id + '/status')
+        .then(response => response.data)
+        .then(this.saveStatus);
+    },
+
     methods: {
+      updateStatus(data) {
+        axios.post('/api/sermons/' + this.sermon.id + '/status', data)
+          .then(response => response.data)
+          .then(({status}) => {
+            this.status = status;
+          });
+      },
+
       doneRecording() {
-        axios.post('/admin/sermons/' + this.sermon.id + '/status', {
-          recording_done: true,
-        })
-          .then(response => response.data)
-          .then(data => {
-            this.recording_done = data.recording_done;
-          })
+        this.updateStatus({ recording_done: true });
       },
+
       startStream() {
-        axios.post('/admin/sermons/' + this.sermon.id + '/status', {
-          stream_started: true,
-        })
-          .then(response => response.data)
-          .then(data => {
-            this.stream_started = data.stream_started;
-          })
+        this.updateStatus({ stream_started: true });
       },
+
       endStream() {
-        axios.post('/admin/sermons/' + this.sermon.id + '/status', {
-          stream_ended: true,
-        })
-          .then(response => response.data)
-          .then(data => {
-            this.stream_ended = data.stream_ended;
-          })
+        this.updateStatus({ stream_ended: true });
       },
     },
-    created() {
-      axios.get('/sermons/' + this.sermon.id + '/status')
-        .then(response => response.data)
-        .then(data => {
-          this.stream_started = data.stream_started;
-          this.stream_ended = data.stream_ended;
-          this.recording_done = data.recording_done;
-        });
-    }
   }
 </script>

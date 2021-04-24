@@ -90,11 +90,19 @@ class Sermon extends Model
      */
     public function getStatus()
     {
-        return [
-            'stream_started' => $this->stream_started,
-            'stream_ended' => $this->stream_ended,
-            'recording_done' => $this->recording_done,
-        ];
+        if ($this->recording_done) {
+            return 'recorded';
+        }
+
+        if ($this->stream_ended) {
+            return 'processing';
+        }
+
+        if ($this->stream_started) {
+            return 'streaming';
+        }
+
+        return 'waiting';
     }
 
     /**

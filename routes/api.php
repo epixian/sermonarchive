@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SermonStatusApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,21 @@ Route::prefix('/services')->group(function () {
             // manage sermons
             Route::post('/{service}/sermon', 'ServiceSermonApiController@store')->name('api.service.sermon.store');
 
+        });
+
+    });
+
+});
+
+
+Route::prefix('/sermons')->group(function () {
+
+    Route::middleware('auth:sanctum')->group(function () {
+
+        Route::middleware('permission:edit_sermons')->group(function () {
+
+            // update sermon status
+            Route::patch('/{sermon}/status', 'SermonStatusApiController@update')->name('api.sermon.status.update');
         });
 
     });
