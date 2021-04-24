@@ -1,5 +1,10 @@
 <template>
   <div class="text-right">
+    <span v-if="allowUndo" class="inline-flex rounded-md shadow-sm">
+      <button @click="undo" type="button" class="inline-flex items-center px-4 py-2 border text-sm leading-5 font-medium rounded-md transition ease-in-out duration-150 border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50">
+        Undo
+      </button>
+    </span>
     <span v-if="status === 'waiting'" class="inline-flex rounded-md shadow-sm">
       <button @click="startStream" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-nl-blue-600 hover:bg-nl-blue-500 focus:outline-none focus:border-nl-blue-700 focus:shadow-outline-nl-blue active:bg-nl-blue-700 transition ease-in-out duration-150">
         Go Live
@@ -19,6 +24,7 @@
 </template>
 
 <script>
+
   export default {
     props: {
       sermon: {
@@ -30,6 +36,7 @@
     data() {
       return {
         status: null,
+        allowUndo: false,
       }
     },
 
@@ -42,16 +49,17 @@
     },
 
     methods: {
-      updateStatus(data) {
+      updateStatus(data, allowUndo = true) {
+        this.allowUndo = allowUndo;
         axios.patch('/api/sermons/' + this.sermon.id + '/status', data)
           .then(response => response.data)
           .then(({data}) => {
             this.status = data.status;
-          });
-      },
 
-      doneRecording() {
-        this.updateStatus({ recording_done: true });
+            setTimeout(() => {
+              this.allowUndo = false;
+            }, 5000);
+          });
       },
 
       startStream() {
@@ -60,6 +68,31 @@
 
       endStream() {
         this.updateStatus({ stream_ended: true });
+      },
+
+      doneRecording() {
+        this.updateStatus({ recording_done: true });
+      },
+
+      undo() {
+        switch ( this.status ) {
+          case 'streaming':
+            this.status = 'waiting';
+            this.updateStatus({ stream_started: false }, false);
+            break;
+
+          case 'processing':
+            this.status = 'streaming';
+            this.updateStatus({ stream_ended: false }, false);
+            break;
+
+          case 'recorded':
+            this.status = 'streaming';
+            this.updateStatus({ recording_done: false }, false);
+            break;
+
+          default:
+        }
       },
     },
   }
