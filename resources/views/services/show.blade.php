@@ -26,6 +26,7 @@
 
 @section('content')
 <div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    @if($service->sermon)
     <div id="videoplayer">
         <div class="sm:grid grid-cols-2 gap-4">
             <div>
@@ -61,5 +62,6 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 @endsection
