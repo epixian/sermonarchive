@@ -56,7 +56,7 @@ class AdminServicesController extends Controller
 
         $service = Service::create($validated);
 
-        return redirect($service->path());
+        return redirect('/admin' . $service->path() . '/sermon/create');
     }
 
     /**
@@ -78,7 +78,7 @@ class AdminServicesController extends Controller
      */
     public function edit(Service $service)
     {
-        $action = "Edit";
+        $action = 'Edit';
         return view('services.edit', compact('action', 'service'));
     }
 
@@ -101,7 +101,7 @@ class AdminServicesController extends Controller
 
         $service->update($validated);
 
-        return redirect($service->path());
+        return redirect('/admin'.$service->path());
     }
 
     /**

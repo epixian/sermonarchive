@@ -43,7 +43,7 @@ class SermonsTest extends ApiTestCase
             ->for(Speaker::factory()->create())
             ->raw();
 
-        $this->post('/admin' . $service->path() . '/sermons', $sermon)
+        $this->post('/admin' . $service->path() . '/sermon', $sermon)
             ->assertRedirect('/login');
 
         $this->assertDatabaseMissing('sermons', $sermon);
@@ -62,7 +62,7 @@ class SermonsTest extends ApiTestCase
             ->raw();
 
         $this->actingAs($user)
-            ->post('/admin' . $service->path() . '/sermons', $sermon)
+            ->post('/admin' . $service->path() . '/sermon', $sermon)
             ->assertRedirect();
 
         $this->assertDatabaseHas('sermons', ['name' => $sermon['name']]);

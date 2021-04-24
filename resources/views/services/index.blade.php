@@ -42,7 +42,7 @@
                     @foreach ($services as $service)
                     <tr>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 font-medium text-gray-900">
-                            <a href="{{ $service->path() }}" class="text-nl-blue-500 hover:text-nl-blue-800">{{ $service->name }}</a>
+                            <a href="/admin{{ $service->path() }}" class="text-nl-blue-500 hover:text-nl-blue-800">{{ $service->name }}</a>
                         </td>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                             {{ $service->service_date }}
@@ -52,7 +52,7 @@
                         </td>
                         @can('edit_services')
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                            <a href="{{ $service->path() }}/edit" class="text-nl-blue-500 hover:text-nl-blue-800">Edit</a>
+                            <a href="/admin{{ $service->path() }}/edit" class="text-nl-blue-500 hover:text-nl-blue-800">Edit</a>
                         </td>
                         @endcan
                     </tr>
