@@ -15,7 +15,7 @@ class AdminServicesController extends Controller
      */
     public function index()
     {
-        $services = Service::latest()->take(10)->get();
+        $services = Service::with('sermon')->latest()->take(10)->get();
         return view('services.index', compact('services'));
     }
 
@@ -92,16 +92,16 @@ class AdminServicesController extends Controller
     public function update(Request $request, Service $service)
     {
         $validated = $request->validate([
-            'name' => 'required',
-            'description' => 'sometimes',
-            'service_date' => 'required',
+            'name' => 'sometimes|string',
+            'description' => 'sometimes|string',
+            'service_date' => 'sometimes|date',
         ]);
         // do breeze insert here but for right now
         // $validated['breeze_id'] = '';
 
         $service->update($validated);
 
-        return redirect('/admin'.$service->path());
+        return redirect('/admin' . $service->path());
     }
 
     /**

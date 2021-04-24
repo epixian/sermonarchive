@@ -33,9 +33,12 @@
                         <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Breeze ID
                         </th>
-                        @can('edit_services')
-                        <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-                        @endcan
+                        <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Speaker
+                        </th>
+                        <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Sermon
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white">
@@ -50,11 +53,14 @@
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                             {{ $service->breeze_id }}
                         </td>
-                        @can('edit_services')
-                        <td class="px-4 sm:px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                            <a href="/admin{{ $service->path() }}/edit" class="text-nl-blue-500 hover:text-nl-blue-800">Edit</a>
+                        <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                            {{ $service->sermon->speaker->full_name }}
                         </td>
-                        @endcan
+                        <td class="px-4 sm:px-6 py-4 border-b border-gray-200 text-sm leading-5 font-medium text-gray-500">
+                            <a href="/admin{{ $service->sermon->path() }}/edit" class="text-nl-blue-500 hover:text-nl-blue-800">
+                                {{ $service->sermon->name }}
+                            </a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

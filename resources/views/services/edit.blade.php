@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<form method="POST" action="{{ isset($service) ? '/admin'.$service->path() : '/admin/services' }}">
+<form method="POST" action="{{ isset($service) ? '/admin' . $service->path() : '/admin/services' }}">
   @csrf
   @if (isset($service))
     @method('PUT')

@@ -64,7 +64,7 @@ class AdminSermonsController extends Controller
 
         $sermon->update($validated);
 
-        return redirect($sermon->path());
+        return redirect('/admin' . $sermon->service->path());
     }
 
     /**
