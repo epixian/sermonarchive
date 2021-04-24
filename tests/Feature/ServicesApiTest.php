@@ -7,27 +7,17 @@ use App\Models\Sermon;
 use App\Models\Service;
 use App\Models\Speaker;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Spatie\Permission\Models\Role;
-use Tests\TestCase;
+use Tests\ApiTestCase;
 
-class ServicesApiTest extends TestCase
+class ServicesApiTest extends ApiTestCase
 {
-    use RefreshDatabase;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->seed();
-    }
-
     /** @test */
     public function guests_cannot_list_or_view_services_api()
     {
         $service = Service::factory()->create();
-        
+
         $this->getJson('/api/services')
             ->assertUnauthorized();
 

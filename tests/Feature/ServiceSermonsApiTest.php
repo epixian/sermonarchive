@@ -6,21 +6,11 @@ use App\Models\Sermon;
 use App\Models\Service;
 use App\Models\Speaker;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
-use Tests\TestCase;
+use Tests\ApiTestCase;
 
-class ServiceSermonsApiTest extends TestCase
+class ServiceSermonsApiTest extends ApiTestCase
 {
-    use RefreshDatabase;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->seed();
-    }
-
     /** @test */
     public function guests_cannot_create_sermons_api()
     {

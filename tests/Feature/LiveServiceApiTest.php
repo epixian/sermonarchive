@@ -6,22 +6,12 @@ use App\Models\Sermon;
 use App\Models\Service;
 use App\Models\Speaker;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Spatie\Permission\Models\Role;
-use Tests\TestCase;
+use Tests\ApiTestCase;
 
-class LiveServiceApiTest extends TestCase
+class LiveServiceApiTest extends ApiTestCase
 {
-    use RefreshDatabase;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->seed();
-    }
-
     /** @test */
     public function guests_can_view_live_service_and_livestream_gives_priority_to_sermon_in_progress_api()
     {
