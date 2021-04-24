@@ -70,11 +70,10 @@
       if (this.mode !== 'preview')
         this.getStatus();
     },
-    
+
     methods: {
       getStatus() {
-        fetch('/sermons/' + this.sermon.id + '/status')
-          .then(response => response.json())
+        axios.get('/sermons/' + this.sermon.id + '/status')
           .then(({status}) => {
             this.status = status;
 
