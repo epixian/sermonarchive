@@ -10,19 +10,6 @@ use Illuminate\Support\Carbon;
 
 class LiveServiceController extends Controller
 {
-    protected $service;
-
-    public function __construct()
-    {
-        $this->service = Service::where(
-                'service_date',
-                '<=',
-                Carbon::now(config('sermonarchive.event_timezone'))->addHours(6)
-            )
-            ->latest('service_date')
-            ->first();
-    }
-
     /**
      * Display the live service
      *
@@ -30,11 +17,9 @@ class LiveServiceController extends Controller
      */
     public function index()
     {
-        if($service = $this->service) {
-            return view('services.current', compact('service'));
-        }
+        $service = $this->getLiveService();
 
-        return view('layouts.app');
+        return view('services.current', compact('service'));
     }
 
     /**
@@ -83,5 +68,62 @@ class LiveServiceController extends Controller
         broadcast(new LiveServiceMessageSent($message, $user))/*->toOthers()*/;
 
         return ['status' => 'Message Sent!'];
+    }
+
+    /**
+     * Get the live service.
+     *
+     * @return Service
+     */
+    private function getLiveService()
+    {
+        /** @var Collection|Service[] $services */
+        $services = Service::whereHas('sermon', function ($sermon) {
+                return $sermon->inProgress();
+            })
+            ->orWhere(
+                'service_date',
+                '<=',
+                Carbon::now()->addDay(1)->setTimezone(config('sermonarchive.event_timezone'))
+            )
+            ->with('sermon')
+            ->latest('service_date')
+            ->get()
+            ;
+
+        if ($service = $this->getServicesWithSermonsInProgress($services)->first()) {
+            return $service;
+        }
+
+        if ($service = $this->getServicesWithSermonsScheduledWithinSixHours($services)->first()) {
+            return $service;
+        }
+
+        if ($service = $this->getServicesWithSermons($services)->first()) {
+            return $service;
+        }
+
+        return $services->first();
+    }
+
+    private function getServicesWithSermonsInProgress($services)
+    {
+        return $services
+            ->filter(fn (Service $service) => $service->sermon && $service->sermon->is_live);
+    }
+
+    private function getServicesWithSermonsScheduledWithinSixHours($services)
+    {
+        return $services
+            ->filter(function (Service $service) {
+                return $service->sermon &&
+                    $service->sermon->scheduled_for < Carbon::now()->addHours(6);
+            })
+            ->sortBy('scheduled_for', SORT_DESC);
+    }
+
+    private function getServicesWithSermons($services)
+    {
+        return $services->filter(fn (Service $service) => $service->sermon);
     }
 }
