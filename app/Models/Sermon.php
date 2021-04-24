@@ -17,22 +17,12 @@ use Illuminate\Support\Carbon;
  * @property-read bool $is_live
  * @see Sermon::getIsLiveAttribute()
  *
- * @property-read array $scheduled_for
- * @see Sermon::getScheduledForAttribute()
- *
  * @method static Builder|Sermon[] inProgress()
  * @see Sermon::scopeInProgress()
  */
 class Sermon extends Model
 {
     use HasFactory;
-
-    /**
-     * Append these additional attributes to the model.
-     *
-     * @var array
-     */
-    protected $appends = ['scheduled_for'];
 
     /**
      * The attributes that should be cast.
@@ -90,22 +80,19 @@ class Sermon extends Model
      */
     public function getStatus()
     {
-        return [
-            'stream_started' => $this->stream_started,
-            'stream_ended' => $this->stream_ended,
-            'recording_done' => $this->recording_done,
-        ];
-    }
+        if ($this->recording_done) {
+            return 'recorded';
+        }
 
-    /**
-     * Returns a combined datetime attribute in Carbon format.
-     *
-     * @return string
-     */
-    public function getScheduledForAttribute()
-    {
-        return Carbon::parse($this->publish_date, config('sermonarchive.event_timezone'))
-            ->setTimeFromTimeString($this->scheduled_time);
+        if ($this->stream_ended) {
+            return 'processing';
+        }
+
+        if ($this->stream_started) {
+            return 'streaming';
+        }
+
+        return 'waiting';
     }
 
     /**
@@ -115,7 +102,7 @@ class Sermon extends Model
      */
     public function getIsLiveAttribute()
     {
-        return $this->stream_started && !$this->stream_ended;
+        return $this->getStatus() === 'streaming';
     }
 
     /**
@@ -126,5 +113,25 @@ class Sermon extends Model
     {
         return $query->where('stream_started', true)
             ->where('stream_ended', false);
+    }
+
+    /**
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public function scopeUpcoming(Builder $query)
+    {
+        return $query->where('scheduled_datetime', '>=', Carbon::now())
+            ->latest('scheduled_datetime');
+    }
+
+    /**
+     * @param  Builder  $query
+     * @return Builder
+     */
+    public function scopeRecent(Builder $query)
+    {
+        return $query->where('scheduled_datetime', '<=', Carbon::now())
+            ->oldest('scheduled_datetime');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SermonStatusApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,19 @@ Route::prefix('/sermons')->group(function () {
     // view sermons
     Route::get('/', 'SermonsApiController@index')->name('api.sermon.index');
     Route::get('/{sermon}', 'SermonsApiController@show')->name('api.sermon.show');
+
+    // update sermon status
+    Route::get('/{sermon}/status', 'SermonStatusApiController@update')->name('api.sermon.status.show');
+
+    Route::middleware('auth:sanctum')->group(function () {
+
+        Route::middleware('permission:edit_sermons')->group(function () {
+
+            // update sermon status
+            Route::patch('/{sermon}/status', 'SermonStatusApiController@update')->name('api.sermon.status.update');
+        });
+
+    });
 
 });
 

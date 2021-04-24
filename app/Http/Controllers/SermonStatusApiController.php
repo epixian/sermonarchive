@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ServiceResource;
-use App\Models\Service;
+use App\Http\Resources\SermonResource;
+use App\Models\Sermon;
 use App\Validators\SermonStatusValidator;
 use Illuminate\Http\Request;
 
-class LiveServiceApiController extends Controller
+class SermonStatusApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,7 @@ class LiveServiceApiController extends Controller
      */
     public function index()
     {
-        $service = Service::getLiveService();
-
-        return $service ? new ServiceResource($service) : response(null);
+        //
     }
 
     /**
@@ -35,38 +33,37 @@ class LiveServiceApiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Service  $service
+     * @param  \App\Models\Sermon  $sermon
      * @return \Illuminate\Http\Response
      */
-    public function show(Service $service)
+    public function show(Sermon $sermon)
     {
-        //
+        return $sermon->getStatus();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Service  $service
+     * @param  \App\Models\Sermon  $sermon
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, Sermon $sermon)
     {
         $validated = app(SermonStatusValidator::class)->validate();
 
-        $service = Service::getLiveService();
-        $service->sermon()->update($validated);
+        $sermon->update($validated);
 
-        return new ServiceResource($service->fresh());
+        return new SermonResource($sermon);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Service  $service
+     * @param  \App\Models\Sermon  $sermon
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Service $service)
+    public function destroy(Sermon $sermon)
     {
         //
     }

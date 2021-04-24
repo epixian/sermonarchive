@@ -6,21 +6,11 @@ use App\Models\Sermon;
 use App\Models\Service;
 use App\Models\Speaker;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Role;
-use Tests\TestCase;
+use Tests\ApiTestCase;
 
-class SermonsTest extends TestCase
+class SermonsTest extends ApiTestCase
 {
-    use RefreshDatabase;
-
-    public function setUp() : void
-    {
-        parent::setUp();
-
-        $this->seed();
-    }
-
     /** @test */
     public function a_guest_can_list_sermons()
     {
@@ -53,7 +43,7 @@ class SermonsTest extends TestCase
             ->for(Speaker::factory()->create())
             ->raw();
 
-        $this->post('/admin' . $service->path() . '/sermons', $sermon)
+        $this->post('/admin' . $service->path() . '/sermon', $sermon)
             ->assertRedirect('/login');
 
         $this->assertDatabaseMissing('sermons', $sermon);
@@ -72,7 +62,7 @@ class SermonsTest extends TestCase
             ->raw();
 
         $this->actingAs($user)
-            ->post('/admin' . $service->path() . '/sermons', $sermon)
+            ->post('/admin' . $service->path() . '/sermon', $sermon)
             ->assertRedirect();
 
         $this->assertDatabaseHas('sermons', ['name' => $sermon['name']]);

@@ -51,8 +51,7 @@
       }
     },
     created() {
-      fetch('/user/family')
-        .then(response => response.json())
+      axios.get('/user/family')
         .then(data => {
           this.available = data;
           this.showButtons = true;

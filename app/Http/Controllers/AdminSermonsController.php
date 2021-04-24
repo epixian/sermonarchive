@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sermon;
 use App\Models\Speaker;
+use App\Validators\SermonStatusValidator;
 use Illuminate\Http\Request;
 
 class AdminSermonsController extends Controller
@@ -63,7 +64,7 @@ class AdminSermonsController extends Controller
 
         $sermon->update($validated);
 
-        return redirect($sermon->path());
+        return redirect('/admin' . $sermon->service->path());
     }
 
     /**
@@ -86,11 +87,7 @@ class AdminSermonsController extends Controller
      */
     public function updateStatus(Request $request, Sermon $sermon)
     {
-        $validated = $request->validate([
-            'stream_started' => 'sometimes',
-            'stream_ended' => 'sometimes',
-            'recording_done' => 'sometimes',
-        ]);
+        $validated = app(SermonStatusValidator::class)->validate();
 
         $sermon->update($validated);
 

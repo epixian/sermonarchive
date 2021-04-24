@@ -8,7 +8,7 @@
     @endcan
 @endsection
 
-@section('title', Carbon\Carbon::parse($service->service_date, 'America/New_York')->toFormattedDateString())
+@section('title', Carbon\Carbon::parse($service->service_date, config('sermonarchive.event_timezone'))->toFormattedDateString())
 
 @section('subtitle', $service->name)
 

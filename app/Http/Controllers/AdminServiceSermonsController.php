@@ -43,7 +43,7 @@ class AdminServiceSermonsController extends Controller
         $validated['stream_key'] = (string) Str::uuid();
         $sermon = $service->sermon()->create($validated);
 
-        return redirect($service->path());
+        return redirect('/admin'.$service->path());
     }
 
     /**
