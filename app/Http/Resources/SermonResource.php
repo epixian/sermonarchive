@@ -24,7 +24,7 @@ class SermonResource extends JsonResource
             'service_id' => $this->service_id,
             'speaker' => new SpeakerResource($this->speaker),
             'name' => $this->name,
-            'scheduled_for' => $this->scheduled_for,
+            'scheduled_datetime' => $this->scheduled_datetime,
             'stream_key' => $this->stream_key,
             'status' => $this->getStatus(),
         ];

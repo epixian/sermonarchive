@@ -47,4 +47,19 @@ class SermonFactory extends Factory
             ];
         });
     }
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function finished()
+    {
+        return $this->state(function () {
+            return [
+                'stream_started' => true,
+                'stream_ended' => true,
+            ];
+        });
+    }
 }

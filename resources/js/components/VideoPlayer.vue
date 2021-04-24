@@ -52,7 +52,7 @@
 
     computed: {
       fromNow() {
-        return moment(this.sermon.scheduled_for).fromNow();
+        return moment(this.sermon.scheduled_datetime).fromNow();
       },
 
       recordingPath() {
