@@ -25,6 +25,19 @@ Route::prefix('/sermons')->group(function () {
     Route::get('/', 'SermonsApiController@index')->name('api.sermon.index');
     Route::get('/{sermon}', 'SermonsApiController@show')->name('api.sermon.show');
 
+    // update sermon status
+    Route::get('/{sermon}/status', 'SermonStatusApiController@update')->name('api.sermon.status.show');
+
+    Route::middleware('auth:sanctum')->group(function () {
+
+        Route::middleware('permission:edit_sermons')->group(function () {
+
+            // update sermon status
+            Route::patch('/{sermon}/status', 'SermonStatusApiController@update')->name('api.sermon.status.update');
+        });
+
+    });
+
 });
 
 
@@ -53,21 +66,6 @@ Route::prefix('/services')->group(function () {
             // manage sermons
             Route::post('/{service}/sermon', 'ServiceSermonApiController@store')->name('api.service.sermon.store');
 
-        });
-
-    });
-
-});
-
-
-Route::prefix('/sermons')->group(function () {
-
-    Route::middleware('auth:sanctum')->group(function () {
-
-        Route::middleware('permission:edit_sermons')->group(function () {
-
-            // update sermon status
-            Route::patch('/{sermon}/status', 'SermonStatusApiController@update')->name('api.sermon.status.update');
         });
 
     });

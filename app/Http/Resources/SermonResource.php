@@ -26,7 +26,7 @@ class SermonResource extends JsonResource
             'name' => $this->name,
             'scheduled_for' => $this->scheduled_for,
             'stream_key' => $this->stream_key,
-            'status' => $this->when($streamTechnician, $this->getStatus()),
+            'status' => $this->getStatus(),
         ];
     }
 }

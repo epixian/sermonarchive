@@ -39,6 +39,27 @@ class SermonStatusApiTest extends ApiTestCase
      * @param  array  $data
      * @dataProvider statusDataProvider()
      */
+    public function get_a_sermon_status(array $data)
+    {
+        $user = User::factory()
+            ->create();
+
+        $sermon = Sermon::factory($data[0])
+            ->for(Service::factory())
+            ->create();
+
+        $this->actingAs($user)
+            ->getJson('/api' . $sermon->path() . '/status')
+            ->assertOk()
+            ->assertJsonPath('data.status', $data[1]);
+    }
+
+    /**
+     * @test
+     *
+     * @param  array  $data
+     * @dataProvider statusDataProvider()
+     */
     public function update_a_sermon_status(array $data)
     {
         $user = User::factory()
