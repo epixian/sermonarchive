@@ -49,6 +49,13 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * The name of the guard for checking user permissions/roles.
+     *
+     * @var string
+     */
+    protected $guard_name = 'sanctum';
+
+    /**
      * The attributes that should be visible for arrays.
      *
      * @var array
