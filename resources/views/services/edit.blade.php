@@ -59,6 +59,18 @@
         </div>
 
         <div class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <label for="service_time" class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
+            Service time
+          </label>
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <div class="max-w-lg flex rounded-md shadow-sm">
+              <input type="time" name="service_time" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('service_time', isset($service) ? $service->service_time : '') }}" />
+            </div>
+            <p class="mt-2 text-sm text-gray-500">The time of the service.</p>
+          </div>
+        </div>
+
+        <div class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
           <label for="breeze_id" class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
             Breeze ID
           </label>

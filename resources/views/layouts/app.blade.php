@@ -46,7 +46,7 @@
     @else
         <navigation-menu
             @auth
-            :user='{{ auth()->user() }}'
+            :user="{{ auth()->user() }}"
             @endauth
             route="{{ Request::path() }}"></navigation-menu>
 

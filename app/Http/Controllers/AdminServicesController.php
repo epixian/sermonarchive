@@ -42,6 +42,7 @@ class AdminServicesController extends Controller
             'name' => 'sometimes',
             'description' => 'sometimes',
             'service_date' => 'required|date',
+            'service_time' => 'required',
             'breeze_id' => 'sometimes',
         ]);
 

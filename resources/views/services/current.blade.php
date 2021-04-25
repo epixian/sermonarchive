@@ -18,7 +18,7 @@
 @section('content')
 <div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 lg:flex lg:items-start">
     <div id="videoplayer" class="lg:flex-1">
-        <video-player :sermon='{!! $service->sermon->toJson() !!}' description="false"></video-player>
+        <video-player :sermon="{{ $service->sermon }}" scheduled-for="{{ $service->service_datetime }}" description="false"></video-player>
 
         <div class="mt-4 text-sm px-4 sm:px-0">
             {!! str_replace("\n", '<br />', $service->description) !!}

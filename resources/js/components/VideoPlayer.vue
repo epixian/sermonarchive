@@ -2,7 +2,7 @@
   <div>
     <div v-if="status === 'waiting' && mode === 'live'" :class="{ 'flex flex-col-reverse': control }">
       <p class="px-4 sm:px-0" :class="{ 'mt-4': control }">
-        The stream will begin about {{ fromNow }}.  Please prepare your hearts for worship.
+        The service is scheduled to begin about {{ fromNow }} and we haven't started streaming yet.  Please prepare your hearts for worship.
       </p>
       <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="w-full shadow-md max-w-3xl" :class="{ 'mt-4': !control }" alt="New Life logo">
     </div>
@@ -15,7 +15,7 @@
 
     <div v-if="status === 'processing' && mode !== 'preview'" :class="{ 'flex flex-col-reverse': control }">
       <p class="px-4 sm:px-0" :class="{ 'mt-4': control }">
-        The stream has ended and is currently processing.  Please check back in a little bit.
+        The service has ended and the stream is currently processing.  Please check back in a little bit.
       </p>
       <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="w-full shadow-md max-w-3xl" :class="{ 'mt-4': !control }" alt="New Life logo">
     </div>
@@ -48,11 +48,16 @@
         type: String,
         default: 'live',
       },
+
+      scheduledFor: {
+        type: String,
+        default: null,
+      },
     },
 
     computed: {
       fromNow() {
-        return moment(this.sermon.scheduled_datetime).fromNow();
+        return moment(this.scheduledFor).fromNow();
       },
 
       recordingPath() {
@@ -74,8 +79,8 @@
     methods: {
       getStatus() {
         axios.get('/sermons/' + this.sermon.id + '/status')
-          .then(({status}) => {
-            this.status = status;
+          .then(({data}) => {
+            this.status = data;
 
             if (this.status === 'waiting' || this.status === 'processing') {
               setTimeout(this.getStatus, 5000);

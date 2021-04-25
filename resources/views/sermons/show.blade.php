@@ -16,12 +16,12 @@
 
 @section('content')
 <div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-    <video-player :sermon='{!! $sermon->toJson() !!}'></video-player>
+    <video-player :sermon="{{ $sermon }}" scheduled-for="{{ $sermon->service->service_datetime }}"></video-player>
 </div>
 
 <div class="sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-    <h2 class="text-xl font-bold leading-tight text-gray-900">{{ $sermon->name }}</h2>
-    <div class="text-base text-gray-900">
+    <div class="text-base leading-5 text-gray-900">{{ $sermon->speaker->full_name }}</div>
+    <div class="text-base text-gray-700">
         {{ $sermon->description }}
     </div>
 </div>

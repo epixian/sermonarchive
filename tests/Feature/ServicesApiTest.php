@@ -97,11 +97,11 @@ class ServicesApiTest extends ApiTestCase
                 'speaker_id' => Speaker::factory()->create()->getKey(),
             ])->raw(),
         ])->raw();
-
+$this->withoutExceptionHandling();
         $this->actingAs($user)
             ->postJson('/api/services', $attributes)
             ->assertCreated()
-            ->assertJsonPath('data.service_date', $attributes['service_date']->toJson());
+            ->assertJsonPath('data.service_date', $attributes['service_date']);
     }
 
     /** @test */
@@ -114,13 +114,15 @@ class ServicesApiTest extends ApiTestCase
         $service = Service::factory()
             ->create();
 
+        $fiveMinutesLater = Carbon::now()->addMinutes(5)->format('H:i:s');
+
         $attributes = [
-            'service_date' => Carbon::now()->addMinutes(5),
+            'service_time' => $fiveMinutesLater,
         ];
 
         $this->actingAs($user)
             ->patchJson('/api' . $service->path(), $attributes)
             ->assertOk()
-            ->assertJsonPath('data.service_date', $attributes['service_date']->toJson());
+            ->assertJsonPath('data.service_time', $fiveMinutesLater);
     }
 }

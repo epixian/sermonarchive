@@ -58,17 +58,6 @@
         </div>
 
         <div class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-          <label for="name" class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
-            Scheduled Time
-          </label>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <div class="max-w-lg flex rounded-md shadow-sm">
-              <input name="scheduled_time" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('scheduled_time', isset($sermon) ? $sermon->scheduled_time : '') }}"/>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
           <label for="recording_url" class="block text-sm font-medium leading-5 text-gray-700 sm:mt-px sm:pt-2">
             URL to Recording
           </label>
@@ -88,7 +77,7 @@
   <div class="mt-8 border-t border-gray-200 pt-5">
     <div class="flex justify-end">
       <span class="inline-flex rounded-md shadow-sm">
-        <a href="{{ url()->previous() }}" class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+        <a href="{{ url()->previous() }}" class="py-2 px-4 border rounded-md text-sm leading-5 font-medium border-gray-300 text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
           Cancel
         </a>
       </span>

@@ -27,17 +27,17 @@
                         <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Service Name
                         </th>
-                        <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Service Date
+                        <th class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Service Date / Time
                         </th>
-                        <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Breeze ID
                         </th>
                         <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Speaker
                         </th>
-                        <th class="px-4 sm:px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Sermon
+                        <th class="px-4 sm:px-6 py-3 whitespace-no-wrap border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Sermon Info
                         </th>
                     </tr>
                 </thead>
@@ -48,18 +48,22 @@
                             <a href="/admin{{ $service->path() }}" class="text-nl-blue-500 hover:text-nl-blue-800">{{ $service->name }}</a>
                         </td>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                            {{ $service->service_date }}
+                            {{ $service->service_datetime->format('Y-m-d') }} at {{ $service->service_datetime->format('h:i a') }}
                         </td>
-                        <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                        <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center text-sm leading-5 text-gray-500">
                             {{ $service->breeze_id }}
                         </td>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                            {{ $service->sermon->speaker->full_name }}
+                            @if($service->sermon)
+                            {{ $service->sermon?->speaker->full_name }}
+                            @endif
                         </td>
                         <td class="px-4 sm:px-6 py-4 border-b border-gray-200 text-sm leading-5 font-medium text-gray-500">
+                            @if($service->sermon)
                             <a href="/admin{{ $service->sermon->path() }}/edit" class="text-nl-blue-500 hover:text-nl-blue-800">
                                 {{ $service->sermon->name }}
                             </a>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
