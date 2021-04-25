@@ -40,7 +40,7 @@ class AdminServicesController extends Controller
     {
         $validated = $request->validate([
             'name' => 'sometimes',
-            'description' => 'sometimes',
+            'description' => 'nullable',
             'service_date' => 'required|date',
             'service_time' => 'required',
             'breeze_id' => 'sometimes',
@@ -94,8 +94,9 @@ class AdminServicesController extends Controller
     {
         $validated = $request->validate([
             'name' => 'sometimes|string',
-            'description' => 'sometimes|string',
+            'description' => 'nullable',
             'service_date' => 'sometimes|date',
+            'service_time' => 'sometimes|string',
         ]);
         // do breeze insert here but for right now
         // $validated['breeze_id'] = '';
