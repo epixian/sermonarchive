@@ -36,7 +36,7 @@ class AdminServiceSermonsController extends Controller
             'name' => 'required',
             'description' => 'sometimes',
             'speaker_id' => 'required',
-            'scheduled_time' => 'sometimes',
+            'scheduled_time' => 'required',
         ]);
 
         $validated['publish_date'] = $service->service_date;
