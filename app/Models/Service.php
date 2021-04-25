@@ -84,9 +84,18 @@ class Service extends Model
      * @param  Builder  $query
      * @return Builder
      */
+    public function scopeWithSermon(Builder $query)
+    {
+        return $query->has('sermon');
+    }
+
+    /**
+     * @param  Builder  $query
+     * @return Builder
+     */
     public function scopeWithSermonInProgress(Builder $query)
     {
-        return $query->with('sermon')
+        return $query->withSermon()
             ->whereHas('sermon', function ($sermon) {
                 return $sermon->inProgress();
             });
@@ -96,10 +105,11 @@ class Service extends Model
      * @param  Builder  $query
      * @return Builder
      */
-    public function scopeWithSermonUpcoming(Builder $query)
+    public function scopeUpcoming(Builder $query)
     {
-        return $query->has('sermon')
-            ->where('service_datetime', '>=', Carbon::now()->subHours(2)->setTimezone(config('sermonarchive.event_timezone')))
+        return $query
+            ->where('service_date', '>=', Carbon::now()->subHours(2))
+            ->where('service_date', '<=', Carbon::now()->addDays(2))
             ->oldest('service_datetime');
     }
 
@@ -107,23 +117,12 @@ class Service extends Model
      * @param  Builder  $query
      * @return Builder
      */
-    public function scopeWithSermonRecent(Builder $query)
+    public function scopeRecent(Builder $query)
     {
-        return $query->has('sermon')
-            ->where('service_datetime', '<=', Carbon::now())
+        return $query
+            ->where('service_date', '>=', Carbon::now()->subWeek())
+            ->where('service_date', '<=', Carbon::now()->addHours(6))
             ->latest('service_datetime');
-    }
-
-    /**
-     * @param  Builder  $query
-     * @return Builder
-     */
-    public function scopeUpcoming(Builder $query)
-    {
-        return $query->whereBetween('service_datetime', [
-                Carbon::now()->setTimezone(config('sermonarchive.event_timezone')),
-                Carbon::now()->addDays(2)->setTimezone(config('sermonarchive.event_timezone')),
-            ]);
     }
 
     /**
@@ -133,15 +132,15 @@ class Service extends Model
      */
     public static function getLiveService()
     {
-        if ($service = Service::withSermonInProgress()->limit(1)->first()) {
+        if ($service = Service::withSermonInProgress()->recent()->limit(1)->first()) {
             return $service;
         }
 
-        if ($service = Service::withSermonUpcoming()->limit(1)->first()) {
+        if ($service = Service::withSermon()->upcoming()->limit(1)->first()) {
             return $service;
         }
 
-        if ($service = Service::withSermonRecent()->limit(1)->first()) {
+        if ($service = Service::withSermon()->recent()->limit(1)->first()) {
             return $service;
         }
 

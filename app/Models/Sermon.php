@@ -111,7 +111,10 @@ class Sermon extends Model
      */
     public function scopeInProgress(Builder $query)
     {
-        return $query->where('stream_started', true)
-            ->where('stream_ended', false);
+        return $query->where([
+                'stream_started' => true,
+                'stream_ended' => false,
+                'recording_done' => false,
+            ]);
     }
 }
