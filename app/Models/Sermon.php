@@ -122,7 +122,7 @@ class Sermon extends Model
     public function scopeUpcoming(Builder $query)
     {
         return $query->where('scheduled_datetime', '>=', Carbon::now())
-            ->latest('scheduled_datetime');
+            ->oldest('scheduled_datetime');
     }
 
     /**
@@ -132,6 +132,6 @@ class Sermon extends Model
     public function scopeRecent(Builder $query)
     {
         return $query->where('scheduled_datetime', '<=', Carbon::now())
-            ->oldest('scheduled_datetime');
+            ->latest('scheduled_datetime');
     }
 }
