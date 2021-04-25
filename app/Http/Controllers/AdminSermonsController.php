@@ -58,7 +58,6 @@ class AdminSermonsController extends Controller
             'name' => 'required',
             'description' => 'sometimes',
             'speaker_id' => 'required',
-            'scheduled_time' => 'sometimes',
             'recording_url' => 'sometimes',
         ]);
 

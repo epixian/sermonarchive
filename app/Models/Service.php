@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,16 +13,21 @@ use Illuminate\Support\Carbon;
  * Class Service
  * @package App\Models
  *
- * @property Carbon $scheduled_datetime
+ * @property string $service_datetime
+ * @property string $service_time
+ * @property Carbon $service_datetime
  *
  * @property Sermon $sermon
  * @property Collection|Message[] $message
  *
- * @property static Builder|QueryBuilder withSermonsInProgress()
- * @see Service::scopeWithSermonsInProgress(Builder $query)
+ * @property static Builder|QueryBuilder withSermonInProgress()
+ * @see Service::scopeWithSermonInProgress(Builder $query)
  *
- * @property static Builder|QueryBuilder withUpcomingSermons()
- * @see Service::scopeWithUpcomingSermons(Builder $query)
+ * @property static Builder|QueryBuilder withSermonUpcoming()
+ * @see Service::scopeWithSermonUpcoming(Builder $query)
+ *
+ * @property static Builder|QueryBuilder withSermonRecent()
+ * @see Service::scopeWithSermonRecent(Builder $query)
  *
  * @property static Builder|QueryBuilder upcoming()
  * @see Service::scopeupcoming(Builder $query)
@@ -29,6 +35,15 @@ use Illuminate\Support\Carbon;
 class Service extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'service_datetime' => 'datetime',
+    ];
 
     /**
      * Attributes to guard against mass assignment.
@@ -69,9 +84,10 @@ class Service extends Model
      * @param  Builder  $query
      * @return Builder
      */
-    public function scopeWithSermonsInProgress(Builder $query)
+    public function scopeWithSermonInProgress(Builder $query)
     {
-        return $query->whereHas('sermon', function ($sermon) {
+        return $query->with('sermon')
+            ->whereHas('sermon', function ($sermon) {
                 return $sermon->inProgress();
             });
     }
@@ -80,22 +96,22 @@ class Service extends Model
      * @param  Builder  $query
      * @return Builder
      */
-    public function scopeWithUpcomingSermons(Builder $query)
+    public function scopeWithSermonUpcoming(Builder $query)
     {
-        return $query->whereHas('sermon', function ($sermon) {
-                return $sermon->upcoming();
-            });
+        return $query->has('sermon')
+            ->where('service_datetime', '>=', Carbon::now()->subHours(2)->setTimezone(config('sermonarchive.event_timezone')))
+            ->oldest('service_datetime');
     }
 
     /**
      * @param  Builder  $query
      * @return Builder
      */
-    public function scopeWithRecentSermons(Builder $query)
+    public function scopeWithSermonRecent(Builder $query)
     {
-        return $query->whereHas('sermon', function ($sermon) {
-                return $sermon->recent();
-            });
+        return $query->has('sermon')
+            ->where('service_datetime', '<=', Carbon::now())
+            ->latest('service_datetime');
     }
 
     /**
@@ -104,7 +120,7 @@ class Service extends Model
      */
     public function scopeUpcoming(Builder $query)
     {
-        return $query->whereBetween('service_date', [
+        return $query->whereBetween('service_datetime', [
                 Carbon::now()->setTimezone(config('sermonarchive.event_timezone')),
                 Carbon::now()->addDays(2)->setTimezone(config('sermonarchive.event_timezone')),
             ]);
@@ -117,15 +133,15 @@ class Service extends Model
      */
     public static function getLiveService()
     {
-        if ($service = Service::withSermonsInProgress()->limit(1)->first()) {
+        if ($service = Service::withSermonInProgress()->limit(1)->first()) {
             return $service;
         }
 
-        if ($service = Service::withUpcomingSermons()->limit(1)->first()) {
+        if ($service = Service::withSermonUpcoming()->limit(1)->first()) {
             return $service;
         }
 
-        if ($service = Service::withRecentSermons()->limit(1)->first()) {
+        if ($service = Service::withSermonRecent()->limit(1)->first()) {
             return $service;
         }
 

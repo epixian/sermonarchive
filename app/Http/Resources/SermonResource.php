@@ -15,16 +15,12 @@ class SermonResource extends JsonResource
      */
     public function toArray($request)
     {
-        /** @var User $user */
-        $user = auth()->user();
-        $streamTechnician = $user ? $user->hasRole(['stream_technician']) : false;
-
         return [
             'sermon_id' => $this->id,
             'service_id' => $this->service_id,
             'speaker' => new SpeakerResource($this->speaker),
             'name' => $this->name,
-            'scheduled_datetime' => $this->scheduled_datetime,
+            'scheduled_datetime' => $this->service->service_datetime,
             'stream_key' => $this->stream_key,
             'status' => $this->getStatus(),
         ];

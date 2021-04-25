@@ -31,12 +31,12 @@ class ServicesApiController extends Controller
         $validated = $request->validate([
             'name' => 'sometimes|string',
             'service_date' => 'required|date',
+            'service_time' => 'required|string',
             'breeze_id' => 'nullable',
             'description' => 'nullable',
             'sermon' => 'sometimes|array',
             'sermon.name' => 'required',
             'sermon.speaker_id' => 'required',
-            'sermon.scheduled_time' => 'required',
             'sermon.description' => 'nullable',
         ]);
 
@@ -55,8 +55,6 @@ class ServicesApiController extends Controller
         $service->sermon()->create([
             'name' => Arr::get($validated, 'sermon.name'),
             'description' => Arr::get($validated, 'sermon.description'),
-            'publish_date' => Arr::get($validated, 'service_date'),
-            'scheduled_time' => Arr::get($validated, 'sermon.scheduled_time'),
             'speaker_id' => Arr::get($validated, 'sermon.speaker_id'),
         ]);
 
@@ -86,6 +84,7 @@ class ServicesApiController extends Controller
         $validated = $request->validate([
             'name' => 'sometimes|string',
             'service_date' => 'sometimes|date',
+            'service_time' => 'sometimes|string',
             'breeze_id' => 'nullable',
             'description' => 'nullable',
         ]);

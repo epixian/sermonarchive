@@ -36,10 +36,8 @@ class AdminServiceSermonsController extends Controller
             'name' => 'required',
             'description' => 'sometimes',
             'speaker_id' => 'required',
-            'scheduled_time' => 'sometimes',
         ]);
 
-        $validated['publish_date'] = $service->service_date;
         $validated['stream_key'] = (string) Str::uuid();
         $sermon = $service->sermon()->create($validated);
 

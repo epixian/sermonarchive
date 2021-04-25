@@ -10,7 +10,6 @@ use Tests\ApiTestCase;
 
 class LiveServiceTest extends ApiTestCase
 {
-
     /**
      * Simulate a sermon in progress, a future sermon, and a service without a sermon attached.
      * Test should return the sermon in progress (#1).
@@ -19,25 +18,30 @@ class LiveServiceTest extends ApiTestCase
      */
     public function service_with_sermon_in_progress_gets_priority_1()
     {
-        $now = Carbon::now();
+        $serviceDateTime1 = Carbon::now();
+        $serviceDateTime2 = Carbon::now()->addSeconds(1);
+        $serviceDateTime3 = Carbon::now()->addSeconds(2);
 
         // create a service with a sermon in progress
         $service1 = Service::factory([
-                'service_date' => $now,
+                'service_date' => $serviceDateTime1->format('Y-m-d'),
+                'service_time' => $serviceDateTime1->format('H:i:s'),
             ])
             ->has(Sermon::factory()->inProgress()->for(Speaker::factory()))
             ->create();
 
         // create a service with a sermon not in progress
         $service2 = Service::factory([
-                'service_date' => $now->copy()->addSecond(),
+            'service_date' => $serviceDateTime2->format('Y-m-d'),
+            'service_time' => $serviceDateTime2->format('H:i:s'),
             ])
             ->has(Sermon::factory()->for(Speaker::factory()))
             ->create();
 
         // create a service without
         $service3 = Service::factory([
-                'service_date' => $now->copy()->addSeconds(2),
+            'service_date' => $serviceDateTime3->format('Y-m-d'),
+            'service_time' => $serviceDateTime3->format('H:i:s'),
             ])
             ->create();
 
@@ -52,25 +56,30 @@ class LiveServiceTest extends ApiTestCase
      */
     public function service_with_sermon_in_progress_gets_priority_2()
     {
-        $now = Carbon::now();
+        $serviceDateTime1 = Carbon::now();
+        $serviceDateTime2 = Carbon::now()->addSeconds(1);
+        $serviceDateTime3 = Carbon::now()->addSeconds(2);
 
         // create a service with a finished sermon
         $service1 = Service::factory([
-                'service_date' => $now,
+            'service_date' => $serviceDateTime1->format('Y-m-d'),
+            'service_time' => $serviceDateTime1->format('H:i:s'),
             ])
             ->has(Sermon::factory()->finished()->for(Speaker::factory()))
             ->create();
 
         // create a service with a sermon in progress
         $service2 = Service::factory([
-                'service_date' => $now->copy()->addSecond(),
+            'service_date' => $serviceDateTime2->format('Y-m-d'),
+            'service_time' => $serviceDateTime2->format('H:i:s'),
             ])
             ->has(Sermon::factory()->inProgress()->for(Speaker::factory()))
             ->create();
 
         // create a service with a sermon not in progress
         $service3 = Service::factory([
-                'service_date' => $now->copy()->addSeconds(2),
+            'service_date' => $serviceDateTime3->format('Y-m-d'),
+            'service_time' => $serviceDateTime3->format('H:i:s'),
             ])
             ->has(Sermon::factory()->for(Speaker::factory()))
             ->create();

@@ -114,24 +114,4 @@ class Sermon extends Model
         return $query->where('stream_started', true)
             ->where('stream_ended', false);
     }
-
-    /**
-     * @param  Builder  $query
-     * @return Builder
-     */
-    public function scopeUpcoming(Builder $query)
-    {
-        return $query->where('scheduled_datetime', '>=', Carbon::now())
-            ->oldest('scheduled_datetime');
-    }
-
-    /**
-     * @param  Builder  $query
-     * @return Builder
-     */
-    public function scopeRecent(Builder $query)
-    {
-        return $query->where('scheduled_datetime', '<=', Carbon::now())
-            ->latest('scheduled_datetime');
-    }
 }
