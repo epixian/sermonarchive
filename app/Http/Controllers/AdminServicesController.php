@@ -46,15 +46,16 @@ class AdminServicesController extends Controller
             'breeze_id' => 'sometimes',
         ]);
 
-        if (config('app.env') === 'production') {
+        // reset breeze_id if not in production to avoid creating an event
+        if (config('app.env') !== 'production') {
             $validated['breeze_id'] = Breeze::TEST_SERVICE_ID;
         }
 
-        if (! $validated['name']) {
+        if (is_null($validated['name'])) {
             $validated['name'] = 'Morning Worship Services (Online)';
         }
 
-        if (! $validated['breeze_id']) {
+        if (is_null($validated['breeze_id'])) {
             $breeze = new Breeze();
             $event = $breeze->createServiceEvent($validated['name'], $validated['service_date']);
             $validated['breeze_id'] = $event->id;

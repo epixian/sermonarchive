@@ -3,6 +3,7 @@
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UpdateRolePermissionPivots extends Migration
@@ -22,7 +23,7 @@ class UpdateRolePermissionPivots extends Migration
         }
 
         foreach ( DB::table('model_has_permissions')->get() as $pivot ) {
-            $permission = Role::find($pivot->permission_id);
+            $permission = Permission::find($pivot->permission_id);
             $user = User::find($pivot->model_id);
 
             $user->givePermissionTo($permission->name);

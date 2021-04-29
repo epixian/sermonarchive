@@ -23,6 +23,10 @@
             <div class="max-w-lg flex rounded-md shadow-sm">
               <input name="name" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('name', isset($sermon) ? $sermon->name : '') }}"/>
             </div>
+            @error('name')
+            <div class="text-xs text-red-600">{{ $message }}</div>
+            @enderror
+            <p class="mt-2 text-sm text-gray-500">The title of the sermon.</p>
           </div>
         </div>
 
@@ -34,7 +38,7 @@
             <div class="max-w-lg flex rounded-md shadow-sm">
               <textarea name="description" rows="3" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ old('description', isset($sermon) ? $sermon->description : '') }}</textarea>
             </div>
-            <p class="mt-2 text-sm text-gray-500">(Optional) Write a few sentences on what the sermon is about.</p>
+            <p class="mt-2 text-sm text-gray-500">(Optional) Sermon-specific information, e.g. scripture references</p>
           </div>
         </div>
 
