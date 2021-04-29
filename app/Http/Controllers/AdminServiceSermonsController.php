@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Models\Speaker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class AdminServiceSermonsController extends Controller
 {
@@ -32,14 +33,23 @@ class AdminServiceSermonsController extends Controller
      */
     public function store(Request $request, Service $service)
     {
-        $validated = $request->validate([
-            'name' => 'required',
-            'description' => 'sometimes',
-            'speaker_id' => 'required',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'description' => 'sometimes',
+                'speaker_id' => 'required',
+            ],
+            [
+                'name.required' => 'A sermon title is required.',
+            ]
+        );
+
+        $validated = $validator->validate();
 
         $validated['stream_key'] = (string) Str::uuid();
-        $sermon = $service->sermon()->create($validated);
+
+        $service->sermon()->create($validated);
 
         return redirect('/admin'.$service->path());
     }

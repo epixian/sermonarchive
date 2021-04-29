@@ -51,11 +51,11 @@ class AdminServicesController extends Controller
             $validated['breeze_id'] = Breeze::TEST_SERVICE_ID;
         }
 
-        if (! $validated['name']) {
+        if (is_null($validated['name'])) {
             $validated['name'] = 'Morning Worship Services (Online)';
         }
 
-        if (! $validated['breeze_id']) {
+        if (is_null($validated['breeze_id'])) {
             $breeze = new Breeze();
             $event = $breeze->createServiceEvent($validated['name'], $validated['service_date']);
             $validated['breeze_id'] = $event->id;

@@ -30,6 +30,9 @@
             <div class="max-w-lg flex rounded-md shadow-sm">
               <input name="name" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('name', isset($service) ? $service->name : '') }}" />
             </div>
+            @error('name')
+            <div class="text-xs text-red-600">{{ $message }}</div>
+            @enderror
             <p class="mt-2 text-sm text-gray-500">If left blank, defaults to "Morning Worship Services (Online)".</p>
           </div>
         </div>
@@ -42,7 +45,7 @@
             <div class="max-w-lg flex rounded-md shadow-sm">
               <textarea name="description" rows="3" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ old('description', isset($service) ? $service->description : '') }}</textarea>
             </div>
-            <p class="mt-2 text-sm text-gray-500">(Optional) Write any additional information useful to site visitors.</p>
+            <p class="mt-2 text-sm text-gray-500">(Optional) This is a good place to put the order of worship.</p>
           </div>
         </div>
 
@@ -54,6 +57,9 @@
             <div class="max-w-lg flex rounded-md shadow-sm">
               <input type="date" name="service_date" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('service_date', isset($service) ? $service->service_date : '') }}" />
             </div>
+            @error('service_date')
+            <div class="text-xs text-red-600">{{ $message }}</div>
+            @enderror
             <p class="mt-2 text-sm text-gray-500">The date of the service.</p>
           </div>
         </div>
@@ -66,6 +72,9 @@
             <div class="max-w-lg flex rounded-md shadow-sm">
               <input type="time" name="service_time" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('service_time', isset($service) ? $service->service_time : '') }}" />
             </div>
+            @error('service_time')
+            <div class="text-xs text-red-600">{{ $message }}</div>
+            @enderror
             <p class="mt-2 text-sm text-gray-500">The time of the service.</p>
           </div>
         </div>
