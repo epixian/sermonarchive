@@ -40,7 +40,8 @@ class ServicesApiController extends Controller
             'sermon.description' => 'nullable',
         ]);
 
-        if (config('app.env') === 'production') {
+        // reset breeze_id if not in production to avoid creating an event
+        if (config('app.env') !== 'production') {
             $validated['breeze_id'] = Breeze::TEST_SERVICE_ID;
         }
 
