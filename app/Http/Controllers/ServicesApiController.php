@@ -44,7 +44,7 @@ class ServicesApiController extends Controller
             $validated['name'] = 'Morning Worship Services (Online)';
         }
 
-        if (! $validated['breeze_id']) {
+        if (! $validated['breeze_id'] && config('app.env') === 'production') {
             $breeze = new Breeze();
             $event = $breeze->createServiceEvent($validated['name'], $validated['service_date']);
             $validated['breeze_id'] = $event->id;
