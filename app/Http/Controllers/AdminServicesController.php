@@ -46,9 +46,14 @@ class AdminServicesController extends Controller
             'breeze_id' => 'sometimes',
         ]);
 
+        if (config('app.env') === 'production') {
+            $validated['breeze_id'] = Breeze::TEST_SERVICE_ID;
+        }
+
         if (! $validated['name']) {
             $validated['name'] = 'Morning Worship Services (Online)';
         }
+
         if (! $validated['breeze_id']) {
             $breeze = new Breeze();
             $event = $breeze->createServiceEvent($validated['name'], $validated['service_date']);

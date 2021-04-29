@@ -97,7 +97,7 @@ class ServicesApiTest extends ApiTestCase
                 'speaker_id' => Speaker::factory()->create()->getKey(),
             ])->raw(),
         ])->raw();
-$this->withoutExceptionHandling();
+
         $this->actingAs($user)
             ->postJson('/api/services', $attributes)
             ->assertCreated()
