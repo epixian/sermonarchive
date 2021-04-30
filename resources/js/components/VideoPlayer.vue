@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="videoplayer">
     <div v-if="status === 'waiting' && mode === 'live'" :class="{ 'flex flex-col-reverse': control }">
       <p class="px-4 sm:px-0" :class="{ 'mt-4': control }">
         The service is scheduled to begin about {{ fromNow }} and we haven't started streaming yet.  Please prepare your hearts for worship.
@@ -80,6 +80,7 @@
       getStatus() {
         axios.get('/sermons/' + this.sermon.id + '/status')
           .then(data => {
+            console.log(data);
             this.status = data;
 
             if (this.status === 'waiting' || this.status === 'processing') {
