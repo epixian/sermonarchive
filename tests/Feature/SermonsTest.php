@@ -2,24 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\Sermon;
-use App\Service;
-use App\Speaker;
-use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use App\Models\Sermon;
+use App\Models\Service;
+use App\Models\Speaker;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Tests\ApiTestCase;
 
-class SermonsTest extends TestCase
+class SermonsTest extends ApiTestCase
 {
-    use RefreshDatabase;
-
-    public function setUp() : void
-    {
-        parent::setUp();
-
-        $this->seed();
-    }
-
     /** @test */
     public function a_guest_can_list_sermons()
     {
@@ -52,7 +43,7 @@ class SermonsTest extends TestCase
             ->for(Speaker::factory()->create())
             ->raw();
 
-        $this->post($service->path() . '/sermons', $sermon)
+        $this->post('/admin' . $service->path() . '/sermon', $sermon)
             ->assertRedirect('/login');
 
         $this->assertDatabaseMissing('sermons', $sermon);
@@ -61,14 +52,17 @@ class SermonsTest extends TestCase
     /** @test */
     public function a_user_can_create_a_sermon()
     {
-        $user = User::factory()->create()->givePermissionTo('edit_sermons');
+        $user = User::factory()
+            ->hasAttached(Role::firstWhere(['name' => 'stream_technician']))
+            ->create();
+
+        $service = Service::factory()->create();
         $sermon = Sermon::factory()
-            ->for($service = Service::factory()->create())
             ->for(Speaker::factory()->create())
             ->raw();
 
         $this->actingAs($user)
-            ->post($service->path() . '/sermons', $sermon)
+            ->post('/admin' . $service->path() . '/sermon', $sermon)
             ->assertRedirect();
 
         $this->assertDatabaseHas('sermons', ['name' => $sermon['name']]);

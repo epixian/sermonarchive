@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Sermon;
+use App\Models\Sermon;
 use Illuminate\Http\Request;
 
 class SermonsController extends Controller
@@ -21,7 +21,7 @@ class SermonsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Sermon  $sermon
+     * @param  \App\Models\Sermon  $sermon
      * @return \Illuminate\Http\Response
      */
     public function show(Sermon $sermon)
@@ -33,7 +33,7 @@ class SermonsController extends Controller
      * Get the stream's status
      *
      * @param  Illuminate\Http\Request $request
-     * @param  App\Sermon $sermon
+     * @param  App\Models\Sermon $sermon
      * @return void
      */
     public function status(Request $request, Sermon $sermon)

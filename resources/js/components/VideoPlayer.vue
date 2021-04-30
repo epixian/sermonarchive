@@ -1,21 +1,21 @@
 <template>
   <div>
-    <div v-if="statusText === 'waiting' && mode === 'live'" :class="{ 'flex flex-col-reverse': control }">
+    <div v-if="status === 'waiting' && mode === 'live'" :class="{ 'flex flex-col-reverse': control }">
       <p class="px-4 sm:px-0" :class="{ 'mt-4': control }">
-        The stream will begin about {{ fromNow }}.  Please prepare your hearts for worship.
+        The service is scheduled to begin about {{ fromNow }} and we haven't started streaming yet.  Please prepare your hearts for worship.
       </p>
       <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="w-full shadow-md max-w-3xl" :class="{ 'mt-4': !control }" alt="New Life logo">
     </div>
 
-    <video-js v-if="statusText === 'streaming' || mode === 'preview' || statusText === 'recorded'" class="video-js vjs-big-play-centered h-full shadow-md" controls autoplay preload="none" data-setup='{ "liveui": true }'>
-      <source v-if="statusText === 'streaming' || mode === 'preview'" :src="'https://stream.newlifeglenside.com/hls/' + sermon.stream_key + '.m3u8'" type="application/vnd.apple.mpegurl">
+    <video-js v-if="status === 'streaming' || mode === 'preview' || status === 'recorded'" class="video-js vjs-big-play-centered h-full shadow-md" controls autoplay preload="none" data-setup='{ "liveui": true }'>
+      <source v-if="status === 'streaming' || mode === 'preview'" :src="'https://stream.newlifeglenside.com/hls/' + sermon.stream_key + '.m3u8'" type="application/vnd.apple.mpegurl">
       <source v-else :src="recordingPath" type="video/mp4">
       <p class="vjs-no-js">To watch this video, please enable Javascript or use a browser that supports HTML5 video.</p>
     </video-js>
 
-    <div v-if="statusText === 'processing' && mode !== 'preview'"" :class="{ 'flex flex-col-reverse': control }">
+    <div v-if="status === 'processing' && mode !== 'preview'" :class="{ 'flex flex-col-reverse': control }">
       <p class="px-4 sm:px-0" :class="{ 'mt-4': control }">
-        The stream has ended and is currently processing.  Please check back in a little bit.
+        The service has ended and the stream is currently processing.  Please check back in a little bit.
       </p>
       <img src="https://cdn.newlifeglenside.com/nlg-logo-white.png" class="w-full shadow-md max-w-3xl" :class="{ 'mt-4': !control }" alt="New Life logo">
     </div>
@@ -38,60 +38,55 @@
         type: Object,
         required: true,
       },
+
       control: {
         type: Boolean,
-        required: false,
         default: false,
       },
+
       mode: {
         type: String,
-        required: false,
         default: 'live',
       },
+
+      scheduledFor: {
+        type: String,
+        default: null,
+      },
     },
-    data() {
-      return {
-        'stream_started': this.sermon.stream_started,
-        'stream_ended': this.sermon.stream_ended,
-        'recording_done': this.sermon.recording_done,
-      }
-    },
+
     computed: {
       fromNow() {
-        return moment(this.sermon.scheduled_for).fromNow();
+        return moment(this.scheduledFor).fromNow();
       },
+
       recordingPath() {
         return this.sermon.recording_url || 'https://stream.newlifeglenside.com/recordings/' + this.sermon.stream_key + '.mp4'
       },
-      statusText() {
-        if (this.recording_done !== 0)
-          return 'recorded';
-        else if (this.stream_ended !== 0 && this.recording_done === 0)
-          return 'processing';
-        else if (this.stream_started !== 0 && this.stream_ended === 0)
-          return 'streaming';
-        else
-          return 'waiting';
-      }
     },
+
+    data() {
+      return {
+        status: null,
+      };
+    },
+
+    beforeMount() {
+      if (this.mode !== 'preview')
+        this.getStatus();
+    },
+
     methods: {
       getStatus() {
-        fetch('/sermons/' + this.sermon.id + '/status')
-          .then(response => response.json())
-          .then(data => {
-            this.stream_started = data.stream_started;
-            this.stream_ended = data.stream_ended;
-            this.recording_done = data.recording_done;
+        axios.get('/sermons/' + this.sermon.id + '/status')
+          .then(({data}) => {
+            this.status = data;
 
-            if (this.statusText === 'waiting' || this.statusText === 'processing') {
-              setTimeout(this.getStatus, 10000);
+            if (this.status === 'waiting' || this.status === 'processing') {
+              setTimeout(this.getStatus, 5000);
             }
           });
       },
     },
-    created() {
-      if (this.mode !== 'preview')
-        this.getStatus();
-    }
   }
 </script>

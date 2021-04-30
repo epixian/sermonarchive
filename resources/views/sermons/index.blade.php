@@ -30,7 +30,7 @@
                             <a href="{{ $sermon->path() }}" class="text-nl-blue-500 hover:text-nl-blue-800">{{ $sermon->name }}</a>
                         </td>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                            {{ $sermon->publish_date }}
+                            {{ $sermon->service->service_date }}
                         </td>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                             {{ $sermon->speaker->full_name }}

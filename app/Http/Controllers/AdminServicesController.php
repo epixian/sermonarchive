@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Breeze;
-use App\Service;
+use App\Models\Breeze;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class AdminServicesController extends Controller
@@ -15,7 +15,7 @@ class AdminServicesController extends Controller
      */
     public function index()
     {
-        $services = Service::latest()->take(10)->get();
+        $services = Service::with('sermon')->latest()->take(10)->get();
         return view('services.index', compact('services'));
     }
 
@@ -40,15 +40,22 @@ class AdminServicesController extends Controller
     {
         $validated = $request->validate([
             'name' => 'sometimes',
-            'description' => 'sometimes',
+            'description' => 'nullable',
             'service_date' => 'required|date',
+            'service_time' => 'required',
             'breeze_id' => 'sometimes',
         ]);
 
-        if (! $validated['name']) {
+        // reset breeze_id if not in production to avoid creating an event
+        if (config('app.env') !== 'production') {
+            $validated['breeze_id'] = Breeze::TEST_SERVICE_ID;
+        }
+
+        if (is_null($validated['name'])) {
             $validated['name'] = 'Morning Worship Services (Online)';
         }
-        if (! $validated['breeze_id']) {
+
+        if (is_null($validated['breeze_id'])) {
             $breeze = new Breeze();
             $event = $breeze->createServiceEvent($validated['name'], $validated['service_date']);
             $validated['breeze_id'] = $event->id;
@@ -56,13 +63,13 @@ class AdminServicesController extends Controller
 
         $service = Service::create($validated);
 
-        return redirect($service->path());
+        return redirect('/admin' . $service->path() . '/sermon/create');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Service  $service
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
     public function show(Service $service)
@@ -73,12 +80,12 @@ class AdminServicesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Service  $service
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
     public function edit(Service $service)
     {
-        $action = "Edit";
+        $action = 'Edit';
         return view('services.edit', compact('action', 'service'));
     }
 
@@ -86,28 +93,29 @@ class AdminServicesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Service  $service
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Service $service)
     {
         $validated = $request->validate([
-            'name' => 'required',
-            'description' => 'sometimes',
-            'service_date' => 'required',
+            'name' => 'sometimes|string',
+            'description' => 'nullable',
+            'service_date' => 'sometimes|date',
+            'service_time' => 'sometimes|string',
         ]);
         // do breeze insert here but for right now
         // $validated['breeze_id'] = '';
 
         $service->update($validated);
 
-        return redirect($service->path());
+        return redirect('/admin' . $service->path());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Service  $service
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
     public function destroy(Service $service)

@@ -2,27 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Breeze;
+use App\Models\Breeze;
 use App\Events\LiveServiceMessageSent;
-use App\Service;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
 class LiveServiceController extends Controller
 {
-    protected $service;
-
-    public function __construct()
-    {
-        $this->service = Service::where(
-                'service_date',
-                '<=',
-                Carbon::now(config('sermonarchive.event_timezone'))->addHours(6)
-            )
-            ->latest('service_date')
-            ->first();
-    }
-
     /**
      * Display the live service
      *
@@ -30,11 +17,9 @@ class LiveServiceController extends Controller
      */
     public function index()
     {
-        if($service = $this->service) {
-            return view('services.current', compact('service'));
-        }
+        $service = Service::getLiveService();
 
-        return view('layouts.app');
+        return view('services.current', compact('service'));
     }
 
     /**

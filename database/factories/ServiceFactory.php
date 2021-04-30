@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Service;
+use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,10 +22,13 @@ class ServiceFactory extends Factory
      */
     public function definition()
     {
+        $now = Carbon::now();
+
         return [
             'name' => 'Morning Worship Services (Online)',
             'description' => '',
-            'service_date' => Carbon::now(),
+            'service_date' => $now->format('Y-m-d'),
+            'service_time' => $now->format('H:i:s'),
             'breeze_id' => '',
         ];
     }

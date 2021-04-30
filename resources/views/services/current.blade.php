@@ -8,7 +8,7 @@
     @endcan
 @endsection
 
-@section('title', Carbon\Carbon::parse($service->service_date, 'America/New_York')->toFormattedDateString())
+@section('title', Carbon\Carbon::parse($service->service_date, config('sermonarchive.event_timezone'))->toFormattedDateString())
 
 @section('subtitle', $service->name)
 
@@ -18,9 +18,7 @@
 @section('content')
 <div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 lg:flex lg:items-start">
     <div id="videoplayer" class="lg:flex-1">
-        @foreach ($service->sermons as $sermon)
-        <video-player :sermon='{!! $sermon->toJson() !!}' description="false"></video-player>
-        @endforeach
+        <video-player :sermon="{{ $service->sermon }}" scheduled-for="{{ $service->service_datetime }}" description="false"></video-player>
 
         <div class="mt-4 text-sm px-4 sm:px-0">
             {!! str_replace("\n", '<br />', $service->description) !!}

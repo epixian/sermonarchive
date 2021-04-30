@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -40,5 +40,15 @@ class Speaker extends Model
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * Get the public URL for the sermon.
+     *
+     * @return string
+     */
+    public function path()
+    {
+        return '/speakers/' . $this->id;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Breeze;
+use App\Models\Breeze;
 use Illuminate\Http\Request;
 
 class BreezeApiController extends Controller

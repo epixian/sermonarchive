@@ -2,14 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
-use Tests\TestCase;
+use Tests\ApiTestCase;
 
-class UsersTest extends TestCase
+class UsersTest extends ApiTestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function guests_cannot_access_admin_mode()
     {
