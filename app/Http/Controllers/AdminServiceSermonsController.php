@@ -47,6 +47,7 @@ class AdminServiceSermonsController extends Controller
 
         $validated = $validator->validate();
 
+        $validated['publish_date'] = $service->service_date;
         $validated['stream_key'] = (string) Str::uuid();
 
         $service->sermon()->create($validated);
