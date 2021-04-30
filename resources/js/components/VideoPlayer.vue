@@ -79,8 +79,7 @@
     methods: {
       getStatus() {
         axios.get('/sermons/' + this.sermon.id + '/status')
-          .then(data => {
-            console.log(data);
+          .then(({data}) => {
             this.status = data;
 
             if (this.status === 'waiting' || this.status === 'processing') {
