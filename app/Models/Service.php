@@ -109,7 +109,7 @@ class Service extends Model
     {
         return $query
             ->where('service_date', '>=', Carbon::now()->subHours(2))
-            ->where('service_date', '<=', Carbon::now()->addDays(2))
+            ->where('service_date', '<=', Carbon::now()->addDays(2)->endOfDay())
             ->oldest('service_datetime');
     }
 
@@ -120,7 +120,7 @@ class Service extends Model
     public function scopeRecent(Builder $query)
     {
         return $query
-            ->where('service_date', '>=', Carbon::now()->subWeek())
+            ->where('service_date', '>=', Carbon::now()->subWeek()->startOfDay())
             ->where('service_date', '<=', Carbon::now()->addHours(6))
             ->latest('service_datetime');
     }
