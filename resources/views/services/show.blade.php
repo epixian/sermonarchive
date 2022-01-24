@@ -52,7 +52,7 @@
                 </div>
                 <div class="flex items-baseline w-full h-6">
                     <p class="w-32 text-sm uppercase leading-5 tracking-wider">Speaker</p>
-                    <p class="flex-1 text-base text-gray-900">{{ $service->sermon->speaker->full_name }}</p>
+                    <p class="flex-1 text-base text-gray-900">{{ $service->sermon->speaker?->full_name ?? 'No speaker' }}</p>
                 </div>
                 <div class="flex items-baseline w-full h-6">
                     <p class="w-32 text-sm uppercase leading-5 tracking-wider">Scheduled at</p>

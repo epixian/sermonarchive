@@ -40,41 +40,57 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        available: [],
-        selected: [],
-        showAttendancePad: false,
-        message: '',
-        showButtons: false,
-      }
-    },
-    created() {
-      axios.get('/user/family')
-        .then(data => {
-          this.available = data;
-          this.showButtons = true;
-        });
-    },
-    methods: {
-      clickCheckInButton() {
-        if (this.available.length)
-          this.showAttendancePad = true;
-        else
-          this.message = 'Already checked in!';
-      },
-      checkIn(ids) {
-        axios.post('/check-in', ids)
-          .then(console.log);
-      },
-      select(person) {
-        this.selected.push(person);
-        axios.post('/check-in', person)
-          .then(() => {
-            this.available = this.available.filter(item => item !== person);
-          });
-      }
-    }
+    export default {
+        props: {
+            service: {
+                type: Object,
+                required: true,
+            },
+        },
+
+        data() {
+            return {
+                available: [],
+                selected: [],
+                showAttendancePad: false,
+                message: '',
+                showButtons: false,
+            }
+        },
+
+        created() {
+            axios.get('/user/family')
+                .then(({data}) => {
+                    this.available = data;
+                    this.showButtons = true;
+                });
+        },
+
+        methods: {
+            clickCheckInButton() {
+                if (this.available.length) {
+                    this.showAttendancePad = true;
+                }
+                else {
+                    this.message = 'Already checked in!';
+                }
+            },
+
+            checkIn(ids) {
+                axios.post('/check-in', ids)
+                    .then(console.log);
+            },
+
+            select(person) {
+                this.selected.push(person);
+                axios.post('/check-in', {
+                        ...person,
+                        service_id: this.service.id,
+                    })
+                    .then(() => {
+                        this.available = this.available.filter(item => item !== person);
+                    });
+            },
+        }
   }
 </script>
