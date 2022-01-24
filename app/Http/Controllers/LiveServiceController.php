@@ -6,7 +6,6 @@ use App\Models\Breeze;
 use App\Events\LiveServiceMessageSent;
 use App\Models\Service;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class LiveServiceController extends Controller
 {
@@ -17,9 +16,11 @@ class LiveServiceController extends Controller
      */
     public function index()
     {
-        $service = Service::getLiveService();
+        if ($service = Service::getLiveService()) {
+            return view('services.current', compact('service'));
+        }
 
-        return view('services.current', compact('service'));
+        return response()->redirectTo('/sermons');
     }
 
     /**
@@ -30,12 +31,14 @@ class LiveServiceController extends Controller
     public function checkIn(Request $request)
     {
         $person = $request->validate([
-            'id' => 'required'
+            'id' => 'required',
+            'service_id' => 'required',
         ]);
 
+        $service_breeze_id = Service::findOrFail($request->get('service_id'))?->breeze_id;
         $breeze = new Breeze();
 
-        return response($breeze->recordAttendance($person['id'], $this->service->breeze_id))->cookie('nlg-live-attendance-recorded', 1440);
+        return response($breeze->recordAttendance($person['id'], $service_breeze_id))->cookie('nlg-live-attendance-recorded', 1440);
     }
 
     /**

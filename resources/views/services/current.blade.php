@@ -3,7 +3,7 @@
 @section('notification')
     @can('record_attendance')
     @if(! request()->hasCookie('nlg-live-attendance-recorded'))
-    <record-attendance id="attendance"></record-attendance>
+    <record-attendance id="attendance" :service="{{ $service }}"></record-attendance>
     @endif
     @endcan
 @endsection
