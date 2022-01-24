@@ -55,7 +55,7 @@
                         </td>
                         <td class="px-4 sm:px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                             @if($service->sermon)
-                            {{ $service->sermon?->speaker->full_name }}
+                            {{ $service->sermon?->speaker?->full_name ?? 'No speaker' }}
                             @endif
                         </td>
                         <td class="px-4 sm:px-6 py-4 border-b border-gray-200 text-sm leading-5 font-medium text-gray-500">
