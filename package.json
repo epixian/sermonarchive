@@ -23,7 +23,7 @@
         "alpinejs": "^2.3.3",
         "axios": "^0.21.1",
         "laravel-echo": "^1.7.0",
-        "moment": "^2.26.0",
+        "moment": "^2.29.4",
         "socket.io-client": "^2.3.0",
         "tailwindcss": "^1.4.6"
     }
