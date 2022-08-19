@@ -1,16 +1,5 @@
 @extends('layouts.app')
 
-@section('notification')
-    @can('record_attendance')
-    @if(! request()->hasCookie('nlg-live-attendance-recorded'))
-    <record-attendance id="attendance" :service="{{ $service }}"></record-attendance>
-    @endif
-    @endcan
-@endsection
-
-@section('actions')
-@endsection
-
 @section('content')
 <div class="-mx-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 lg:flex lg:items-start">
     <div id="boxcast-widget-klms6xngthujoagdnrl8"></div>

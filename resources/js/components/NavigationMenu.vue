@@ -4,7 +4,7 @@
 			<div class="flex justify-between h-16">
 				<div class="flex">
 					<div class="flex-shrink-0 flex items-center">
-						<a href="/">
+						<a href="https://newlifeglenside.com/">
 							<img class="hidden md:block lg:hidden h-12 w-auto" src="https://cdn.newlifeglenside.com/leaf.png" alt="New Life logo" />
 							<img class="block md:hidden lg:block h-12 w-auto" src="https://cdn.newlifeglenside.com/nlg-logo.png" alt="New Life logo" />
 						</a>
