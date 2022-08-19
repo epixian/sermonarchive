@@ -10,12 +10,17 @@ use Illuminate\Http\Request;
 class LiveServiceController extends Controller
 {
     /**
-     * Display the live service
+     * Display the live service.
      *
+     * @param  Request  $request
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('new')) {
+            return view('services.boxcast');
+        }
+
         if ($service = Service::getLiveService()) {
             return view('services.current', compact('service'));
         }
