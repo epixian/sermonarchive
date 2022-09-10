@@ -17,15 +17,7 @@ class LiveServiceController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('new')) {
-            return view('services.boxcast');
-        }
-
-        if ($service = Service::getLiveService()) {
-            return view('services.current', compact('service'));
-        }
-
-        return response()->redirectTo('/sermons');
+        return view('services.boxcast');
     }
 
     /**
